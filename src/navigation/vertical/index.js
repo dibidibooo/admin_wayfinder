@@ -1,5 +1,4 @@
 /*
-
 Array of object
 
 Top level object can be:
@@ -33,9 +32,8 @@ tagVariant
 import dashboard from './dashboard'
 import appsAndPages from './apps-and-pages'
 import others from './others'
-import chartsAndMaps from './charts-and-maps'
 import uiElements from './ui-elements'
 import formAndTable from './forms-and-table'
 
 // Array of sections
-export default [...dashboard, ...appsAndPages, ...uiElements, ...formAndTable, ...chartsAndMaps, ...others]
+export default [...dashboard, ...appsAndPages, ...uiElements, ...formAndTable, ...others]
