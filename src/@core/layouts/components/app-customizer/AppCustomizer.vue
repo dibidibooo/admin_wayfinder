@@ -60,20 +60,6 @@
           />
         </b-form-group>
 
-        <!-- RTL -->
-        <b-form-group
-          label="RTL"
-          label-cols="10"
-        >
-          <b-form-checkbox
-            v-model="isRTL"
-            class="mr-0 mt-50"
-            name="is-rtl"
-            switch
-            inline
-          />
-        </b-form-group>
-
         <!-- Router Transition -->
         <b-form-group
           label="Router Transition"

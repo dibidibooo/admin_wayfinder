@@ -346,7 +346,6 @@ export default {
     return {
       userData,
       onSubmit,
-
       refFormObserver,
       getValidationState,
       resetForm,
