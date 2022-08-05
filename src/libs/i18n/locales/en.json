@@ -193,7 +193,16 @@
   "Forgot Password?": "Forgot Password? 🔒",
   "Forgot Password title": "Enter your email and we'll send you instructions to reset your password",
   "Send reset link": "Send reset link",
-  "Back to login": "Back to login"
+  "Back to login": "Back to login",
+  "Back to Home": "Вернуться на главную",
+  "404Error title": "Oops! 😖 The requested URL was not found on this server.",
+  "404Error": "Page not found 🕵🏻‍♀️",
+  "NotAuthorized": "You are not authorized! 🔐",
+  "NotAuthorized title": "You don’t have permission to access this page."
+
+
+
+
 
 
 }
