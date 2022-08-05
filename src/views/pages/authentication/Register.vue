@@ -7,7 +7,7 @@
         <vuexy-logo />
 
         <h2 class="brand-text text-primary ml-1">
-          Vuexy
+          {{ $t('DMS - Admin page') }}
         </h2>
       </b-link>
       <!-- /Brand logo-->
@@ -39,10 +39,10 @@
           class="px-xl-2 mx-auto"
         >
           <b-card-title class="mb-1">
-            Adventure starts here 🚀
+            {{ $t('Adventure starts here') }}
           </b-card-title>
           <b-card-text class="mb-2">
-            Make your app management easy and fun!
+            {{ $t('Register title') }}
           </b-card-text>
 
           <!-- form -->
@@ -140,8 +140,8 @@
                   v-model="status"
                   name="checkbox-1"
                 >
-                  I agree to
-                  <b-link>privacy policy & terms</b-link>
+                  {{ $t('I agree to') }}
+                  <b-link>{{ $t('privacy policy & terms') }}</b-link>
                 </b-form-checkbox>
               </b-form-group>
 
@@ -151,51 +151,18 @@
                 type="submit"
                 :disabled="invalid"
               >
-                Sign up
+                {{ $t('Create account') }}
               </b-button>
             </b-form>
           </validation-observer>
 
           <p class="text-center mt-2">
-            <span>Already have an account?</span>
+            <span>{{ $t('Already have an account?') }}</span>
             <b-link :to="{name:'auth-login'}">
-              <span>&nbsp;Sign in instead</span>
+              <span>&nbsp;{{ $t('Sign in') }}</span>
             </b-link>
           </p>
 
-          <!-- divider -->
-          <div class="divider my-2">
-            <div class="divider-text">
-              or
-            </div>
-          </div>
-
-          <div class="auth-footer-btn d-flex justify-content-center">
-            <b-button
-              variant="facebook"
-              href="javascript:void(0)"
-            >
-              <feather-icon icon="FacebookIcon" />
-            </b-button>
-            <b-button
-              variant="twitter"
-              href="javascript:void(0)"
-            >
-              <feather-icon icon="TwitterIcon" />
-            </b-button>
-            <b-button
-              variant="google"
-              href="javascript:void(0)"
-            >
-              <feather-icon icon="MailIcon" />
-            </b-button>
-            <b-button
-              variant="github"
-              href="javascript:void(0)"
-            >
-              <feather-icon icon="GithubIcon" />
-            </b-button>
-          </div>
         </b-col>
       </b-col>
     <!-- /Register-->

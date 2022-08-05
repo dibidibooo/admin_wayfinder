@@ -7,7 +7,7 @@
         <vuexy-logo />
 
         <h2 class="brand-text text-primary ml-1">
-          Vuexy
+          {{ $t('DMS - Admin page') }}
         </h2>
       </b-link>
       <!-- /Brand logo-->
@@ -39,10 +39,10 @@
           class="px-xl-2 mx-auto"
         >
           <b-card-title class="mb-1">
-            Forgot Password? 🔒
+            {{ $t('Forgot Password?') }}
           </b-card-title>
           <b-card-text class="mb-2">
-            Enter your email and we'll send you instructions to reset your password
+            {{ $t('Forgot Password title') }}
           </b-card-text>
 
           <!-- form -->
@@ -76,14 +76,14 @@
                 variant="primary"
                 block
               >
-                Send reset link
+                {{ $t('Send reset link') }}
               </b-button>
             </b-form>
           </validation-observer>
 
           <p class="text-center mt-2">
             <b-link :to="{name:'auth-login'}">
-              <feather-icon icon="ChevronLeftIcon" /> Back to login
+              <feather-icon icon="ChevronLeftIcon" /> {{ $t('Back to login') }}
             </b-link>
           </p>
         </b-col>

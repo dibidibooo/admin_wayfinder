@@ -173,5 +173,27 @@
   "Layout Boxed": "Layout Boxed",
   "Without Menu": "Without Menu",
   "Layout Empty": "Layout Empty",
-  "Layout Blank": "Layout Blank"
+  "Layout Blank": "Layout Blank",
+
+  "DMS - Admin page": "DMS - Admin page",
+  "Login Welcome": "Welcome to DMS - Admin page! 👋",
+  "Login Welcome title": "Please sign-in to your account and start the adventure",
+  "Forgot Password": "Forgot Password?",
+  "Remember Me": "Remember Me?",
+  "Sign in": "Sign in",
+  "New on our platform?": "New on our platform? ",
+  "Create an account": "Create an account",
+  "Password": "Password",
+  "Adventure starts here": "Adventure starts here 🚀",
+  "Register title": "Enter your details to create an account",
+  "I agree to": "I agree to",
+  "privacy policy & terms": "privacy policy & terms",
+  "Create account": "Create account",
+  "Already have an account?": "Already have an account?",
+  "Forgot Password?": "Forgot Password? 🔒",
+  "Forgot Password title": "Enter your email and we'll send you instructions to reset your password",
+  "Send reset link": "Send reset link",
+  "Back to login": "Back to login"
+
+
 }

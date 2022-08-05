@@ -5,11 +5,6 @@ export default [
   {
     title: 'Shops',
     icon: 'UserIcon',
-    children: [
-      {
-        title: 'List',
-        route: 'apps-users-list',
-      },
-    ],
+    route: 'apps-users-list',
   },
 ]

@@ -6,7 +6,7 @@
       <b-link class="brand-logo">
         <vuexy-logo />
         <h2 class="brand-text text-primary ml-1">
-          Vuexy
+          {{ $t('DMS - Admin page') }}
         </h2>
       </b-link>
       <!-- /Brand logo-->
@@ -41,10 +41,10 @@
             class="mb-1 font-weight-bold"
             title-tag="h2"
           >
-            Welcome to Vuexy! 👋
+            {{ $t('Login Welcome') }}
           </b-card-title>
           <b-card-text class="mb-2">
-            Please sign-in to your account and start the adventure
+            {{ $t('Login Welcome title') }}
           </b-card-text>
 
           <b-alert
@@ -102,9 +102,9 @@
               <!-- forgot password -->
               <b-form-group>
                 <div class="d-flex justify-content-between">
-                  <label for="login-password">Password</label>
+                  <label for="login-password">{{ $t('Password') }}</label>
                   <b-link :to="{name:'auth-forgot-password'}">
-                    <small>Forgot Password?</small>
+                    <small>{{ $t('Forgot Password') }}</small>
                   </b-link>
                 </div>
                 <validation-provider
@@ -145,7 +145,7 @@
                   v-model="status"
                   name="checkbox-1"
                 >
-                  Remember Me
+                  {{ $t('Remember Me') }}
                 </b-form-checkbox>
               </b-form-group>
 
@@ -156,52 +156,17 @@
                 block
                 :disabled="invalid"
               >
-                Sign in
+                {{ $t('Sign in') }}
               </b-button>
             </b-form>
           </validation-observer>
 
           <b-card-text class="text-center mt-2">
-            <span>New on our platform? </span>
+            <span>{{ $t('New on our platform?') }} </span>
             <b-link :to="{name:'auth-register'}">
-              <span>&nbsp;Create an account</span>
+              <span>&nbsp;{{ $t('Create an account') }}</span>
             </b-link>
           </b-card-text>
-
-          <!-- divider -->
-          <div class="divider my-2">
-            <div class="divider-text">
-              or
-            </div>
-          </div>
-
-          <!-- social buttons -->
-          <div class="auth-footer-btn d-flex justify-content-center">
-            <b-button
-              variant="facebook"
-              href="javascript:void(0)"
-            >
-              <feather-icon icon="FacebookIcon" />
-            </b-button>
-            <b-button
-              variant="twitter"
-              href="javascript:void(0)"
-            >
-              <feather-icon icon="TwitterIcon" />
-            </b-button>
-            <b-button
-              variant="google"
-              href="javascript:void(0)"
-            >
-              <feather-icon icon="MailIcon" />
-            </b-button>
-            <b-button
-              variant="github"
-              href="javascript:void(0)"
-            >
-              <feather-icon icon="GithubIcon" />
-            </b-button>
-          </div>
         </b-col>
       </b-col>
     <!-- /Login-->
