@@ -10,6 +10,7 @@ import uiElements from './routes/ui-elements/index'
 import pages from './routes/pages'
 import formsTable from './routes/forms-tables'
 import others from './routes/others'
+import main_router from './routes/main_router'
 
 Vue.use(VueRouter)
 
@@ -27,6 +28,7 @@ const router = new VueRouter({
     ...formsTable,
     ...uiElements,
     ...others,
+    ...main_router,
     {
       path: '*',
       redirect: 'error-404',

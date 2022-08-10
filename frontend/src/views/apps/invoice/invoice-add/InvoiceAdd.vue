@@ -752,25 +752,25 @@ export default {
 <style lang="scss">
 @import '@core/scss/vue/libs/vue-select.scss';
 @import '@core/scss/vue/libs/vue-flatpicker.scss';
-.invoice-add-wrapper {
-  .add-new-client-header {
-    padding: $options-padding-y $options-padding-x;
-      color: $success;
+// .invoice-add-wrapper {
+//   .add-new-client-header {
+//     padding: $options-padding-y $options-padding-x;
+//       color: $success;
 
-    &:hover {
-      background-color: rgba($success, 0.12);
-    }
-  }
-}
+//     &:hover {
+//       background-color: rgba($success, 0.12);
+//     }
+//   }
+// }
 </style>
 
 <style lang="scss" scoped>
-@import "~@core/scss/base/pages/app-invoice.scss";
-@import '~@core/scss/base/components/variables-dark';
+@import "//~@core/scss/base/pages/app-invoice.scss";
+@import '//~@core/scss/base/components/variables-dark';
 
-.form-item-section {
-background-color:$product-details-bg;
-}
+// .form-item-section {
+// background-color:$product-details-bg;
+// }
 
 .form-item-action-col {
   width: 27px;
@@ -792,14 +792,14 @@ background-color:$product-details-bg;
   }
 }
 
-.dark-layout {
-  .form-item-section {
-    background-color: $theme-dark-body-bg;
+// .dark-layout {
+//   .form-item-section {
+//     background-color: $theme-dark-body-bg;
 
-    .row .border {
-      background-color: $theme-dark-card-bg;
-    }
+//     .row .border {
+//       background-color: $theme-dark-card-bg;
+//     }
 
-  }
-}
+//   }
+// }
 </style>

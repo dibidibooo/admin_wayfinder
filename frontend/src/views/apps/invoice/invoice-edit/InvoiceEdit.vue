@@ -789,11 +789,11 @@ export default {
 </style>
 
 <style lang="scss" scoped>
-@import "~@core/scss/base/pages/app-invoice.scss";
+@import "//~@core/scss/base/pages/app-invoice.scss";
 
-.form-item-section {
-background-color:$product-details-bg;
-}
+// .form-item-section {
+// background-color:$product-details-bg;
+// }
 
 .form-item-action-col {
   width: 27px;
@@ -815,14 +815,14 @@ background-color:$product-details-bg;
   }
 }
 
-.dark-layout {
-  .form-item-section {
-    background-color: $theme-dark-body-bg;
+// .dark-layout {
+//   .form-item-section {
+//     background-color: $theme-dark-body-bg;
 
-    .row .border {
-      background-color: $theme-dark-card-bg;
-    }
+//     .row .border {
+//       background-color: $theme-dark-card-bg;
+//     }
 
-  }
-}
+//   }
+// }
 </style>

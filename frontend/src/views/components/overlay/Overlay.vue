@@ -45,16 +45,16 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '~@core/scss/base/bootstrap-extended/include';
-@import '~@core/scss/base/components/variables-dark';
+@import '//~@core/scss/base/bootstrap-extended/include';
+@import '//~@core/scss/base/components/variables-dark';
 
-.dark-layout {
-  div ::v-deep .card .card-body {
-      .b-overlay {
-        .bg-light {
-          background-color: $theme-dark-body-bg !important;
-        }
-      }
-  }
-}
+// .dark-layout {
+//   div ::v-deep .card .card-body {
+//       .b-overlay {
+//         .bg-light {
+//           background-color: $theme-dark-body-bg !important;
+//         }
+//       }
+//   }
+// }
 </style>

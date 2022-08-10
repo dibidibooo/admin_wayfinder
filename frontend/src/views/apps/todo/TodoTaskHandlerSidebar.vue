@@ -331,7 +331,7 @@ export default {
 </style>
 
 <style lang="scss" scoped>
-@import '~@core/scss/base/bootstrap-extended/include';
+@import '//~@core/scss/base/bootstrap-extended/include';
 
 .assignee-selector {
   ::v-deep .vs__dropdown-toggle {
@@ -344,11 +344,11 @@ export default {
     border-bottom: 0;
   }
 
-  + #quill-toolbar {
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
-    border-bottom-left-radius: $border-radius;
-    border-bottom-right-radius: $border-radius;
-  }
+  // + #quill-toolbar {
+  //   border-top-left-radius: 0;
+  //   border-top-right-radius: 0;
+  //   border-bottom-left-radius: $border-radius;
+  //   border-bottom-right-radius: $border-radius;
+  // }
 }
 </style>
