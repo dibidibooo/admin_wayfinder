@@ -50,8 +50,9 @@
               label-for="full-name"
             >
               <b-form-input
-                id="full-name"
-                v-model="userData.fullName"
+                type="text"
+                id="title"
+                v-model="store.title"
                 autofocus
                 :state="getValidationState(validationContext)"
                 trim
@@ -177,6 +178,7 @@ import vSelect from 'vue-select'
 import store from '@/store'
 
 export default {
+  name: "add_store",
   components: {
     BSidebar,
     BForm,
@@ -214,10 +216,63 @@ export default {
 
   data() {
     return {
+        store: {
+        id: null,
+        title: "",
+        description: "",
+        store_hours: "",
+        categoryId: ""
+      },
+      submitted: false,
+      categories: [],
       required,
       alphaNum,
     }
   },
+
+
+  methods: {
+    retrieveCategories() {
+      CategoryDataService.getAll()
+        .then(response => {
+          this.categories = response.data;
+        })
+        .catch(e => {
+          console.log(e);
+        });
+    },
+
+    saveStore() {
+      let data = {
+        title: this.store.title,
+        description: this.store.description,
+        store_hours: this.store.store_hours,
+        categoryId: Number(this.store.categoryId)
+      };
+
+      StoreDataService.create(data)
+        .then(response => {
+          this.store.id = response.data.id;
+          console.log(response.data);
+          this.submitted = true;
+        })
+        .catch(e => {
+          console.log(e);
+        });
+    },
+    
+    newStore() {
+      this.submitted = false;
+      this.store = {};
+    }
+  },
+
+  mounted() {
+    this.retrieveCategories();
+  },
+
+
+
   setup(props, { emit }) {
     const blankUserData = {
       fullName: '',
