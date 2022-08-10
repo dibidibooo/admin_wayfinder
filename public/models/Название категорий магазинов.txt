@@ -1,0 +1,221 @@
+
+ШОППИНГ ГИД Version №1
+1. Супермаркет
+2. Красота и здоровье
+3. Товары для дома
+4. Услуги
+5. Обуыь и конжгалантерея
+6. Электроника
+7. Ювелирные изделия и часы
+8. Товары для детей 
+9. Кафе и рестораны 
+10. Одежда 
+11. Белье 
+12. Развлечения
+
+УСЛОВНЫЕ ОБОЗНАЧЕНИЯ
+1. Информация 
+2. Администрация 
+3. Туалеты
+4. Лифт
+5. Комната матери и ребенка 
+6. Паркоматы 
+7. Банкоматы
+8. Лестница 
+9. Гардероб 
+10. Фудкорт
+11. Медицинский центр
+12. Туалет для инвалидов 
+13. Эскалатор 
+14. Велопарковка 
+
+
+ШОППИНГ ГИД Version №2
+1. Магазины 
+  1.1 Одежда
+  1.2 Обувь 
+  1.3 Аксессуары 
+  1.4 Товары для детей и мам
+  1.5 Продукты питания и напитки 
+  1.6 Спорт и активный отдых 
+  1.7 Товары для дома 
+  1.8 Украшения 
+  1.9 Парфюмерия 
+  1.10 Косметика 
+  1.11 Техника и электроника
+  1.12 Цветы и подарки
+2. Еда
+  2.1 Рестораны
+  2.2 Кофейни
+  2.3 Бургеры и мясо 
+  2.4 Пицца и паста
+  2.5 Восточная кухня
+  2.6 Суши
+  2.7 Мировая кухня
+  2.8 Мороженое
+3. Развлечения
+  3.1 ...
+  3.2 ...
+4. Услуги
+  4.1 Банкоматы и отделения
+  4.2 Путешествия 
+  4.3 Мобильные телефоны
+  4.4 Красота 
+  4.5 Прочее
+
+
+
+ШОППИНГ ГИД Version №3
+1. Магазины 
+  1.1 Одежда
+  1.2 Техника и электроника 
+  1.3 Супермаркеты
+  1.4 Товары для детей и мам
+  1.5 Аксессуары 
+  1.6 Обучь 
+  1.7 Красота и здоровье 
+  1.8 Мебель и товары для дома
+  1.9 Продукты питания и напитки 
+  1.10 Спорти активный отдых
+  1.11 Подарки и акссесуары
+  1.12 Аптеки
+  1.13 Ювелирные изделия
+2. Еда
+  2.1 Фастфуд
+  2.2 Рестораны
+  2.3 Суши-бары 
+  2.4 Кофейни
+  2.5 Пицерии
+  2.6 Пекарни
+  2.7 Гриль бары
+  2.8 Кондитерские
+  2.9 Детские кафе
+  2.10 Бары
+  2.11 Столовая
+3. Развлечения
+  3.1 Игровые парки
+  3.2 Детям
+  3.3 Кино
+  3.4 Спорт
+  3.5 Квесты
+  3.6 Мероприятия
+4. Услуги
+  4.1 Банки
+  4.2 Салоны связи
+  4.3 Атель и мастерские
+  4.4 Салоны красоты
+  4.5 Барбершопы
+  4.6 Салоны оптики
+  4.7 Бюро путешествий
+  4.8 Прачечные и химчистки
+  4.9 Автомойка
+  4.10 Фото
+  4.11 Прокат детских машинок
+  4.12 Занимательное обучение
+  4.13 Услуги ТРЦ Abu-Dhabi
+  4.14 Туризм
+  4.15 Госуслуги
+  4.16 Прочие услуги
+
+
+
+Логотип
+Название магазина 
+Описание 
+Режим работы 
+
+<----------------- FIRST FLOOR ----------------->
+BUDDHA BAR - ff_g-10001
+AFSONA RESTAURANT -  ff_g-11001, ff_g-12001
+LPP STORAGE -  ff_lppstorage
+KANZLER - ff_g-15001
+MOHITO - ff_g-17001, ff_g-16_1001, ff_g-16_2001
+OWN STORY - ff_g-18001
+ANGIOLINI - ff_g-21001
+COLIN'S - ff_g-22001, ff_g-23001
+ASIAN COSMETICS - ff_g-25001
+PHOTOBAR - ff_g-26001
+CAFE MARY - ff_g-27001
+CVETNAYA PHARMACY - ff_g-33001
+YVES ROCHER - ff_g-34001
+GALMART SUPERMARKET - ff_g-35-36-37001
+YAKITORIA - ff_g-02_1001, ff_g-02_2001, ff_g-01001
+KAZTOUR - ff_g-03001
+CARMINE - ff_g-03a001
+CAMILLE ALBANE - ff_g-04001
+ADILI - ff_g-06001
+MARMELADE - ff_g-08001
+FARSH BURGER - ff_g-09a001
+STARBUCKS - ff_g-46001
+RESERVED (MAN & WOMAN)(L01) - ff_g-60001, ff_g-61001, ff_g-62001, ff_g-63001, ff_g-64001
+LC WAIKIKI (L01) - ff_g-47001, ff_g-48001, ff_g-49001
+YAKUTIAN - ff_g-50001
+MANGO MAN - ff_g-52001, ff_g-51001
+MANGO - ff_g-53001, ff_g-54001, ff_g-55001
+BOTTEGA - ff_g-59001
+MINISO - ff_g-58001
+PASSIONIS - ff_g-57001
+
+ASTANA AKSSESS - ff_g-ksk-8001
+
+SWISS ARABIAN - ff_g-ksk-7001
+IQOS - ff_g-ksk-6001
+UNO DE 50 - ff_g-ksk-5001
+KAMALI - ff_g-ksk-9001
+LETIQUE - ff_g-ksk-10001
+SISTER'S AROMA - ff_g-ksk-11001
+THREE COFFEE BEANS - ff_g-ksk-12001
+
+XIAOMI - ff_g-ksk-13001
+MOVE N PICK - ff_g-ksk-14001
+
+CA LOUNGE - ff_g-ksk-15001
+UVELINA - ff_g-ksk-1001
+SEREBROFF -ff_g-ksk-2001
+ZH OPTIC -ff_g-ksk-3001
+SOLIDO - ff_g-ksk-4001
+
+<----------------- SECOND FLOOR ----------------->
+KIDBURG - 
+CILEK - 
+TECHNODOM - 
+SENIOR DENER - 
+IZBUSHKA - 
+MY BOX - 
+DODO PIZZA - 
+EXPRESSO COFFEE BUS - 
+CHINA CITY - 
+NEXXIO PIZZA - 
+CROPP - 
+LPP STORAGE-1 - 
+DETSKIY MIR - 
+BABY LAND - 
+HAPPY SHOES - 
+BLA BLA BAR - 
+LPP STORAGE-2 -
+RESERVED KIDS - 
+HAZ DIAMONDS - 
+IDEXE - 
+HOUSE - 
+GLOBAL NOMADS - 
+UZHE VYHOZHU - 
+SMAN - 
+AMANI - 
+MATANI JEWERLY - 
+LC WAIKIKI (L02) - 
+RESERVED (MAN & WOMAN)(L02) -
+HOCO ACCESSORIES - 
+BEKBOTA ET - 
+RONI PIZZA - 
+PIVOVAROFF - 
+CHALEUR - 
+COFFEE BOOM - 
+
+THE BOX - 
+LS PERFUME - 
+EMIRATES PERFUME - 
+ARABICA CAFE - 
+FUN TEA - 
+BRICK BY BRICK - 
+BAMBINO ICE CREAM - 
+
