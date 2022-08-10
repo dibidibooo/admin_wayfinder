@@ -17,18 +17,20 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 const db = require("./models/index.js");
-db.sequelize.sync()
-  .then(() => {
-    console.log("Synced db.");
-  })
-  .catch((err) => {
-    console.log("Failed to sync db: " + err.message);
-  });
+
+// db.sequelize.sync()
+//   .then(() => {
+//     console.log("Synced db.");
+//     foo();
+//   })
+//   .catch((err) => {
+//     console.log("Failed to sync db: " + err.message);
+//   });
 
 // drop the table if it already exists
-// db.sequelize.sync({ force: true }).then(() => {
-//   console.log("Drop and re-sync db.");
-// });
+db.sequelize.sync({ force: true }).then(() => {
+  console.log("Drop and re-sync db.");
+});
 
 // simple route
 app.get("/", (req, res) => {
@@ -37,6 +39,8 @@ app.get("/", (req, res) => {
 
 require("./routes/stores.routes")(app);
 require("./routes/categories.routes.js")(app);
+require("./routes/auth.routes")(app);
+require("./routes/user.routes")(app);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8081;
