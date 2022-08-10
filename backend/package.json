@@ -1,0 +1,29 @@
+{
+  "name": "adp_project",
+  "version": "1.0.0",
+  "description": "Node.js REST APIs with Express, Vue.js, PostgreSQL",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "nodejs",
+    "express",
+    "postgresql",
+    "rest",
+    "api",
+    "sequelize"
+  ],
+  "author": "DMS",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.27.2",
+    "body-parser": "^1.20.0",
+    "cors": "^2.8.5",
+    "express": "^4.18.1",
+    "pg": "^8.7.3",
+    "pg-hstore": "^2.3.4",
+    "sequelize": "^6.21.3",
+    "vue-router": "^3.5.4"
+  }
+}
