@@ -15,7 +15,7 @@
       <!-- Header -->
       <div class="d-flex justify-content-between align-items-center content-sidebar-header px-2 py-1">
         <h5 class="mb-0">
-          Add New User
+          {{ $t('Add New Object') }}
         </h5>
 
         <feather-icon
@@ -39,23 +39,25 @@
           @reset.prevent="resetForm"
         >
 
-          <!-- Full Name -->
+          <!-- Store title -->
           <validation-provider
             #default="validationContext"
-            name="Full Name"
+            :name=" $t('Add New Object_title') "
             rules="required"
           >
             <b-form-group
-              label="Full Name"
-              label-for="full-name"
+              :label=" $t('Add New Object_title') "
+              label-for="title"
             >
               <b-form-input
-                id="full-name"
-                v-model="userData.fullName"
+                type="text"
+                id="title"
+                name="title"
+                v-model="store.title"
                 autofocus
                 :state="getValidationState(validationContext)"
                 trim
-                placeholder="John Doe"
+                placeholder=""
               />
 
               <b-form-invalid-feedback>
@@ -64,19 +66,20 @@
             </b-form-group>
           </validation-provider>
 
-          <!-- Username -->
+          <!-- Description -->
           <validation-provider
             #default="validationContext"
-            name="Username"
+            :name=" $t('Add New Object_description') "
             rules="required|alpha-num"
           >
             <b-form-group
-              label="Username"
-              label-for="username"
+              :label=" $t('Add New Object_description') "
+              label-for="description"
             >
               <b-form-input
-                id="username"
-                v-model="userData.username"
+                id="description"
+                name="description"
+                v-model="store.description"
                 :state="getValidationState(validationContext)"
                 trim
               />
@@ -87,42 +90,20 @@
             </b-form-group>
           </validation-provider>
 
-          <!-- Email -->
+          <!-- Store hours -->
           <validation-provider
             #default="validationContext"
-            name="Email"
-            rules="required|email"
-          >
-            <b-form-group
-              label="Email"
-              label-for="email"
-            >
-              <b-form-input
-                id="email"
-                v-model="userData.email"
-                :state="getValidationState(validationContext)"
-                trim
-              />
-
-              <b-form-invalid-feedback>
-                {{ validationContext.errors[0] }}
-              </b-form-invalid-feedback>
-            </b-form-group>
-          </validation-provider>
-
-          <!-- Company -->
-          <validation-provider
-            #default="validationContext"
-            name="Contact"
+            :name=" $t('Add New Object_Store_hours') "
             rules="required"
           >
             <b-form-group
-              label="Contact"
-              label-for="contact"
+              :label=" $t('Add New Object_Store_hours') "
+              label-for="store_hours"
             >
               <b-form-input
-                id="contact"
-                v-model="userData.contact"
+                id="store_hours"
+                name="store_hours"
+                v-model="store.store_hours"
                 :state="getValidationState(validationContext)"
                 trim
               />
@@ -133,97 +114,22 @@
             </b-form-group>
           </validation-provider>
 
-          <!-- Company -->
+          <!-- Categories -->
           <validation-provider
             #default="validationContext"
-            name="Company"
+            :name=" $t('Add New Object_category') "
             rules="required"
           >
             <b-form-group
-              label="Company"
-              label-for="company"
-            >
-              <b-form-input
-                id="company"
-                v-model="userData.company"
-                :state="getValidationState(validationContext)"
-                trim
-              />
-
-              <b-form-invalid-feedback>
-                {{ validationContext.errors[0] }}
-              </b-form-invalid-feedback>
-            </b-form-group>
-          </validation-provider>
-
-          <!-- Country -->
-          <validation-provider
-            #default="validationContext"
-            name="Country"
-            rules="required"
-          >
-            <b-form-group
-              label="Country"
-              label-for="country"
+              :label=" $t('Add New Object_category') "
+              label-for="categoryId"
               :state="getValidationState(validationContext)"
             >
-              <v-select
-                v-model="userData.country"
-                :dir="$store.state.appConfig.isRTL ? 'rtl' : 'ltr'"
-                :options="countries"
-                :clearable="false"
-                input-id="country"
-              />
-              <b-form-invalid-feedback :state="getValidationState(validationContext)">
-                {{ validationContext.errors[0] }}
-              </b-form-invalid-feedback>
-            </b-form-group>
-          </validation-provider>
-
-          <!-- User Role -->
-          <validation-provider
-            #default="validationContext"
-            name="User Role"
-            rules="required"
-          >
-            <b-form-group
-              label="User Role"
-              label-for="user-role"
-              :state="getValidationState(validationContext)"
-            >
-              <v-select
-                v-model="userData.role"
-                :dir="$store.state.appConfig.isRTL ? 'rtl' : 'ltr'"
-                :options="roleOptions"
-                :reduce="val => val.value"
-                :clearable="false"
-                input-id="user-role"
-              />
-              <b-form-invalid-feedback :state="getValidationState(validationContext)">
-                {{ validationContext.errors[0] }}
-              </b-form-invalid-feedback>
-            </b-form-group>
-          </validation-provider>
-
-          <!-- Plan -->
-          <validation-provider
-            #default="validationContext"
-            name="Plan"
-            rules="required"
-          >
-            <b-form-group
-              label="Plan"
-              label-for="plan"
-              :state="getValidationState(validationContext)"
-            >
-              <v-select
-                v-model="userData.currentPlan"
-                :dir="$store.state.appConfig.isRTL ? 'rtl' : 'ltr'"
-                :options="planOptions"
-                :reduce="val => val.value"
-                :clearable="false"
-                input-id="plan"
-              />
+              <label for="categoryId">Category</label>
+              <select class="form-select" name="categoryId" id="categoryId" v-model="store.categoryId">
+                <option disabled value="">Choose category...</option>
+                <option v-for="cat in categories" v-bind:value="cat.id" :key="cat.id">{{ cat.title }}</option>
+              </select>
               <b-form-invalid-feedback :state="getValidationState(validationContext)">
                 {{ validationContext.errors[0] }}
               </b-form-invalid-feedback>
@@ -237,8 +143,9 @@
               variant="primary"
               class="mr-2"
               type="submit"
+              @click="saveStore"
             >
-              Add
+              {{$t('Add')}}
             </b-button>
             <b-button
               v-ripple.400="'rgba(186, 191, 199, 0.15)'"
@@ -246,7 +153,7 @@
               variant="outline-secondary"
               @click="hide"
             >
-              Cancel
+              {{$t('Cancel')}}
             </b-button>
           </div>
 
@@ -257,19 +164,22 @@
 </template>
 
 <script>
+import StoreDataService from "../../../../services/StoreDataService";
+import CategoryDataService from "../../../../services/CategoryDataService";
+
 import {
   BSidebar, BForm, BFormGroup, BFormInput, BFormInvalidFeedback, BButton,
 } from 'bootstrap-vue'
 import { ValidationProvider, ValidationObserver } from 'vee-validate'
 import { ref } from '@vue/composition-api'
-import { required, alphaNum, email } from '@validations'
+import { required, alphaNum } from '@validations'
 import formValidation from '@core/comp-functions/forms/form-validation'
 import Ripple from 'vue-ripple-directive'
 import vSelect from 'vue-select'
-import countries from '@/@fake-db/data/other/countries'
 import store from '@/store'
 
 export default {
+  name: "add_store",
   components: {
     BSidebar,
     BForm,
@@ -295,32 +205,82 @@ export default {
       type: Boolean,
       required: true,
     },
-    roleOptions: {
-      type: Array,
-      required: true,
-    },
-    planOptions: {
-      type: Array,
-      required: true,
-    },
+    // planOptions: {
+    //   type: Array,
+    //   required: true,
+    // },
   },
+
   data() {
     return {
+        store: {
+        id: null,
+        title: "",
+        description: "",
+        store_hours: "",
+        categoryId: ""
+      },
+      submitted: false,
+      categories: [],
       required,
-      alphaNum,
-      email,
-      countries,
+      alphaNum
     }
   },
+
+  methods: {
+    retrieveCategories() {
+      CategoryDataService.getAll()
+        .then(response => {
+          this.categories = response.data;
+        })
+        .catch(e => {
+          console.log(e);
+        });
+    },
+
+    saveStore() {
+      let data = {
+        title: this.store.title,
+        description: this.store.description,
+        store_hours: this.store.store_hours,
+        categoryId: Number(this.store.categoryId)
+      };
+
+      StoreDataService.create(data)
+        .then(response => {
+          this.store.id = response.data.id;
+          console.log(response.data);
+          this.submitted = true;
+        })
+        .catch(e => {
+          console.log(e);
+        });
+    },
+    
+    newStore() {
+      this.submitted = false;
+      this.store = {};
+    }
+  },
+
+  mounted() {
+    this.retrieveCategories();
+  },
+
+
+
+
+
+
+
+
+
   setup(props, { emit }) {
     const blankUserData = {
       fullName: '',
       username: '',
-      email: '',
-      role: null,
       currentPlan: null,
       company: '',
-      country: '',
       contact: '',
     }
 

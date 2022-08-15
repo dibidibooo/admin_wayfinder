@@ -28,7 +28,7 @@ const data = {
       username: 'janedoe',
       password: 'client',
       // eslint-disable-next-line global-require
-      avatar: require('@/assets/images/avatars/1-small.png'),
+      avatar: require('@/assets/images/avatars/13-small.png'),
       email: 'client@demo.com',
       role: 'client',
       ability: [

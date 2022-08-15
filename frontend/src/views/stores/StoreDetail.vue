@@ -31,14 +31,14 @@
     </form>
 
     <div class="mt-3">
-      <button class="btn btn-danger me-2"
-        @click="deleteStore">
-        Delete
-      </button>
-
       <button type="submit" class="btn btn-success"
         @click="updateStore">
         Update
+      </button>
+
+      <button class="btn btn-danger ml-2"
+        @click="deleteStore">
+        Delete
       </button>
     </div>
     <p>{{ message }}</p>
@@ -100,7 +100,7 @@ export default {
       StoreDataService.delete(this.currentStore.id)
         .then(response => {
           console.log(response.data);
-          this.$router.push({ name: "stores" });
+          this.$router.push({ name: "apps-users-list" });
         })
         .catch(e => {
           console.log(e);
