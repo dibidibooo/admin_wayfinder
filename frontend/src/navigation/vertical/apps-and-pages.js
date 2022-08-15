@@ -3,7 +3,7 @@ export default [
     header: 'Apps & Pages',
   },
   {
-    title: 'Shops',
+    title: 'Stores',
     icon: 'UserIcon',
     route: 'apps-users-list',
   },
