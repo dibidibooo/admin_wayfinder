@@ -58,7 +58,6 @@ export default function useUsersList() {
       })
       .then(response => {
         const { stores, total } = response.data
-        console.log('GGGGGGG')
         callback(stores)
         totalStores.value = total
       })

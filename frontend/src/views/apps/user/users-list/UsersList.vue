@@ -272,7 +272,7 @@ export default {
       StoreDataService.delete(id)
         .then(response => {
           console.log(response.data);
-          this.$router.push({ name: "stores" });
+          this.$router.push({ name: "apps-users-list" });
         })
         .catch(e => {
           console.log(e);
