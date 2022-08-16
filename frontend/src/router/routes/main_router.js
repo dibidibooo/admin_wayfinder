@@ -14,11 +14,11 @@ export default [
     name: "add_store",
     component: () => import('@/views/stores/AddStore.vue'),
   },
-  {
-    path: "/categories",
-    name: "categories_list",
-    component: () => import('@/views/categories/CategoriesList.vue'),
-  },
+  // {
+  //   path: "/categories",
+  //   name: "categories_list",
+  //   component: () => import('@/views/categories/CategoriesList.vue'),
+  // },
   {
     path: "/category/:id",
     name: "category_details",

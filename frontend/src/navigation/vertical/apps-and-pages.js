@@ -4,7 +4,13 @@ export default [
   },
   {
     title: 'Stores',
-    icon: 'UserIcon',
+    icon: 'ShoppingCartIcon',
     route: 'apps-users-list',
+  },
+  {
+    title: 'Todo',
+    icon: 'FileTextIcon',
+    route: 'apps-todo',
+
   },
 ]

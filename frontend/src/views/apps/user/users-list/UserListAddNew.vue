@@ -357,8 +357,10 @@ export default {
       company: "",
       contact: "",
     };
-
-    // const { inputImageRenderer } = useInputImageRenderer(refInputEl, base64 => { refPreviewEl.value.src = base64 })
+    
+    const refInputEl = ref(null)
+    const refPreviewEl = ref(null)
+    const { inputImageRenderer } = useInputImageRenderer(refInputEl, base64 => { refPreviewEl.value.src = base64 })
 
     const userData = ref(JSON.parse(JSON.stringify(blankUserData)));
     const resetuserData = () => {
@@ -382,7 +384,9 @@ export default {
       refFormObserver,
       getValidationState,
       resetForm,
-      // inputImageRenderer,
+      refInputEl,
+      refPreviewEl,
+      inputImageRenderer,
     };
   },
 };
