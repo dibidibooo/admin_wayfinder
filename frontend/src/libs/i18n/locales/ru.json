@@ -214,5 +214,8 @@
   "Add New Object_Store_hours": "График работы",
   "Add New Object_category": "Категория",
   "Cancel": "Отмена",
-  "No matching records found": "Совпадающих записей не найдено"
+  "No matching records found": "Совпадающих записей не найдено",
+  "Choose": "Выбрать..",
+  "Media Image": "Media Image"
+
 }
