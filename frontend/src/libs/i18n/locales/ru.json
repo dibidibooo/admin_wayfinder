@@ -215,5 +215,8 @@
   "Add New Object_category": "Категория",
   "Add New Object_logo": "Логотип",
   "Cancel": "Отмена",
-  "No matching records found": "Совпадающих записей не найдено"
+  "No matching records found": "Совпадающих записей не найдено",
+  "Choose": "Выбрать..",
+  "Media Image": "Media Image"
+
 }
