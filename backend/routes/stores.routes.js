@@ -1,9 +1,11 @@
 module.exports = app => {
   const stores = require("../controllers/store.controller.js");
   let router = require("express").Router();
+  const upload = require("../middleware/upload.js");
 
   // Create a new Store
-  router.post("/store", stores.create);
+  // router.post("/store", stores.create);
+  router.post("/store", upload.single("file"), stores.create);
   
   // Retrieve all Stores
   router.get("/stores", stores.findAll);

@@ -1,6 +1,5 @@
 const db = require("../models");
 const Store = db.store;
-const Category = db.category;
 const Op = db.Sequelize.Op;
 
 // Create and Save a new Store
@@ -11,6 +10,9 @@ exports.create = (req, res) => {
             message: "Content can not be empty!"
         });
         return;
+    }
+    if(req.fileError) {
+        errors["file"] = req.fileError;
     }
 
     // Save Store in the database
@@ -138,132 +140,3 @@ exports.deleteAll = (req, res) => {
             });
         });
 };
-
-// const db = require("../models");
-// const Category = db.category;
-// const Store = db.store;
-
-// // Create and Save new categories
-// exports.createCategory = (category) => {
-//   return Category.create({
-//     title: category.title
-//   })
-//     .then((category) => {
-//       console.log(">> Created category: " + JSON.stringify(category, null, 4));
-//       return category;
-//     })
-//     .catch((err) => {
-//       console.log(">> Error while creating category: ", err);
-//     });
-// };
-
-// // Create and Save new Stores
-// exports.createStore = (categoryId, store) => {
-//   return Store.create({
-//     title: store.title,
-//     description: store.description,
-//     store_hours: store.store_hours,
-//     categoryId: categoryId,
-//   })
-//     .then((store) => {
-//       console.log(">> Created store: " + JSON.stringify(store, null, 4));
-//       return store;
-//     })
-//     .catch((err) => {
-//       console.log(">> Error while creating store: ", err);
-//     });
-// };
-
-// // Get the stores for a given category
-// exports.findCategoryById = (categoryId) => {
-//   return Category.findByPk(categoryId, { include: ["stores"] })
-//     .then((category) => {
-//       return category;
-//     })
-//     .catch((err) => {
-//       console.log(">> Error while finding category: ", err);
-//     });
-// };
-
-// // Get the stores for a given store id
-// exports.findStoreById = (id) => {
-//   return Store.findByPk(id, { include: ["category"] })
-//     .then((store) => {
-//       return store;
-//     })
-//     .catch((err) => {
-//       console.log(">> Error while finding store: ", err);
-//     });
-// };
-
-// // Get all Categories include stores
-// exports.findAll = () => {
-//   return Store.findAll({
-//     include: ["categories"],
-//   }).then((categories) => {
-//     return categories;
-//   });
-// };
-
-// const db = require('../models/index.js');
-// const Store = db.store;
-
-// // Post a Store
-// exports.create = (req, res) => {
-//     // Save to database
-//     Store.create({
-//         title: req.body.title,
-//         description: req.body.description,
-//         store_hours: req.body.store_hours
-//     }).then(store => {
-//         // Send created Store to client
-//         res.send(store);
-//     }).catch(err => {
-//         res.status(500).send("Error -> " + err);
-//     })
-// };
-
-// // FETCH all stores
-// exports.findAll = (req, res) => {
-//     Store.findAll().then(stores => {
-//         // Send all customers to Client
-//         res.send(stores);
-//     }).catch(err => {
-//         res.status(500).send("Error -> " + err);
-//     })
-// };
-
-// // Find a Store by Id
-// exports.findByPk = (req, res) => {
-//     Store.findByPk(req.params.id)
-//     .then(store => {
-//         res.send(store);
-//     }).catch(err => {
-//         res.status(500).send("Error -> " + err);
-//     })
-// };
-
-// // Update a Store
-// exports.update = (req, res) => {
-//     let store = req.body;
-//     const id = req.params.id;
-//     Store.update({ title: store.title },
-//         { where: { id: id } }
-//     ).then(() => {
-//         res.status(200).send(store);
-//     }).catch(err => {
-//         res.status(500).send("Error -> " + err);
-//     })
-// };
-
-// // Delete a Store by Id
-// exports.delete = (req, res) => {
-//     const id = req.params.id;
-//     Store.destroy({
-//         where: { id: id }
-//     }).then(() => {
-//         res.status(200).send('Store has been deleted!');
-//     }).catch(err => {
-//         res.status(500).send("Error -> " + err);
-//     });
-// };
