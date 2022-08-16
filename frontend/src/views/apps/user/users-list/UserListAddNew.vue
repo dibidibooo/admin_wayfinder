@@ -69,15 +69,15 @@
           <validation-provider
             #default="validationContext"
             :name=" $t('Add New Object_description') "
-            rules="required|alpha-num"
+            rules="required"
           >
             <b-form-group
               :label=" $t('Add New Object_description') "
               label-for="username"
             >
               <b-form-input
-                id="username"
-                v-model="userData.username"
+                id="description"
+                v-model="store.description"
                 :state="getValidationState(validationContext)"
                 trim
               />
@@ -99,8 +99,8 @@
               label-for="contact"
             >
               <b-form-input
-                id="contact"
-                v-model="userData.contact"
+                id="store_hours"
+                v-model="store.store_hours"
                 :state="getValidationState(validationContext)"
                 trim
               />
@@ -123,13 +123,18 @@
               :state="getValidationState(validationContext)"
             >
               <v-select
-                v-model="userData.currentPlan"
+                id="categoryId"
+                v-model="store.categoryId"
+
                 :dir="$store.state.appConfig.isRTL ? 'rtl' : 'ltr'"
                 :options="planOptions"
                 :reduce="val => val.value"
                 :clearable="false"
                 input-id="plan"
-              />
+              >
+              <option disabled value="">Choose category...</option>
+              <option v-for="cat in categories" v-bind:value="cat.id" :key="cat.id">{{ cat.title }}</option>
+              </v-select>
               <b-form-invalid-feedback :state="getValidationState(validationContext)">
                 {{ validationContext.errors[0] }}
               </b-form-invalid-feedback>
