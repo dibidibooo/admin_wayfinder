@@ -8,7 +8,7 @@ export default [
     route: 'apps-users-list',
   },
   {
-    title: 'Todo',
+    title: 'Categories',
     icon: 'FileTextIcon',
     route: 'apps-todo',
 
