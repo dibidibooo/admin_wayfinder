@@ -39,7 +39,7 @@
           @reset.prevent="resetForm"
         >
 
-          <!-- Full Name -->
+          <!-- Store title -->
           <validation-provider
             #default="validationContext"
             :name=" $t('Add New Object_title') "
@@ -47,11 +47,12 @@
           >
             <b-form-group
               :label=" $t('Add New Object_title') "
-              label-for="full-name"
+              label-for="title"
             >
               <b-form-input
                 type="text"
                 id="title"
+                name="title"
                 v-model="store.title"
                 autofocus
                 :state="getValidationState(validationContext)"
@@ -65,18 +66,19 @@
             </b-form-group>
           </validation-provider>
 
-          <!-- Username -->
+          <!-- Description -->
           <validation-provider
             #default="validationContext"
             :name=" $t('Add New Object_description') "
-            rules="required"
+            rules="required|alpha-num"
           >
             <b-form-group
               :label=" $t('Add New Object_description') "
-              label-for="username"
+              label-for="description"
             >
               <b-form-input
                 id="description"
+                name="description"
                 v-model="store.description"
                 :state="getValidationState(validationContext)"
                 trim
@@ -88,7 +90,7 @@
             </b-form-group>
           </validation-provider>
 
-          <!-- Company -->
+          <!-- Store hours -->
           <validation-provider
             #default="validationContext"
             :name=" $t('Add New Object_Store_hours') "
@@ -96,10 +98,11 @@
           >
             <b-form-group
               :label=" $t('Add New Object_Store_hours') "
-              label-for="contact"
+              label-for="store_hours"
             >
               <b-form-input
                 id="store_hours"
+                name="store_hours"
                 v-model="store.store_hours"
                 :state="getValidationState(validationContext)"
                 trim
@@ -111,7 +114,7 @@
             </b-form-group>
           </validation-provider>
 
-          <!-- Plan -->
+          <!-- Categories -->
           <validation-provider
             #default="validationContext"
             :name=" $t('Add New Object_category') "
@@ -119,22 +122,14 @@
           >
             <b-form-group
               :label=" $t('Add New Object_category') "
-              label-for="plan"
+              label-for="categoryId"
               :state="getValidationState(validationContext)"
             >
-              <v-select
-                id="categoryId"
-                v-model="store.categoryId"
-
-                :dir="$store.state.appConfig.isRTL ? 'rtl' : 'ltr'"
-                :options="planOptions"
-                :reduce="val => val.value"
-                :clearable="false"
-                input-id="plan"
-              >
-              <option disabled value="">Choose category...</option>
-              <option v-for="cat in categories" v-bind:value="cat.id" :key="cat.id">{{ cat.title }}</option>
-              </v-select>
+              <label for="categoryId">Category</label>
+              <select class="form-select" name="categoryId" id="categoryId" v-model="store.categoryId">
+                <option disabled value="">Choose category...</option>
+                <option v-for="cat in categories" v-bind:value="cat.id" :key="cat.id">{{ cat.title }}</option>
+              </select>
               <b-form-invalid-feedback :state="getValidationState(validationContext)">
                 {{ validationContext.errors[0] }}
               </b-form-invalid-feedback>
@@ -148,6 +143,7 @@
               variant="primary"
               class="mr-2"
               type="submit"
+              @click="saveStore"
             >
               {{$t('Add')}}
             </b-button>
@@ -209,14 +205,10 @@ export default {
       type: Boolean,
       required: true,
     },
-    roleOptions: {
-      type: Array,
-      required: true,
-    },
-    planOptions: {
-      type: Array,
-      required: true,
-    },
+    // planOptions: {
+    //   type: Array,
+    //   required: true,
+    // },
   },
 
   data() {
@@ -231,10 +223,9 @@ export default {
       submitted: false,
       categories: [],
       required,
-      alphaNum,
+      alphaNum
     }
   },
-
 
   methods: {
     retrieveCategories() {
@@ -275,6 +266,12 @@ export default {
   mounted() {
     this.retrieveCategories();
   },
+
+
+
+
+
+
 
 
 

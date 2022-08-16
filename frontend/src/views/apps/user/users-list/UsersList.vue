@@ -1,11 +1,7 @@
 <template>
-
   <div>
-
     <user-list-add-new
       :is-add-new-user-sidebar-active.sync="isAddNewUserSidebarActive"
-      :role-options="roleOptions"
-      :plan-options="planOptions"
       @refetch-data="refetchData"
     />
 
@@ -58,9 +54,8 @@
       </div>
 
       <b-table
-        ref="refUserListTable"
         class="position-relative"
-        :items="fetchUsers"
+        :items="stores"
         responsive
         :fields="tableColumns"
         primary-key="id"
@@ -70,50 +65,48 @@
         :sort-desc.sync="isSortDirDesc"
       >
 
-        <!-- Column: User -->
-        <template #cell(user)="data">
+        <!-- Column: Title -->
+        <template #cell(title)="data">
           <b-media vertical-align="center">
             <template #aside>
               <b-avatar
                 size="32"
-                :src="data.item.avatar"
-                :text="avatarText(data.item.fullName)"
-                :variant="`light-${resolveUserRoleVariant(data.item.role)}`"
-                :to="{ name: 'apps-users-view', params: { id: data.item.id } }"
+                :src="data.item.image"
+                :text="avatarText(data.item.title)"
+                :to="{ name: 'store_details', params: { id: data.item.id } }"
               />
             </template>
             <b-link
-              :to="{ name: 'apps-users-view', params: { id: data.item.id } }"
-              class="font-weight-bold d-block text-nowrap"
-            >
-              {{ data.item.fullName }}
+              :to="{ name: 'store_details', params: { id: data.item.id } }"
+              class="font-weight-bold d-block text-nowrap">
+              {{ data.item.title }}
             </b-link>
-            <small class="text-muted">@{{ data.item.username }}</small>
           </b-media>
         </template>
 
-        <!-- Column: Role -->
-        <template #cell(role)="data">
+        <!-- Column: Description -->
+        <template #cell(description)="data">
           <div class="text-nowrap">
-            <feather-icon
-              :icon="resolveUserRoleIcon(data.item.role)"
-              size="18"
-              class="mr-50"
-              :class="`text-${resolveUserRoleVariant(data.item.role)}`"
-            />
-            <span class="align-text-top text-capitalize">{{ data.item.role }}</span>
+            <span class="align-text-top text-capitalize">{{ data.item.description }}</span>
           </div>
         </template>
 
-        <!-- Column: Status -->
-        <template #cell(status)="data">
+        <!-- Column: Store hours -->
+        <template #cell(store_hours)="data">
           <b-badge
             pill
-            :variant="`light-${resolveUserStatusVariant(data.item.status)}`"
+            :variant="`light-${resolveUserStatusVariant(data.item.store_hours)}`"
             class="text-capitalize"
           >
-            {{ data.item.status }}
+            {{ data.item.store_hours }}
           </b-badge>
+        </template>
+
+        <!-- Column: Category -->
+        <template #cell(category)="data">
+          <div class="text-nowrap">
+            <span class="align-text-top text-capitalize">{{ data.item.category.title }}</span>
+          </div>
         </template>
 
         <!-- Column: Actions -->
@@ -131,19 +124,19 @@
                 class="align-middle text-body"
               />
             </template>
-            <b-dropdown-item :to="{ name: 'apps-users-view', params: { id: data.item.id } }">
+            <b-dropdown-item :to="{ name: 'store_details', params: { id: data.item.id } }">
               <feather-icon icon="FileTextIcon" />
               <span class="align-middle ml-50">{{ $t('Detail') }}</span>
             </b-dropdown-item>
 
-            <b-dropdown-item :to="{ name: 'apps-users-edit', params: { id: data.item.id } }">
+            <b-dropdown-item :to="{ name: 'store_details', params: { id: data.item.id } }">
               <feather-icon icon="EditIcon" />
               <span class="align-middle ml-50">{{ $t('Edit') }}</span>
             </b-dropdown-item>
 
             <b-dropdown-item>
               <feather-icon icon="TrashIcon" />
-              <span class="align-middle ml-50">{{ $t('Delete') }}</span>
+              <span class="align-middle ml-50" @click="deleteStore(data.item.id)">{{ $t('Delete') }}</span>
             </b-dropdown-item>
           </b-dropdown>
         </template>
@@ -168,7 +161,7 @@
 
             <b-pagination
               v-model="currentPage"
-              :total-rows="totalUsers"
+              :total-rows="totalStores"
               :per-page="perPage"
               first-number
               last-number
@@ -216,7 +209,7 @@ import userStoreModule from '../userStoreModule'
 import UserListAddNew from './UserListAddNew.vue'
 
 export default {
-    name: "stores_list",
+  name: "stores_list",
   data() {
     return {
       stores: [],
@@ -273,6 +266,17 @@ export default {
 
     redirectToStoreDetails() {
       this.$router.push({ name: 'store_details', params: { id: this.currentStore.id } });
+    },
+
+    deleteStore(id) {
+      StoreDataService.delete(id)
+        .then(response => {
+          console.log(response.data);
+          this.$router.push({ name: "apps-users-list" });
+        })
+        .catch(e => {
+          console.log(e);
+        });
     }
   },
 
@@ -314,33 +318,12 @@ export default {
 
     const isAddNewUserSidebarActive = ref(false)
 
-    const roleOptions = [
-      { label: 'Admin', value: 'admin' },
-      { label: 'Author', value: 'author' },
-      { label: 'Editor', value: 'editor' },
-      { label: 'Maintainer', value: 'maintainer' },
-      { label: 'Subscriber', value: 'subscriber' },
-    ]
-
-    const planOptions = [
-      { label: 'Basic', value: 'basic' },
-      { label: 'Company', value: 'company' },
-      { label: 'Enterprise', value: 'enterprise' },
-      { label: 'Team', value: 'team' },
-    ]
-
-    const statusOptions = [
-      { label: 'Pending', value: 'pending' },
-      { label: 'Active', value: 'active' },
-      { label: 'Inactive', value: 'inactive' },
-    ]
-
     const {
-      fetchUsers,
+      fetchStores,
       tableColumns,
       perPage,
       currentPage,
-      totalUsers,
+      totalStores,
       dataMeta,
       perPageOptions,
       searchQuery,
@@ -351,13 +334,11 @@ export default {
 
       // UI
       resolveUserRoleVariant,
-      resolveUserRoleIcon,
       resolveUserStatusVariant,
 
       // Extra Filters
-      roleFilter,
-      planFilter,
-      statusFilter,
+      categoryFilter,
+      descriptionFilter
     } = useUsersList()
 
     return {
@@ -365,11 +346,11 @@ export default {
       // Sidebar
       isAddNewUserSidebarActive,
 
-      fetchUsers,
+      fetchStores,
       tableColumns,
       perPage,
       currentPage,
-      totalUsers,
+      totalStores,
       dataMeta,
       perPageOptions,
       searchQuery,
@@ -383,17 +364,11 @@ export default {
 
       // UI
       resolveUserRoleVariant,
-      resolveUserRoleIcon,
       resolveUserStatusVariant,
 
-      roleOptions,
-      planOptions,
-      statusOptions,
-
       // Extra Filters
-      roleFilter,
-      planFilter,
-      statusFilter,
+      categoryFilter,
+      descriptionFilter
     }
   },
 }

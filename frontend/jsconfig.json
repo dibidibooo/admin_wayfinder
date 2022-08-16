@@ -4,6 +4,7 @@
         "paths": {
             "@/*": ["src/*"],
             "@core/*": ["src/@core/*"],
-        }
-    }
+        },
+        "jsx": "preserve"
+    },
 }

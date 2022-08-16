@@ -131,7 +131,6 @@
             <v-select
               v-model="userData.role"
               :dir="$store.state.appConfig.isRTL ? 'rtl' : 'ltr'"
-              :options="roleOptions"
               :reduce="val => val.value"
               :clearable="false"
               input-id="user-role"
@@ -241,14 +240,6 @@ export default {
   setup(props) {
     const { resolveUserRoleVariant } = useUsersList()
 
-    const roleOptions = [
-      { label: 'Admin', value: 'admin' },
-      { label: 'Author', value: 'author' },
-      { label: 'Editor', value: 'editor' },
-      { label: 'Maintainer', value: 'maintainer' },
-      { label: 'Subscriber', value: 'subscriber' },
-    ]
-
     const statusOptions = [
       { label: 'Pending', value: 'pending' },
       { label: 'Active', value: 'active' },
@@ -305,7 +296,6 @@ export default {
     return {
       resolveUserRoleVariant,
       avatarText,
-      roleOptions,
       statusOptions,
       permissionsData,
 

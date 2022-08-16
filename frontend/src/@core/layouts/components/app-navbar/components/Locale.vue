@@ -5,7 +5,7 @@
     class="dropdown-language"
     right
   >
-    <template #button-content>
+    <!-- <template #button-content>
       <b-img
         :src="currentLocale.img"
         height="14px"
@@ -13,7 +13,7 @@
         :alt="currentLocale.locale"
       />
       <span class="ml-50 text-body">{{ currentLocale.name }}</span>
-    </template>
+    </template> -->
     <b-dropdown-item
       v-for="localeObj in locales"
       :key="localeObj.locale"
