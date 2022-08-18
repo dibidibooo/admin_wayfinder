@@ -17,9 +17,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Below line would serve all files/folders inside of the 'uploads' directory
-// And make them accessible through http://localhost:yourport/uploads.
-// app.use(express.static(__dirname + '/public'));
-// app.use('/uploads', express.static('uploads'));
+// And make them accessible through http://localhost:yourport/uploads/<image-name>.
+app.use(express.static('uploads')); 
+app.use('/uploads', express.static('uploads'));
 
 global.__basedir = __dirname;
 
