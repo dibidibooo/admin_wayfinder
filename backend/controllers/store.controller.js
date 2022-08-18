@@ -11,8 +11,8 @@ exports.create = (req, res) => {
         });
         return;
     }
-    if(req.fileError) {
-        errors["file"] = req.fileError;
+    if (req.file == undefined) {
+        return res.send(`You must select a file.`);
     }
 
     // Save Store in the database
@@ -20,7 +20,8 @@ exports.create = (req, res) => {
         title: req.body.title,
         description: req.body.description,
         store_hours: req.body.store_hours,
-        categoryId: req.body.categoryId
+        categoryId: req.body.categoryId,
+        image: req.file.filename
     })
         .then(data => {
             res.send(data);
@@ -38,7 +39,7 @@ exports.findAll = (req, res) => {
     const title = req.query.title;
     let condition = title ? { title: { [Op.iLike]: `%${title}%` } } : null;
 
-    Store.findAll({ 
+    Store.findAll({
         where: condition,
         include: ["category"]
     })
@@ -57,7 +58,7 @@ exports.findAll = (req, res) => {
 exports.findOne = (req, res) => {
     const id = req.params.id;
 
-    Store.findByPk(id, {include: ["category"]})
+    Store.findByPk(id, { include: ["category"] })
         .then(data => {
             if (data) {
                 res.send(data);
