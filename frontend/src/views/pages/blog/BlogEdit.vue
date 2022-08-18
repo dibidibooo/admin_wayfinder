@@ -96,10 +96,35 @@
           cols="12"
           class="mb-2"
         >
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
           <div class="border rounded p-2">
-            <h4 class="mb-1">
-              Featured Image
-            </h4>
+
             <b-media
               no-body
               vertical-align="center"
@@ -133,6 +158,18 @@
               </b-media-body>
             </b-media>
           </div>
+
+
+
+
+
+
+
+
+
+
+
+
         </b-col>
         <b-col
           cols="12"

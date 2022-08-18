@@ -3,10 +3,10 @@
 
     <router-view />
 
-    <app-customizer
+    <!-- <app-customizer
       v-if="showCustomizer"
       slot="customizer"
-    />
+    /> -->
 
   </layout-vertical>
 </template>

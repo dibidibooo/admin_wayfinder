@@ -28,6 +28,11 @@
           <option v-for="cat in categories" v-bind:value="cat.id" :key="cat.id">{{ cat.title }}</option>
         </select>
       </div>
+
+      <div class="form-group">
+        <label for="image">Logo</label>
+        <img v-bind:src="logo" alt="Logo" id="image" name="image">
+      </div>
     </form>
 
     <div class="mt-3">
@@ -60,7 +65,8 @@ export default {
     return {
       currentStore: null,
       message: '',
-      categories: []
+      categories: [],
+      logo: null
     };
   },
   methods: {
@@ -78,7 +84,8 @@ export default {
       StoreDataService.get(id)
         .then(response => {
           this.currentStore = response.data;
-          console.log(response.data);
+          console.log('Response:', response.data);
+          this.logo = response.data.image;
         })
         .catch(e => {
           console.log(e);

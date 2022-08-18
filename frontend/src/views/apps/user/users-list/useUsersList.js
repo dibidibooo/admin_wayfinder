@@ -18,6 +18,7 @@ export default function useUsersList() {
     { key: 'category', sortable: true },
     { key: 'actions' },
   ]
+
   const perPage = ref(10)
   const totalStores = ref(0)
   const currentPage = ref(1)

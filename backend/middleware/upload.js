@@ -9,20 +9,12 @@ const imageFilter = (req, file, cb) => {
   }
 };
 
-let uploadFolder = path.join('frontend', 'src', 'assets', 'uploads');
-
 let storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, uploadFolder);
+    cb(null, __basedir + '/uploads');
   },
   filename: (req, file, cb) => {
-    const mimeExtension = {
-        'image/jpg': '.jpg',
-        'image/jpeg': '.jpeg',
-        'image/png': '.png',
-        'image/gif': '.gif',
-    }
-    cb(null, file.originalname + mimeExtension(file.mimetype));
+    cb(null, file.originalname);
   },
 });
 

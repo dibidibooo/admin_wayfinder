@@ -2,7 +2,7 @@
   <div>
     <user-list-add-new
       :is-add-new-user-sidebar-active.sync="isAddNewUserSidebarActive"
-      @refetch-data="refetchData"
+
     />
 
     <!-- Table Container Card -->
@@ -69,12 +69,12 @@
         <template #cell(title)="data">
           <b-media vertical-align="center">
             <template #aside>
-              <b-avatar
+              <!-- <b-avatar
                 size="32"
                 :src="data.item.image"
                 :text="avatarText(data.item.title)"
                 :to="{ name: 'store_details', params: { id: data.item.id } }"
-              />
+              /> -->
             </template>
             <b-link
               :to="{ name: 'store_details', params: { id: data.item.id } }"
@@ -224,7 +224,6 @@ export default {
       StoreDataService.getAll()
         .then(response => {
           this.stores = response.data;
-          console.log(response.data);
         })
         .catch(e => {
           console.log(e);
