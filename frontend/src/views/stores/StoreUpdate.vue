@@ -4,21 +4,23 @@
     <form>
       <div class="form-group">
         <label for="title">Title</label>
-        <p>{{ currentStore.title }}</p>
+        <input type="text" class="form-control" id="title" v-model="currentStore.title" />
       </div>
       <div class="form-group">
         <label for="description">Description</label>
-        <p>{{ currentStore.description }}</p>
+        <input type="text" class="form-control" id="description" v-model="currentStore.description" />
       </div>
 
       <div class="form-group">
         <label for="store_hours">Store hours</label>
-        <p>{{ currentStore.store_hours }}</p>
+        <input type="text" class="form-control" id="store_hours" v-model="currentStore.store_hours" />
       </div>
 
       <div class="form-group">
         <label for="categoryId">Category</label>
-        <p>{{ currentStore.category.title }}</p>
+        <select class="form-select" name="categoryId" id="categoryId" v-model="currentStore.categoryId">
+          <option v-for="cat in categories" v-bind:value="cat.id" :key="cat.id">{{ cat.title }}</option>
+        </select>
       </div>
 
       <div class="form-group">
@@ -28,10 +30,13 @@
     </form>
 
     <div class="mt-3">
-      <b-link :to="{ name: 'store_update', params: { id: currentStore.id } }"
-        class="font-weight-bold d-block text-nowrap">
-        Edit
-      </b-link>
+      <button type="submit" class="btn btn-success" @click="updateStore">
+        Update
+      </button>
+
+      <button class="btn btn-danger ml-2" @click="deleteStore">
+        Delete
+      </button>
     </div>
     <p>{{ message }}</p>
   </div>
@@ -46,11 +51,6 @@
 import StoreDataService from "../../services/StoreDataService";
 import CategoryDataService from "../../services/CategoryDataService";
 
-import {
-  BCard, BRow, BCol, BFormInput, BButton, BTable, BMedia, BAvatar, BLink,
-  BBadge, BDropdown, BDropdownItem, BPagination,
-} from 'bootstrap-vue'
-
 export default {
   name: "store_details",
   data() {
@@ -62,10 +62,6 @@ export default {
       image_name: null
     };
   },
-  components: {
-    BLink
-  },
-
   methods: {
     retrieveCategories() {
       CategoryDataService.getAll()

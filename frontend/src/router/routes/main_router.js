@@ -10,6 +10,11 @@ export default [
     component: () => import('@/views/stores/StoreDetail.vue'),
   },
   {
+    path: "/store/:id",
+    name: "store_update",
+    component: () => import('@/views/stores/StoreUpdate.vue'),
+  },
+  {
     path: "/store_create",
     name: "add_store",
     component: () => import('@/views/stores/AddStore.vue'),

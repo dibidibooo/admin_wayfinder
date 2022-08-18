@@ -129,7 +129,7 @@
               <span class="align-middle ml-50">{{ $t('Detail') }}</span>
             </b-dropdown-item>
 
-            <b-dropdown-item :to="{ name: 'store_details', params: { id: data.item.id } }">
+            <b-dropdown-item :to="{ name: 'store_update', params: { id: data.item.id } }">
               <feather-icon icon="EditIcon" />
               <span class="align-middle ml-50">{{ $t('Edit') }}</span>
             </b-dropdown-item>
