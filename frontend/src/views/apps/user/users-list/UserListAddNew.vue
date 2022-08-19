@@ -119,7 +119,6 @@
 <script>
 import StoreDataService from "../../../../services/StoreDataService";
 import CategoryDataService from "../../../../services/CategoryDataService";
-import axios from 'axios';
 
 import {
   BSidebar,

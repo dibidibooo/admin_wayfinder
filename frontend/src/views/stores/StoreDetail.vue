@@ -18,7 +18,8 @@
 
       <div class="form-group">
         <label for="categoryId">Category</label>
-        <p>{{ currentStore.category.title }}</p>
+        <p v-if="currentStore.categoryId">{{ currentStore.category.title }}</p>
+        <p v-else>No category</p>
       </div>
 
       <div class="form-group">
@@ -87,17 +88,6 @@ export default {
           let logotype = response.data.image.data;
           let c = Buffer.from(logotype);
           this.image_name = enc.decode(c);
-        })
-        .catch(e => {
-          console.log(e);
-        });
-    },
-
-    updateStore() {
-      StoreDataService.update(this.currentStore.id, this.currentStore)
-        .then(response => {
-          console.log(response.data);
-          this.message = 'The store was updated successfully!';
         })
         .catch(e => {
           console.log(e);
