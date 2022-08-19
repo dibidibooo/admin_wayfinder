@@ -22,7 +22,7 @@ export default [
   {
     path: "/categories",
     name: "categories_list",
-    component: () => import('@/views/categories/CategoriesList.vue'),
+    component: () => import('@/views/apps/user/users-list/CategoriesList.vue'),
   },
   {
     path: "/category/:id",
