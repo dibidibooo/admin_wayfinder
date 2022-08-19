@@ -55,7 +55,7 @@
 
       <b-table
         class="position-relative"
-        :items="stores"
+        :items="categories"
         responsive
         :fields="tableColumns"
         primary-key="id"
@@ -68,45 +68,12 @@
         <!-- Column: Title -->
         <template #cell(title)="data">
           <b-media vertical-align="center">
-            <template #aside>
-              <!-- <b-avatar
-                size="32"
-                :src="data.item.image"
-                :text="avatarText(data.item.title)"
-                :to="{ name: 'store_details', params: { id: data.item.id } }"
-              /> -->
-            </template>
             <b-link
-              :to="{ name: 'store_details', params: { id: data.item.id } }"
+              :to="{ name: 'category_details', params: { id: data.item.id } }"
               class="font-weight-bold d-block text-nowrap">
               {{ data.item.title }}
             </b-link>
           </b-media>
-        </template>
-
-        <!-- Column: Description -->
-        <template #cell(description)="data">
-          <div class="text-nowrap">
-            <span class="align-text-top text-capitalize">{{ data.item.description }}</span>
-          </div>
-        </template>
-
-        <!-- Column: Store hours -->
-        <template #cell(store_hours)="data">
-          <b-badge
-            pill
-            :variant="`light-${resolveUserStatusVariant(data.item.store_hours)}`"
-            class="text-capitalize"
-          >
-            {{ data.item.store_hours }}
-          </b-badge>
-        </template>
-
-        <!-- Column: Category -->
-        <template #cell(category)="data">
-          <div class="text-nowrap">
-            <span class="align-text-top text-capitalize">{{ data.item.category.title }}</span>
-          </div>
         </template>
 
         <!-- Column: Actions -->
@@ -124,19 +91,19 @@
                 class="align-middle text-body"
               />
             </template>
-            <b-dropdown-item :to="{ name: 'store_details', params: { id: data.item.id } }">
+            <b-dropdown-item :to="{ name: 'category_details', params: { id: data.item.id } }">
               <feather-icon icon="FileTextIcon" />
               <span class="align-middle ml-50">{{ $t('Detail') }}</span>
             </b-dropdown-item>
 
-            <b-dropdown-item :to="{ name: 'store_update', params: { id: data.item.id } }">
+            <b-dropdown-item :to="{ name: 'category_details', params: { id: data.item.id } }">
               <feather-icon icon="EditIcon" />
               <span class="align-middle ml-50">{{ $t('Edit') }}</span>
             </b-dropdown-item>
 
             <b-dropdown-item>
               <feather-icon icon="TrashIcon" />
-              <span class="align-middle ml-50" @click="deleteStore(data.item.id)">{{ $t('Delete') }}</span>
+              <span class="align-middle ml-50" @click="deleteCategory(data.item.id)">{{ $t('Delete') }}</span>
             </b-dropdown-item>
           </b-dropdown>
         </template>
@@ -192,7 +159,7 @@
 </template>
 
 <script>
-import StoreDataService from "../../../../services/StoreDataService";
+import CategoryDataService from "../../../../services/CategoryDataService";
 
 
 import {
@@ -202,28 +169,27 @@ import {
 import vSelect from 'vue-select'
 import store from '@/store'
 import { ref, onUnmounted } from '@vue/composition-api'
-import { avatarText } from '@core/utils/filter'
 import UsersListFilters from './UsersListFilters.vue'
-import useUsersList from './useUsersList'
+import useCategoriesList from './useCategoriesList'
 import userStoreModule from '../userStoreModule'
 import UserListAddNew from './UserListAddNew.vue'
 
 export default {
-  name: "stores_list",
+  name: "categories_list",
   data() {
     return {
-      stores: [],
-      currentStore: null,
+      categories: [],
+      currentCategory: null,
       currentIndex: -1,
       title: ""
     };
   },
 
   methods: {
-    retrieveStores() {
-      StoreDataService.getAll()
+    retrieveCategories() {
+      CategoryDataService.getAll()
         .then(response => {
-          this.stores = response.data;
+          this.categories = response.data;
         })
         .catch(e => {
           console.log(e);
@@ -231,18 +197,18 @@ export default {
     },
 
     refreshList() {
-      this.retrieveStores();
-      this.currentStore = null;
+      this.retrieveCategories();
+      this.currentCategory = null;
       this.currentIndex = -1;
     },
 
-    setActiveStore(store, index) {
-      this.currentStore = store;
+    setActiveCategory(category, index) {
+      this.currentCategory = category;
       this.currentIndex = index;
     },
 
-    removeAllStores() {
-      StoreDataService.deleteAll()
+    removeAllCategories() {
+      CategoryDataService.deleteAll()
         .then(response => {
           console.log(response.data);
           this.refreshList();
@@ -253,9 +219,9 @@ export default {
     },
 
     searchTitle() {
-      StoreDataService.findByTitle(this.title)
+      CategoryDataService.findByTitle(this.title)
         .then(response => {
-          this.stores = response.data;
+          this.categories = response.data;
           console.log(response.data);
         })
         .catch(e => {
@@ -263,15 +229,16 @@ export default {
         });
     },
 
-    redirectToStoreDetails() {
-      this.$router.push({ name: 'store_details', params: { id: this.currentStore.id } });
+    redirectToCategoryDetails() {
+      console.log(this.currentCategory.id);
+      this.$router.push({ name: 'category_details', params: { id: this.currentCategory.id } });
     },
 
-    deleteStore(id) {
-      StoreDataService.delete(id)
+    deleteCategory() {
+      CategoryDataService.delete(this.currentCategory.id)
         .then(response => {
           console.log(response.data);
-          this.$router.push({ name: "apps-users-list" });
+          this.$router.push({ name: "categories" });
         })
         .catch(e => {
           console.log(e);
@@ -280,7 +247,7 @@ export default {
   },
 
   mounted() {
-    this.retrieveStores();
+    this.retrieveCategories();
   },
 
 
@@ -331,14 +298,10 @@ export default {
       refUserListTable,
       refetchData,
 
-      // UI
-      resolveUserRoleVariant,
-      resolveUserStatusVariant,
-
       // Extra Filters
-      categoryFilter,
-      descriptionFilter
-    } = useUsersList()
+      // categoryFilter,
+      // descriptionFilter
+    } = useCategoriesList()
 
     return {
 
@@ -358,16 +321,9 @@ export default {
       refUserListTable,
       refetchData,
 
-      // Filter
-      avatarText,
-
-      // UI
-      resolveUserRoleVariant,
-      resolveUserStatusVariant,
-
       // Extra Filters
-      categoryFilter,
-      descriptionFilter
+      // categoryFilter,
+      // descriptionFilter
     }
   },
 }

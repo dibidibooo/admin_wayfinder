@@ -214,9 +214,10 @@
   "Add New Object_description": "Описание",
   "Add New Object_Store_hours": "График работы",
   "Add New Object_category": "Категория",
+  "Add New Object_logo": "Логотип",
   "Cancel": "Отмена",
   "No matching records found": "Совпадающих записей не найдено",
   "Choose": "Выбрать..",
-  "Media Image": "Media Image"
+  "Media Image": "Логотип"
 
 }

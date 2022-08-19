@@ -26,7 +26,7 @@ db.role = require("./role.model.js")(sequelize, Sequelize);
 db.category.hasMany(db.store, { 
   foreignKey: "categoryId",
   as: "stores",
-  onDelete: "CASCADE"
+  onDelete: "SET NULL"
 });
 db.store.belongsTo(db.category, {
     foreignKey: "categoryId",

@@ -16,10 +16,18 @@ app.use(express.json());
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(express.urlencoded({ extended: true }));
 
+// Below line would serve all files/folders inside of the 'uploads' directory
+// And make them accessible through http://localhost:yourport/uploads/<image-name>.
+app.use(express.static('uploads')); 
+app.use('/uploads', express.static('uploads'));
+
+global.__basedir = __dirname;
+
 const db = require("./models/index.js");
 
 db.sequelize.sync()
   .then(() => {
+    console.log("---------------------");
     console.log("Synced db.");
   })
   .catch((err) => {
