@@ -11,14 +11,12 @@
     </form>
 
     <div class="mt-3">
-      <button class="btn btn-danger me-2"
-        @click="deleteCategory">
-        Delete
+      <button type="submit" class="btn btn-success" @click="updateCategory">
+        Update
       </button>
 
-      <button type="submit" class="btn btn-success"
-        @click="updateCategory">
-        Update
+      <button class="btn btn-danger ml-2" @click="deleteCategory">
+        Delete
       </button>
     </div>
     <p>{{ message }}</p>
