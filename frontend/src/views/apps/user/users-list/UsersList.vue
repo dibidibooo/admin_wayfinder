@@ -105,7 +105,8 @@
         <!-- Column: Category -->
         <template #cell(category)="data">
           <div class="text-nowrap">
-            <span class="align-text-top text-capitalize">{{ data.item.category.title }}</span>
+            <span v-if="data.item.categoryId" class="align-text-top text-capitalize">{{ data.item.category.title }}</span>
+            <span v-else>No category</span>
           </div>
         </template>
 

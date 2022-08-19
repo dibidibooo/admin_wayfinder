@@ -19,7 +19,7 @@
         Delete
       </button>
     </div>
-    <p>{{ message }}</p>
+    <p class="mt-3">{{ message }}</p>
   </div>
 
   <div v-else>
@@ -56,6 +56,7 @@ export default {
         .then(response => {
           console.log(response.data);
           this.message = 'The Category was updated successfully!';
+          this.$router.push({ name: 'categories_list'});
         })
         .catch(e => {
           console.log(e);
@@ -66,7 +67,7 @@ export default {
       CategoryDataService.delete(this.currentCategory.id)
         .then(response => {
           console.log(response.data);
-          this.$router.push({ name: "categories" });
+          this.$router.push({ name: "categories_list" });
         })
         .catch(e => {
           console.log(e);
@@ -86,69 +87,3 @@ export default {
   margin: auto;
 }
 </style>
-
-<!-- <template>
-  <div v-if="this.category">
-    <h4>Category</h4>
-    <form>
-      <div class="form-group">
-        <label for="title">Title: </label>
-        {{ this.category.title }}
-      </div>
-    </form>
-
-    <span class="btn btn-danger" @click="deleteCategory()">
-      Delete
-    </span>
-    <button type="submit" class="btn btn-success"
-      @click="updateCategory">
-      Update
-    </button>
-  </div>
-  <div v-else>
-    <br>
-    <p>Please click on a Category...</p>
-  </div>
-</template>
-
-<script>
-import http from "../../http-common";
-
-export default {
-  name: "category_detail",
-  props: ["category"],
-  methods: {
-    /* eslint-disable no-console */
-
-    deleteCategory() {
-      http
-        .delete("/category/" + this.category.id)
-        .then(response => {
-          console.log(response.data);
-          this.$emit("refreshData");
-          this.$router.push('/categories');
-        })
-        .catch(e => {
-          console.log(e);
-        });
-    },
-
-    updateCategory() {
-      let data = {
-        title: this.category.title
-      }
-      http
-        .put("/category/" + this.category.id, data)
-        .then(response => {
-          console.log(response.data);
-          this.message = 'The Category was updated successfully!';
-        })
-        .catch(e => {
-          console.log(e);
-        });
-    },
-
-    /* eslint-enable no-console */
-  }
-};
-</script> -->

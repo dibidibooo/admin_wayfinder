@@ -1,7 +1,7 @@
 <template>
   <div v-if="currentStore" class="edit-form">
     <h4>Store</h4>
-    <form>
+    <form enctype="multipart/form-data" method="POST">
       <div class="form-group">
         <label for="title">Title</label>
         <input type="text" class="form-control" id="title" v-model="currentStore.title" />
@@ -25,7 +25,8 @@
 
       <div class="form-group">
         <label for="image">Logo</label>
-        <img v-bind:src="image_path + image_name" alt="Logo" id="image" name="image" width="300">
+        <img v-bind:src="image_path + image_name" alt="Logo" id="image" width="300">
+        <input type="file" name="image">
       </div>
     </form>
 
