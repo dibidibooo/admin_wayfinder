@@ -1,8 +1,7 @@
 <template>
   <div>
-    <user-list-add-new
-      :is-add-new-user-sidebar-active.sync="isAddNewUserSidebarActive"
-
+    <category-add-new
+      :is-add-new-user-sidebar-active.sync="isAddNewCategorySidebarActive"
     />
 
     <!-- Table Container Card -->
@@ -43,7 +42,7 @@
               />
               <b-button
                 variant="primary"
-                @click="isAddNewUserSidebarActive = true"
+                @click="isAddNewCategorySidebarActive = true"
               >
                 <span class="text-nowrap">{{ $t('Add shop') }}</span>
               </b-button>
@@ -91,10 +90,10 @@
                 class="align-middle text-body"
               />
             </template>
-            <b-dropdown-item :to="{ name: 'category_details', params: { id: data.item.id } }">
+            <!-- <b-dropdown-item :to="{ name: 'category_details', params: { id: data.item.id } }">
               <feather-icon icon="FileTextIcon" />
               <span class="align-middle ml-50">{{ $t('Detail') }}</span>
-            </b-dropdown-item>
+            </b-dropdown-item> -->
 
             <b-dropdown-item :to="{ name: 'category_details', params: { id: data.item.id } }">
               <feather-icon icon="EditIcon" />
@@ -172,7 +171,7 @@ import { ref, onUnmounted } from '@vue/composition-api'
 import UsersListFilters from './UsersListFilters.vue'
 import useCategoriesList from './useCategoriesList'
 import userStoreModule from '../userStoreModule'
-import UserListAddNew from './UserListAddNew.vue'
+import CategoryAddNew from './CategoryAddNew.vue'
 
 export default {
   name: "categories_list",
@@ -234,11 +233,11 @@ export default {
       this.$router.push({ name: 'category_details', params: { id: this.currentCategory.id } });
     },
 
-    deleteCategory() {
-      CategoryDataService.delete(this.currentCategory.id)
+    deleteCategory(id) {
+      CategoryDataService.delete(id)
         .then(response => {
           console.log(response.data);
-          this.$router.push({ name: "categories" });
+          this.$router.push({ name: "categories_list" });
         })
         .catch(e => {
           console.log(e);
@@ -253,7 +252,7 @@ export default {
 
   components: {
     UsersListFilters,
-    UserListAddNew,
+    CategoryAddNew,
 
     BCard,
     BRow,
@@ -282,7 +281,7 @@ export default {
       if (store.hasModule(USER_APP_STORE_MODULE_NAME)) store.unregisterModule(USER_APP_STORE_MODULE_NAME)
     })
 
-    const isAddNewUserSidebarActive = ref(false)
+    const isAddNewCategorySidebarActive = ref(false)
 
     const {
       fetchStores,
@@ -306,7 +305,7 @@ export default {
     return {
 
       // Sidebar
-      isAddNewUserSidebarActive,
+      isAddNewCategorySidebarActive,
 
       fetchStores,
       tableColumns,
