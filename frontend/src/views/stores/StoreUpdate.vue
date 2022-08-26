@@ -1,7 +1,7 @@
 <template>
   <div v-if="currentStore" class="edit-form">
     <h4>Store</h4>
-    <form enctype="multipart/form-data" method="POST">
+    <form enctype="multipart/form-data" method="POST" id="my_form">
       <div class="form-group">
         <label for="title">Title</label>
         <input type="text" class="form-control" id="title" v-model="currentStore.title" />
@@ -25,9 +25,9 @@
 
       <div class="form-group">
         <label for="image">Logo</label>
-        <img v-bind:src="image_path + image_name" alt="Logo" id="image" width="300">
-        <input type="file" name="image">
+        <input class="form-control" type="file" name="image" accept=".jpg, .png, .gif, .jpeg" @change="getImg">
       </div>
+      <img v-bind:src="image_path + image_name" alt="Logo" id="image" width="150">
     </form>
 
     <div class="mt-3">
@@ -44,7 +44,7 @@
 
   <div v-else>
     <br />
-    <p>Please click on a Store...</p>
+    <p>Error loading data...</p>
   </div>
 </template>
 
@@ -74,6 +74,10 @@ export default {
         });
     },
 
+    getImg(e) {
+      this.currentStore.image = e.target.files[0];
+    },
+
     getStore(id) {
       StoreDataService.get(id)
         .then(response => {
@@ -81,9 +85,9 @@ export default {
           console.log('Response data:', response.data);
 
           const enc = new TextDecoder("utf-8");
-          let logotype = response.data.image.data;
-          let c = Buffer.from(logotype);
-          this.image_name = enc.decode(c);
+          let image_data = response.data.image.data;
+          let image_data_buffer = Buffer.from(image_data);
+          this.image_name = enc.decode(image_data_buffer);
         })
         .catch(e => {
           console.log(e);
@@ -91,10 +95,17 @@ export default {
     },
 
     updateStore() {
-      StoreDataService.update(this.currentStore.id, this.currentStore)
+      const formData = new FormData();
+      formData.append("image", this.currentStore.image);
+      formData.append("title", this.currentStore.title);
+      formData.append("description", this.currentStore.description);
+      formData.append("store_hours", this.currentStore.store_hours);
+      formData.append("categoryId", Number(this.currentStore.categoryId));
+
+      StoreDataService.update(this.currentStore.id, formData)
         .then(response => {
           console.log(response.data);
-          this.message = 'The store was updated successfully!';
+          this.$router.push({ name: "apps-users-list" });
         })
         .catch(e => {
           console.log(e);

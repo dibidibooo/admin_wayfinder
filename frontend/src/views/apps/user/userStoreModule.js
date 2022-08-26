@@ -6,7 +6,7 @@ export default {
   getters: {},
   mutations: {},
   actions: {
-    fetchUsers(ctx, queryParams) {
+    fetchStores(ctx, queryParams) {
       return new Promise((resolve, reject) => {
         axios
           .get('http://localhost:8081/api/stores', { params: queryParams })
@@ -14,7 +14,7 @@ export default {
           .catch(error => reject(error))
       })
     },
-    fetchUser(ctx, { id }) {
+    fetchStore(ctx, { id }) {
       return new Promise((resolve, reject) => {
         axios
           .get(`http://localhost:8081/api/store/${id}`)

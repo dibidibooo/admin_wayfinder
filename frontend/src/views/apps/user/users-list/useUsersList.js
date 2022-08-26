@@ -1,10 +1,11 @@
 import { ref, watch, computed } from '@vue/composition-api'
+import store from '@/store'
 
 // Notification
 import { useToast } from 'vue-toastification/composition'
 import ToastificationContent from '@core/components/toastification/ToastificationContent.vue'
 
-export default function useUsersList() {
+export default function useStoresList() {
   // Use toast
   const toast = useToast()
 
@@ -48,7 +49,7 @@ export default function useUsersList() {
 
   const fetchStores = (ctx, callback) => {
     store
-      .dispatch('app-user/fetchStores', {
+      .dispatch('app-store/fetchStores', {
         q: searchQuery.value,
         perPage: perPage.value,
         page: currentPage.value,
@@ -78,22 +79,6 @@ export default function useUsersList() {
   // *--------- UI ---------------------------------------*
   // *===============================================---*
 
-  const resolveUserRoleVariant = role => {
-    if (role === 'subscriber') return 'primary'
-    if (role === 'author') return 'warning'
-    if (role === 'maintainer') return 'success'
-    if (role === 'editor') return 'info'
-    if (role === 'admin') return 'danger'
-    return 'primary'
-  }
-
-  const resolveUserStatusVariant = status => {
-    if (status === 'pending') return 'warning'
-    if (status === 'active') return 'success'
-    if (status === 'inactive') return 'secondary'
-    return 'primary'
-  }
-
   return {
     fetchStores,
     tableColumns,
@@ -106,9 +91,6 @@ export default function useUsersList() {
     sortBy,
     isSortDirDesc,
     refStoresListTable,
-
-    resolveUserRoleVariant,
-    resolveUserStatusVariant,
     refetchData,
 
     // Extra Filters

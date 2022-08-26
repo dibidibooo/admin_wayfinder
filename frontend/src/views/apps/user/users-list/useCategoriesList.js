@@ -1,4 +1,5 @@
 import { ref, watch, computed } from '@vue/composition-api'
+import store from '@/store'
 
 // Notification
 import { useToast } from 'vue-toastification/composition'
@@ -8,7 +9,7 @@ export default function useCategoriesList() {
   // Use toast
   const toast = useToast()
 
-  const refStoresListTable = ref(null)
+  const refCategoriesListTable = ref(null)
 
   // Table Handlers
   const tableColumns = [
@@ -17,35 +18,33 @@ export default function useCategoriesList() {
   ]
 
   const perPage = ref(10)
-  const totalStores = ref(0)
+  const totalCategories = ref(0)
   const currentPage = ref(1)
   const perPageOptions = [10, 25, 50, 100]
   const searchQuery = ref('')
   const sortBy = ref('id')
   const isSortDirDesc = ref(true)
-  const categoryFilter = ref(null)
-  const descriptionFilter = ref(null)
 
   const dataMeta = computed(() => {
-    const localItemsCount = refStoresListTable.value ? refStoresListTable.value.localItems.length : 0
+    const localItemsCount = refCategoriesListTable.value ? refCategoriesListTable.value.localItems.length : 0
     return {
       from: perPage.value * (currentPage.value - 1) + (localItemsCount ? 1 : 0),
       to: perPage.value * (currentPage.value - 1) + localItemsCount,
-      of: totalStores.value,
+      of: totalCategories.value,
     }
   })
 
   const refetchData = () => {
-    refStoresListTable.value.refresh()
+    refCategoriesListTable.value.refresh()
   }
 
-  watch([currentPage, perPage, searchQuery, categoryFilter, descriptionFilter], () => {
+  watch([currentPage, perPage, searchQuery], () => {
     refetchData()
   })
 
-  const fetchStores = (ctx, callback) => {
+  const fetchCategories = (ctx, callback) => {
     store
-      .dispatch('app-user/fetchStores', {
+      .dispatch('app-category/fetchCategories', {
         q: searchQuery.value,
         perPage: perPage.value,
         page: currentPage.value,
@@ -53,15 +52,15 @@ export default function useCategoriesList() {
         sortDesc: isSortDirDesc.value,
       })
       .then(response => {
-        const { stores, total } = response.data
-        callback(stores)
-        totalStores.value = total
+        const { categories, total } = response.data
+        callback(categories)
+        totalCategories.value = total
       })
       .catch(() => {
         toast({
           component: ToastificationContent,
           props: {
-            title: 'Error fetching stores list',
+            title: 'Error fetching categories list',
             icon: 'AlertTriangleIcon',
             variant: 'danger',
           },
@@ -74,21 +73,17 @@ export default function useCategoriesList() {
   // *===============================================---*
 
   return {
-    fetchStores,
+    fetchCategories,
     tableColumns,
     perPage,
     currentPage,
-    totalStores,
+    totalCategories,
     dataMeta,
     perPageOptions,
     searchQuery,
     sortBy,
     isSortDirDesc,
-    refStoresListTable,
-    refetchData,
-
-    // Extra Filters
-    categoryFilter,
-    descriptionFilter
+    refCategoriesListTable,
+    refetchData
   }
 }

@@ -13,7 +13,8 @@ import './data/card/card-analytics'
 
 // Apps
 import './data/apps/calendar'
-import './data/apps/user'
+import './data/apps/store'
+import './data/apps/category'
 import './data/apps/email'
 import './data/apps/invoice'
 import './data/apps/todo'

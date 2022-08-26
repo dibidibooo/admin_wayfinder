@@ -79,7 +79,17 @@ exports.findOne = (req, res) => {
 exports.update = (req, res) => {
     const id = req.params.id;
 
-    Store.update(req.body, {
+    let body = {
+        title: req.body.title,
+        description: req.body.description,
+        store_hours: req.body.store_hours,
+        categoryId: req.body.categoryId
+    }
+    if (req.file) {
+        body.image = req.file.filename
+    }
+
+    Store.update(body, {
         where: { id: id }
     })
         .then(num => {

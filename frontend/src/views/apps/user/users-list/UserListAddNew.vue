@@ -87,7 +87,7 @@
                 <b-media-body>
                   <small class="text-muted">Required image resolution 800x400, image size 10mb.</small>
                   <div class="d-inline-block">
-                    <b-form-file ref="refInputEl" v-model="store.image" name="image" accept=".jpg, .png, .gif .jpeg"
+                    <b-form-file ref="refInputEl" v-model="store.image" name="image" accept=".jpg, .png, .gif, .jpeg"
                       placeholder="Choose file" @input="inputImageRenderer" />
                   </div>
                 </b-media-body>
@@ -177,11 +177,7 @@ export default {
     isAddNewUserSidebarActive: {
       type: Boolean,
       required: true,
-    },
-    // planOptions: {
-    //   type: Array,
-    //   required: true,
-    // },
+    }
   },
 
   data() {
@@ -195,7 +191,6 @@ export default {
         categoryId: "",
         image: null
       },
-      submitted: false,
       categories: [],
       required,
     };
@@ -226,17 +221,11 @@ export default {
         .then((response) => {
           this.store.id = response.data.id;
           console.log(response.data);
-          this.submitted = true;
         })
         .catch((e) => {
           console.log(e);
         });
-    },
-
-    newStore() {
-      this.submitted = false;
-      this.store = {};
-    },
+    }
   },
 
   mounted() {

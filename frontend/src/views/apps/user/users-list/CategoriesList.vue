@@ -53,8 +53,9 @@
       </div>
 
       <b-table
+        ref="refCategoriesListTable"
         class="position-relative"
-        :items="categories"
+        :items="fetchCategories"
         responsive
         :fields="tableColumns"
         primary-key="id"
@@ -90,19 +91,15 @@
                 class="align-middle text-body"
               />
             </template>
-            <!-- <b-dropdown-item :to="{ name: 'category_details', params: { id: data.item.id } }">
-              <feather-icon icon="FileTextIcon" />
-              <span class="align-middle ml-50">{{ $t('Detail') }}</span>
-            </b-dropdown-item> -->
 
             <b-dropdown-item :to="{ name: 'category_details', params: { id: data.item.id } }">
               <feather-icon icon="EditIcon" />
               <span class="align-middle ml-50">{{ $t('Edit') }}</span>
             </b-dropdown-item>
 
-            <b-dropdown-item>
+            <b-dropdown-item @click="deleteCategory(data.item.id)">
               <feather-icon icon="TrashIcon" />
-              <span class="align-middle ml-50" @click="deleteCategory(data.item.id)">{{ $t('Delete') }}</span>
+              <span class="align-middle ml-50">{{ $t('Delete') }}</span>
             </b-dropdown-item>
           </b-dropdown>
         </template>
@@ -127,7 +124,7 @@
 
             <b-pagination
               v-model="currentPage"
-              :total-rows="totalStores"
+              :total-rows="totalCategories"
               :per-page="perPage"
               first-number
               last-number
@@ -168,9 +165,8 @@ import {
 import vSelect from 'vue-select'
 import store from '@/store'
 import { ref, onUnmounted } from '@vue/composition-api'
-import UsersListFilters from './UsersListFilters.vue'
 import useCategoriesList from './useCategoriesList'
-import userStoreModule from '../userStoreModule'
+import userCategoryModule from '../userCategoryModule'
 import CategoryAddNew from './CategoryAddNew.vue'
 
 export default {
@@ -199,11 +195,6 @@ export default {
       this.retrieveCategories();
       this.currentCategory = null;
       this.currentIndex = -1;
-    },
-
-    setActiveCategory(category, index) {
-      this.currentCategory = category;
-      this.currentIndex = index;
     },
 
     removeAllCategories() {
@@ -237,7 +228,7 @@ export default {
       CategoryDataService.delete(id)
         .then(response => {
           console.log(response.data);
-          this.$router.push({ name: "categories_list" });
+          this.refreshList();
         })
         .catch(e => {
           console.log(e);
@@ -251,7 +242,6 @@ export default {
 
 
   components: {
-    UsersListFilters,
     CategoryAddNew,
 
     BCard,
@@ -271,10 +261,10 @@ export default {
     vSelect,
   },
   setup() {
-    const USER_APP_STORE_MODULE_NAME = 'app-user'
+    const USER_APP_STORE_MODULE_NAME = 'app-category'
 
     // Register module
-    if (!store.hasModule(USER_APP_STORE_MODULE_NAME)) store.registerModule(USER_APP_STORE_MODULE_NAME, userStoreModule)
+    if (!store.hasModule(USER_APP_STORE_MODULE_NAME)) store.registerModule(USER_APP_STORE_MODULE_NAME, userCategoryModule)
 
     // UnRegister on leave
     onUnmounted(() => {
@@ -284,22 +274,18 @@ export default {
     const isAddNewCategorySidebarActive = ref(false)
 
     const {
-      fetchStores,
+      fetchCategories,
       tableColumns,
       perPage,
       currentPage,
-      totalStores,
+      totalCategories,
       dataMeta,
       perPageOptions,
       searchQuery,
       sortBy,
       isSortDirDesc,
-      refUserListTable,
-      refetchData,
-
-      // Extra Filters
-      // categoryFilter,
-      // descriptionFilter
+      refCategoriesListTable,
+      refetchData
     } = useCategoriesList()
 
     return {
@@ -307,22 +293,18 @@ export default {
       // Sidebar
       isAddNewCategorySidebarActive,
 
-      fetchStores,
+      fetchCategories,
       tableColumns,
       perPage,
       currentPage,
-      totalStores,
+      totalCategories,
       dataMeta,
       perPageOptions,
       searchQuery,
       sortBy,
       isSortDirDesc,
-      refUserListTable,
-      refetchData,
-
-      // Extra Filters
-      // categoryFilter,
-      // descriptionFilter
+      refCategoriesListTable,
+      refetchData
     }
   },
 }

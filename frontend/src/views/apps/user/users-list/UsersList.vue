@@ -1,7 +1,7 @@
 <template>
   <div>
     <user-list-add-new
-      :is-add-new-user-sidebar-active.sync="isAddNewUserSidebarActive"
+      :is-add-new-user-sidebar-active.sync="isAddNewStoreSidebarActive"
 
     />
 
@@ -43,7 +43,7 @@
               />
               <b-button
                 variant="primary"
-                @click="isAddNewUserSidebarActive = true"
+                @click="isAddNewStoreSidebarActive = true"
               >
                 <span class="text-nowrap">{{ $t('Add shop') }}</span>
               </b-button>
@@ -54,8 +54,9 @@
       </div>
 
       <b-table
+        ref="refStoresListTable"
         class="position-relative"
-        :items="stores"
+        :items="fetchStores"
         responsive
         :fields="tableColumns"
         primary-key="id"
@@ -95,7 +96,6 @@
         <template #cell(store_hours)="data">
           <b-badge
             pill
-            :variant="`light-${resolveUserStatusVariant(data.item.store_hours)}`"
             class="text-capitalize"
           >
             {{ data.item.store_hours }}
@@ -135,9 +135,9 @@
               <span class="align-middle ml-50">{{ $t('Edit') }}</span>
             </b-dropdown-item>
 
-            <b-dropdown-item>
+            <b-dropdown-item @click="deleteStore(data.item.id)">
               <feather-icon icon="TrashIcon" />
-              <span class="align-middle ml-50" @click="deleteStore(data.item.id)">{{ $t('Delete') }}</span>
+              <span class="align-middle ml-50">{{ $t('Delete') }}</span>
             </b-dropdown-item>
           </b-dropdown>
         </template>
@@ -205,7 +205,7 @@ import store from '@/store'
 import { ref, onUnmounted } from '@vue/composition-api'
 import { avatarText } from '@core/utils/filter'
 import UsersListFilters from './UsersListFilters.vue'
-import useUsersList from './useUsersList'
+import useStoresList from './useStoresList'
 import userStoreModule from '../userStoreModule'
 import UserListAddNew from './UserListAddNew.vue'
 
@@ -235,11 +235,6 @@ export default {
       this.retrieveStores();
       this.currentStore = null;
       this.currentIndex = -1;
-    },
-
-    setActiveStore(store, index) {
-      this.currentStore = store;
-      this.currentIndex = index;
     },
 
     removeAllStores() {
@@ -272,7 +267,7 @@ export default {
       StoreDataService.delete(id)
         .then(response => {
           console.log(response.data);
-          this.$router.push({ name: "apps-users-list" });
+          this.refreshList();
         })
         .catch(e => {
           console.log(e);
@@ -306,7 +301,7 @@ export default {
     vSelect,
   },
   setup() {
-    const USER_APP_STORE_MODULE_NAME = 'app-user'
+    const USER_APP_STORE_MODULE_NAME = 'app-store'
 
     // Register module
     if (!store.hasModule(USER_APP_STORE_MODULE_NAME)) store.registerModule(USER_APP_STORE_MODULE_NAME, userStoreModule)
@@ -316,7 +311,7 @@ export default {
       if (store.hasModule(USER_APP_STORE_MODULE_NAME)) store.unregisterModule(USER_APP_STORE_MODULE_NAME)
     })
 
-    const isAddNewUserSidebarActive = ref(false)
+    const isAddNewStoreSidebarActive = ref(false)
 
     const {
       fetchStores,
@@ -329,22 +324,18 @@ export default {
       searchQuery,
       sortBy,
       isSortDirDesc,
-      refUserListTable,
+      refStoresListTable,
       refetchData,
 
-      // UI
-      resolveUserRoleVariant,
-      resolveUserStatusVariant,
-
       // Extra Filters
-      categoryFilter,
-      descriptionFilter
-    } = useUsersList()
+      // categoryFilter,
+      // descriptionFilter
+    } = useStoresList()
 
     return {
 
       // Sidebar
-      isAddNewUserSidebarActive,
+      isAddNewStoreSidebarActive,
 
       fetchStores,
       tableColumns,
@@ -356,19 +347,15 @@ export default {
       searchQuery,
       sortBy,
       isSortDirDesc,
-      refUserListTable,
+      refStoresListTable,
       refetchData,
 
       // Filter
       avatarText,
 
-      // UI
-      resolveUserRoleVariant,
-      resolveUserStatusVariant,
-
       // Extra Filters
-      categoryFilter,
-      descriptionFilter
+      // categoryFilter,
+      // descriptionFilter
     }
   },
 }
