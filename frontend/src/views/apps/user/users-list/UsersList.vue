@@ -1,50 +1,27 @@
 <template>
   <div>
-    <user-list-add-new
-      :is-add-new-user-sidebar-active.sync="isAddNewStoreSidebarActive"
-
-    />
+    <user-list-add-new 
+      :is-add-new-store-sidebar-active.sync="isAddNewStoreSidebarActive" 
+      @refetch-data="refetchData" />
 
     <!-- Table Container Card -->
-    <b-card
-      no-body
-      class="mb-0"
-    >
+    <b-card no-body class="mb-0">
       <div class="m-2">
         <!-- Table Top -->
         <b-row>
           <!-- Per Page -->
-          <b-col
-            cols="12"
-            md="6"
-            class="d-flex align-items-center justify-content-start mb-1 mb-md-0"
-          >
+          <b-col cols="12" md="6" class="d-flex align-items-center justify-content-start mb-1 mb-md-0">
             <label>{{ $t('Show') }}</label>
-            <v-select
-              v-model="perPage"
-              :dir="$store.state.appConfig.isRTL ? 'rtl' : 'ltr'"
-              :options="perPageOptions"
-              :clearable="false"
-              class="per-page-selector d-inline-block mx-50"
-            />
+            <v-select v-model="perPage" :dir="$store.state.appConfig.isRTL ? 'rtl' : 'ltr'" :options="perPageOptions"
+              :clearable="false" class="per-page-selector d-inline-block mx-50" />
             <label>{{ $t('entries') }}</label>
           </b-col>
 
           <!-- Search -->
-          <b-col
-            cols="12"
-            md="6"
-          >
+          <b-col cols="12" md="6">
             <div class="d-flex align-items-center justify-content-end">
-              <b-form-input
-                v-model="searchQuery"
-                class="d-inline-block mr-1"
-                :placeholder=" $t('Search')"
-              />
-              <b-button
-                variant="primary"
-                @click="isAddNewStoreSidebarActive = true"
-              >
+              <b-form-input v-model="searchQuery" class="d-inline-block mr-1" :placeholder="$t('Search')" />
+              <b-button variant="primary" @click="isAddNewStoreSidebarActive = true">
                 <span class="text-nowrap">{{ $t('Add shop') }}</span>
               </b-button>
             </div>
@@ -53,18 +30,9 @@
 
       </div>
 
-      <b-table
-        ref="refStoresListTable"
-        class="position-relative"
-        :items="fetchStores"
-        responsive
-        :fields="tableColumns"
-        primary-key="id"
-        :sort-by.sync="sortBy"
-        show-empty
-        :empty-text=" $t('No matching records found') "
-        :sort-desc.sync="isSortDirDesc"
-      >
+      <b-table ref="refStoresListTable" class="position-relative" :items="fetchStores" responsive :fields="tableColumns"
+        primary-key="id" :sort-by.sync="sortBy" show-empty :empty-text="$t('No matching records found')"
+        :sort-desc.sync="isSortDirDesc">
 
         <!-- Column: Title -->
         <template #cell(title)="data">
@@ -77,8 +45,7 @@
                 :to="{ name: 'store_details', params: { id: data.item.id } }"
               /> -->
             </template>
-            <b-link
-              :to="{ name: 'store_details', params: { id: data.item.id } }"
+            <b-link :to="{ name: 'store_details', params: { id: data.item.id } }"
               class="font-weight-bold d-block text-nowrap">
               {{ data.item.title }}
             </b-link>
@@ -94,10 +61,7 @@
 
         <!-- Column: Store hours -->
         <template #cell(store_hours)="data">
-          <b-badge
-            pill
-            class="text-capitalize"
-          >
+          <b-badge pill class="text-capitalize">
             {{ data.item.store_hours }}
           </b-badge>
         </template>
@@ -105,25 +69,18 @@
         <!-- Column: Category -->
         <template #cell(category)="data">
           <div class="text-nowrap">
-            <span v-if="data.item.categoryId" class="align-text-top text-capitalize">{{ data.item.category.title }}</span>
+            <span v-if="data.item.categoryId" class="align-text-top text-capitalize">{{ data.item.category.title
+            }}</span>
             <span v-else>No category</span>
           </div>
         </template>
 
         <!-- Column: Actions -->
         <template #cell(actions)="data">
-          <b-dropdown
-            variant="link"
-            no-caret
-            :right="$store.state.appConfig.isRTL"
-          >
+          <b-dropdown variant="link" no-caret :right="$store.state.appConfig.isRTL">
 
             <template #button-content>
-              <feather-icon
-                icon="MoreVerticalIcon"
-                size="16"
-                class="align-middle text-body"
-              />
+              <feather-icon icon="MoreVerticalIcon" size="16" class="align-middle text-body" />
             </template>
             <b-dropdown-item :to="{ name: 'store_details', params: { id: data.item.id } }">
               <feather-icon icon="FileTextIcon" />
@@ -146,41 +103,21 @@
       <div class="mx-2 mb-2">
         <b-row>
 
-          <b-col
-            cols="12"
-            sm="6"
-            class="d-flex align-items-center justify-content-center justify-content-sm-start"
-          >
-            <span class="text-muted">{{ $t('Showing') }} {{ dataMeta.from }} {{ $t('to') }} {{ dataMeta.to }} {{ $t('of') }} {{ dataMeta.of }} {{ $t('entries') }}</span>
+          <b-col cols="12" sm="6" class="d-flex align-items-center justify-content-center justify-content-sm-start">
+            <span class="text-muted">{{ $t('Showing') }} {{ dataMeta.from }} {{ $t('to') }} {{ dataMeta.to }} {{
+                $t('of')
+            }} {{ dataMeta.of }} {{ $t('entries') }}</span>
           </b-col>
           <!-- Pagination -->
-          <b-col
-            cols="12"
-            sm="6"
-            class="d-flex align-items-center justify-content-center justify-content-sm-end"
-          >
+          <b-col cols="12" sm="6" class="d-flex align-items-center justify-content-center justify-content-sm-end">
 
-            <b-pagination
-              v-model="currentPage"
-              :total-rows="totalStores"
-              :per-page="perPage"
-              first-number
-              last-number
-              class="mb-0 mt-1 mt-sm-0"
-              prev-class="prev-item"
-              next-class="next-item"
-            >
+            <b-pagination v-model="currentPage" :total-rows="totalStores" :per-page="perPage" first-number last-number
+              class="mb-0 mt-1 mt-sm-0" prev-class="prev-item" next-class="next-item">
               <template #prev-text>
-                <feather-icon
-                  icon="ChevronLeftIcon"
-                  size="18"
-                />
+                <feather-icon icon="ChevronLeftIcon" size="18" />
               </template>
               <template #next-text>
-                <feather-icon
-                  icon="ChevronRightIcon"
-                  size="18"
-                />
+                <feather-icon icon="ChevronRightIcon" size="18" />
               </template>
             </b-pagination>
 
@@ -193,7 +130,7 @@
 </template>
 
 <script>
-import StoreDataService from "../../../../services/StoreDataService";
+import StoreDataService from "../../../../services/StoreDataService"
 
 
 import {
@@ -216,7 +153,8 @@ export default {
       stores: [],
       currentStore: null,
       currentIndex: -1,
-      title: ""
+      title: "",
+      total_stores: null
     };
   },
 
@@ -225,6 +163,7 @@ export default {
       StoreDataService.getAll()
         .then(response => {
           this.stores = response.data;
+          this.total_stores = response.data.length
         })
         .catch(e => {
           console.log(e);
@@ -237,16 +176,16 @@ export default {
       this.currentIndex = -1;
     },
 
-    removeAllStores() {
-      StoreDataService.deleteAll()
-        .then(response => {
-          console.log(response.data);
-          this.refreshList();
-        })
-        .catch(e => {
-          console.log(e);
-        });
-    },
+    // removeAllStores() {
+    //   StoreDataService.deleteAll()
+    //     .then(response => {
+    //       console.log(response.data);
+    //       this.refreshList();
+    //     })
+    //     .catch(e => {
+    //       console.log(e);
+    //     });
+    // },
 
     searchTitle() {
       StoreDataService.findByTitle(this.title)
@@ -261,17 +200,6 @@ export default {
 
     redirectToStoreDetails() {
       this.$router.push({ name: 'store_details', params: { id: this.currentStore.id } });
-    },
-
-    deleteStore(id) {
-      StoreDataService.delete(id)
-        .then(response => {
-          console.log(response.data);
-          this.refreshList();
-        })
-        .catch(e => {
-          console.log(e);
-        });
     }
   },
 
@@ -300,7 +228,7 @@ export default {
 
     vSelect,
   },
-  setup() {
+  setup(props, { emit }) {
     const USER_APP_STORE_MODULE_NAME = 'app-store'
 
     // Register module
@@ -310,6 +238,17 @@ export default {
     onUnmounted(() => {
       if (store.hasModule(USER_APP_STORE_MODULE_NAME)) store.unregisterModule(USER_APP_STORE_MODULE_NAME)
     })
+
+    const deleteStore = (id) => {
+      StoreDataService.delete(id)
+        .then(response => {
+          emit("refetch-data");
+          console.log(response.data);
+        })
+        .catch(e => {
+          console.log(e);
+        });
+    }
 
     const isAddNewStoreSidebarActive = ref(false)
 
@@ -326,10 +265,7 @@ export default {
       isSortDirDesc,
       refStoresListTable,
       refetchData,
-
-      // Extra Filters
-      // categoryFilter,
-      // descriptionFilter
+      // deleteStore
     } = useStoresList()
 
     return {
@@ -349,13 +285,10 @@ export default {
       isSortDirDesc,
       refStoresListTable,
       refetchData,
+      deleteStore,
 
       // Filter
-      avatarText,
-
-      // Extra Filters
-      // categoryFilter,
-      // descriptionFilter
+      avatarText
     }
   },
 }

@@ -1,5 +1,5 @@
 <template>
-  <b-sidebar id="add-new-category-sidebar" :visible="isAddNewUserSidebarActive" bg-variant="white"
+  <b-sidebar id="add-new-category-sidebar" :visible="isAddNewCategorySidebarActive" bg-variant="white"
     sidebar-class="sidebar-lg" shadow backdrop no-header right
     @change="(val) => $emit('update:is-add-new-category-sidebar-active', val)">
     <template #default="{ hide }">
@@ -96,11 +96,11 @@ export default {
     Ripple,
   },
   model: {
-    prop: "isAddNewUserSidebarActive",
+    prop: "isAddNewCategorySidebarActive",
     event: "update:is-add-new-category-sidebar-active",
   },
   props: {
-    isAddNewUserSidebarActive: {
+    isAddNewCategorySidebarActive: {
       type: Boolean,
       required: true,
     },

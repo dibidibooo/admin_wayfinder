@@ -1,7 +1,7 @@
 <template>
   <div>
     <category-add-new
-      :is-add-new-user-sidebar-active.sync="isAddNewCategorySidebarActive"
+      :is-add-new-category-sidebar-active.sync="isAddNewCategorySidebarActive"
     />
 
     <!-- Table Container Card -->

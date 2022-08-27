@@ -27,8 +27,6 @@ export default function useStoresList() {
   const searchQuery = ref('')
   const sortBy = ref('id')
   const isSortDirDesc = ref(true)
-  const categoryFilter = ref(null)
-  const descriptionFilter = ref(null)
 
   const dataMeta = computed(() => {
     const localItemsCount = refStoresListTable.value ? refStoresListTable.value.localItems.length : 0
@@ -43,7 +41,7 @@ export default function useStoresList() {
     refStoresListTable.value.refresh()
   }
 
-  watch([currentPage, perPage, searchQuery, categoryFilter, descriptionFilter], () => {
+  watch([currentPage, perPage, searchQuery], () => {
     refetchData()
   })
 
@@ -54,9 +52,7 @@ export default function useStoresList() {
         perPage: perPage.value,
         page: currentPage.value,
         sortBy: sortBy.value,
-        sortDesc: isSortDirDesc.value,
-          // category: categoryFilter.value,
-          // description: descriptionFilter.value
+        sortDesc: isSortDirDesc.value
       })
       .then(response => {
         const { stores, total } = response.data
@@ -75,6 +71,12 @@ export default function useStoresList() {
       })
   }
 
+  // const deleteStore = (id) => {
+    // store
+    //   .dispatch(`app-store/deleteStore`, { id: id })
+    //   .then(response => console.log(response.data))
+  // }
+
   // *===============================================---*
   // *--------- UI ---------------------------------------*
   // *===============================================---*
@@ -92,9 +94,6 @@ export default function useStoresList() {
     isSortDirDesc,
     refStoresListTable,
     refetchData,
-
-    // Extra Filters
-    categoryFilter,
-    descriptionFilter
+    // deleteStore
   }
 }

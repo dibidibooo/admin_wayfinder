@@ -1,7 +1,7 @@
 <template>
-  <b-sidebar id="add-new-user-sidebar" :visible="isAddNewUserSidebarActive" bg-variant="white"
+  <b-sidebar id="add-new-store-sidebar" :visible="isAddNewStoreSidebarActive" bg-variant="white"
     sidebar-class="sidebar-lg" shadow backdrop no-header right @hidden="resetForm"
-    @change="(val) => $emit('update:is-add-new-user-sidebar-active', val)">
+    @change="(val) => $emit('update:is-add-new-store-sidebar-active', val)">
     <template #default="{ hide }">
       <!-- Header -->
       <div class="
@@ -170,11 +170,11 @@ export default {
     Ripple,
   },
   model: {
-    prop: "isAddNewUserSidebarActive",
-    event: "update:is-add-new-user-sidebar-active",
+    prop: "isAddNewStoreSidebarActive",
+    event: "update:is-add-new-store-sidebar-active",
   },
   props: {
-    isAddNewUserSidebarActive: {
+    isAddNewStoreSidebarActive: {
       type: Boolean,
       required: true,
     }
@@ -233,36 +233,36 @@ export default {
   },
 
   setup(props, { emit }) {
-    const blankUserData = {
-      fullName: "",
-      username: "",
-      currentPlan: null,
-      company: "",
-      contact: "",
+    const blankStore = {
+      id: null,
+      title: "",
+      description: "",
+      store_hours: "",
+      categoryId: "",
+      image: null
     };
-
 
     const refInputEl = ref(null)
     const refPreviewEl = ref(null)
     const { inputImageRenderer } = useInputImageRenderer(refInputEl, base64 => { refPreviewEl.value.src = base64 })
 
-    const userData = ref(JSON.parse(JSON.stringify(blankUserData)));
-    const resetuserData = () => {
-      userData.value = JSON.parse(JSON.stringify(blankUserData));
+    const storeData = ref(JSON.parse(JSON.stringify(blankStore)));
+    const resetstoreData = () => {
+      storeData.value = JSON.parse(JSON.stringify(blankStore));
     };
 
     const onSubmit = () => {
-      store.dispatch("app-user/addUser", userData.value).then(() => {
-        emit("refetch-data");
-        emit("update:is-add-new-user-sidebar-active", false);
-      });
+      // store.dispatch("app-store/saveStore", storeData.value).then(() => {
+      emit("refetch-data");
+      emit("update:is-add-new-store-sidebar-active", false);
+      // });
     };
 
     const { refFormObserver, getValidationState, resetForm } =
-      formValidation(resetuserData);
+      formValidation(resetstoreData);
 
     return {
-      userData,
+      storeData,
       onSubmit,
       refFormObserver,
       getValidationState,
@@ -278,7 +278,7 @@ export default {
 <style lang="scss">
 @import "@core/scss/vue/libs/vue-select.scss";
 
-#add-new-user-sidebar {
+#add-new-store-sidebar {
   .vs__dropdown-menu {
     max-height: 200px !important;
   }
