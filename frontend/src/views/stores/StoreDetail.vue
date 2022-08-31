@@ -1,37 +1,41 @@
 <template>
   <div v-if="currentStore" class="edit-form">
-    <h4>Store</h4>
+    <h4>Бутик</h4>
     <form>
       <div class="form-group">
-        <label for="title">Title</label>
+        <label for="title">Название</label>
         <p>{{ currentStore.title }}</p>
       </div>
       <div class="form-group">
-        <label for="description">Description</label>
+        <label for="description">Описание</label>
         <p>{{ currentStore.description }}</p>
       </div>
 
       <div class="form-group">
-        <label for="store_hours">Store hours</label>
+        <label for="store_hours">Часы работы</label>
         <p>{{ currentStore.store_hours }}</p>
       </div>
 
       <div class="form-group">
-        <label for="categoryId">Category</label>
+        <label for="categoryId">Категория</label>
         <p v-if="currentStore.categoryId">{{ currentStore.category.title }}</p>
-        <p v-else>No category</p>
+        <p v-else>Нет категории</p>
       </div>
 
       <div class="form-group">
-        <label for="image">Logo</label>
+        <label for="image">Логотип</label>
         <img v-bind:src="image_path + image_name" alt="Logo" id="image" name="image" width="300">
       </div>
     </form>
 
     <div class="mt-3">
       <b-link :to="{ name: 'store_update', params: { id: currentStore.id } }"
-        class="font-weight-bold d-block text-nowrap">
-        Edit
+        class="btn btn-success" >
+        Редактировать
+      </b-link>
+      <b-link :to="{ name: 'stores_list' }"
+        class="btn btn-light ml-2" >
+        Назад
       </b-link>
     </div>
     <p>{{ message }}</p>
@@ -39,7 +43,7 @@
 
   <div v-else>
     <br />
-    <p>Please click on a Store...</p>
+    <p>Ошибка загрузки данных...</p>
   </div>
 </template>
 

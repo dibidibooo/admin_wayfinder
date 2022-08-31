@@ -3,8 +3,13 @@ export default [
     header: 'Apps & Pages',
   },
   {
-    title: 'Stores',
+    title: 'Бутики',
     icon: 'UserIcon',
-    route: 'apps-users-list',
+    route: 'stores_list',
+  },
+  {
+    title: 'Категории',
+    icon: 'UserIcon',
+    route: 'categories_list',
   },
 ]

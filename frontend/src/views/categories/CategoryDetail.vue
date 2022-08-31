@@ -1,9 +1,9 @@
 <template>
   <div v-if="currentCategory" class="edit-form">
-    <h4>Category</h4>
+    <h4>Категория</h4>
     <form>
       <div class="form-group">
-        <label for="title">Title</label>
+        <label for="title">Название</label>
         <input type="text" class="form-control" id="title"
           v-model="currentCategory.title"
         />
@@ -12,11 +12,11 @@
 
     <div class="mt-3">
       <button type="submit" class="btn btn-success" @click="updateCategory">
-        Update
+        Редактировать
       </button>
 
       <button class="btn btn-danger ml-2" @click="deleteCategory">
-        Delete
+        Удалить
       </button>
     </div>
     <p class="mt-3">{{ message }}</p>
@@ -24,7 +24,7 @@
 
   <div v-else>
     <br />
-    <p>Please click on a Category...</p>
+    <p>Ошибка загрузки данных...</p>
   </div>
 </template>
 

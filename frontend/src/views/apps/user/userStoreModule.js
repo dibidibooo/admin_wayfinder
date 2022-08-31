@@ -9,7 +9,7 @@ export default {
     fetchUsers(ctx, queryParams) {
       return new Promise((resolve, reject) => {
         axios
-          .get('http://localhost:8081/api/stores', { params: queryParams })
+          .get('/apps/user/users', { params: queryParams })
           .then(response => resolve(response))
           .catch(error => reject(error))
       })
@@ -17,7 +17,7 @@ export default {
     fetchUser(ctx, { id }) {
       return new Promise((resolve, reject) => {
         axios
-          .get(`http://localhost:8081/api/store/${id}`)
+          .get(`/apps/user/users/${id}`)
           .then(response => resolve(response))
           .catch(error => reject(error))
       })
