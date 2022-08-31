@@ -6,7 +6,6 @@ let data = ''
 
 StoreDataService.getAll()
   .then(response => {
-    // const stores = response.data
     data = response.data
   })
 
@@ -52,14 +51,14 @@ mock.onGet('http://localhost:8081/api/stores').reply(config => {
 //   // Get event from post data
 //   const { new_store } = JSON.parse(config.data)
 
-//   const { length } = data.users
+//   const { length } = data.stores
 //   let lastIndex = 0
 //   if (length) {
-//     lastIndex = data.users[length - 1].id
+//     lastIndex = data.stores[length - 1].id
 //   }
 //   new_store.id = lastIndex + 1
 
-//   data.users.push(new_store)
+//   data.stores.push(new_store)
 
 //   return [201, { new_store }]
 // })

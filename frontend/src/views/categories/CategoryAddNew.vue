@@ -46,7 +46,7 @@
 </template>
 
 <script>
-import CategoryDataService from "../../../../services/CategoryDataService";
+import CategoryDataService from "../../services/CategoryDataService";
 
 import {
   BSidebar,

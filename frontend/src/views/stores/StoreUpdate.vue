@@ -1,30 +1,30 @@
 <template>
   <div v-if="currentStore" class="edit-form">
-    <h4>Store</h4>
+    <h4>Бутик</h4>
     <form enctype="multipart/form-data" method="POST" id="my_form">
       <div class="form-group">
-        <label for="title">Title</label>
+        <label for="title">Название</label>
         <input type="text" class="form-control" id="title" v-model="currentStore.title" />
       </div>
       <div class="form-group">
-        <label for="description">Description</label>
+        <label for="description">Описание</label>
         <input type="text" class="form-control" id="description" v-model="currentStore.description" />
       </div>
 
       <div class="form-group">
-        <label for="store_hours">Store hours</label>
+        <label for="store_hours">Часы работы</label>
         <input type="text" class="form-control" id="store_hours" v-model="currentStore.store_hours" />
       </div>
 
       <div class="form-group">
-        <label for="categoryId">Category</label>
+        <label for="categoryId">Категория</label>
         <select class="form-select" name="categoryId" id="categoryId" v-model="currentStore.categoryId">
           <option v-for="cat in categories" v-bind:value="cat.id" :key="cat.id">{{ cat.title }}</option>
         </select>
       </div>
 
       <div class="form-group">
-        <label for="image">Logo</label>
+        <label for="image">Логотип</label>
         <input class="form-control" type="file" name="image" accept=".jpg, .png, .gif, .jpeg" @change="getImg">
       </div>
       <img v-bind:src="image_path + image_name" alt="Logo" id="image" width="150">
@@ -32,11 +32,11 @@
 
     <div class="mt-3">
       <button type="submit" class="btn btn-success" @click="updateStore">
-        Update
+        Сохранить
       </button>
 
       <button class="btn btn-danger ml-2" @click="deleteStore">
-        Delete
+        Удалить
       </button>
     </div>
     <p>{{ message }}</p>
@@ -44,7 +44,7 @@
 
   <div v-else>
     <br />
-    <p>Error loading data...</p>
+    <p>Ошибка загрузки данных...</p>
   </div>
 </template>
 

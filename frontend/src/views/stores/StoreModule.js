@@ -6,29 +6,37 @@ export default {
   getters: {},
   mutations: {},
   actions: {
-    fetchUsers(ctx, queryParams) {
+    fetchStores(ctx, queryParams) {
       return new Promise((resolve, reject) => {
         axios
-          .get('/apps/user/users', { params: queryParams })
+          .get('http://localhost:8081/api/stores', { params: queryParams })
           .then(response => resolve(response))
           .catch(error => reject(error))
       })
     },
-    fetchUser(ctx, { id }) {
+    fetchStore(ctx, { id }) {
       return new Promise((resolve, reject) => {
         axios
-          .get(`/apps/user/users/${id}`)
+          .get(`http://localhost:8081/api/store/${id}`)
           .then(response => resolve(response))
           .catch(error => reject(error))
       })
     },
-    addUser(ctx, userData) {
+    addStore(ctx, storeData) {
       return new Promise((resolve, reject) => {
         axios
-          .post('/apps/user/users', { user: userData })
+          .post('http://localhost:8081/api/store', { store: storeData })
           .then(response => resolve(response))
           .catch(error => reject(error))
       })
     },
+    deleteStore(ctx, { id }) {
+      return new Promise((resolve, reject) => {
+        axios
+          .delete(`/apps/stores/store/${id}`)
+          .then(response => resolve(response))
+          .catch(error => reject(error))
+      })
+    }
   },
 }

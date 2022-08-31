@@ -22,10 +22,10 @@ export default {
           .catch(error => reject(error))
       })
     },
-    addUser(ctx, userData) {
+    addCategory(ctx, userData) {
       return new Promise((resolve, reject) => {
         axios
-          .post('/apps/user/users', { user: userData })
+          .post('http://localhost:8081/api/category', { user: userData })
           .then(response => resolve(response))
           .catch(error => reject(error))
       })

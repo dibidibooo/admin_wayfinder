@@ -5,7 +5,7 @@ export default [
   {
     title: 'Бутики',
     icon: 'UserIcon',
-    route: 'apps-users-list',
+    route: 'stores_list',
   },
   {
     title: 'Категории',
