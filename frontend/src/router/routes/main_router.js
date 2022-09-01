@@ -23,5 +23,27 @@ export default [
     path: "/category/:id",
     name: "category_details",
     component: () => import('@/views/categories/CategoryDetail.vue'),
+  },
+  {
+    path: '/login2',
+    name: "login2",
+    component: () => import('@/views/accounts/Login.vue'),
+  },
+  {
+    path: '/register2',
+    name: "register2",
+    component: () => import('@/views/accounts/Register.vue'),
+  },
+  {
+    path: '/admin',
+    name: 'admin',
+    // lazy-loaded
+    component: () => import('@/views/accounts/BoardAdmin.vue')
+  },
+  {
+    path: '/user',
+    name: 'user',
+    // lazy-loaded
+    component: () => import('@/views/accounts/BoardUser.vue')
   }
 ]
