@@ -67,8 +67,8 @@
                 >
                   <b-form-input
                     id="register-username"
-                    v-model="username"
-                    name="register-username"
+                    v-model="user.username"
+                    name="username"
                     :state="errors.length > 0 ? false:null"
                     placeholder="johndoe"
                   />
@@ -89,8 +89,8 @@
                 >
                   <b-form-input
                     id="register-email"
-                    v-model="userEmail"
-                    name="register-email"
+                    v-model="user.email"
+                    name="email"
                     :state="errors.length > 0 ? false:null"
                     placeholder="john@example.com"
                   />
@@ -115,11 +115,11 @@
                   >
                     <b-form-input
                       id="register-password"
-                      v-model="password"
+                      v-model="user.password"
                       class="form-control-merge"
                       :type="passwordFieldType"
                       :state="errors.length > 0 ? false:null"
-                      name="register-password"
+                      name="password"
                       placeholder="············"
                     />
                     <b-input-group-append is-text>
@@ -181,6 +181,7 @@ import { required, email } from '@validations'
 import { togglePasswordVisibility } from '@core/mixins/ui/forms'
 import store from '@/store/index'
 import useJwt from '@/auth/jwt/useJwt'
+import User from '../../../models/user';
 
 export default {
   components: {
@@ -205,10 +206,11 @@ export default {
   mixins: [togglePasswordVisibility],
   data() {
     return {
+      user: new User('', '', ''),
+      submitted: false,
+      successful: false,
+      message: '',
       status: '',
-      username: '',
-      userEmail: '',
-      password: '',
       sideImg: require('@/assets/images/pages/register-v2.svg'),
       // validation
       required,
@@ -230,25 +232,27 @@ export default {
   },
   methods: {
     register() {
+      this.message = '';
+      this.submitted = true;
+
       this.$refs.registerForm.validate().then(success => {
         if (success) {
-          useJwt.register({
-            username: this.username,
-            email: this.userEmail,
-            password: this.password,
-          })
-            .then(response => {
-              useJwt.setToken(response.data.accessToken)
-              useJwt.setRefreshToken(response.data.refreshToken)
-              localStorage.setItem('userData', JSON.stringify(response.data.userData))
-              this.$ability.update(response.data.userData.ability)
-              this.$router.push('/')
-            })
-            .catch(error => {
-              this.$refs.registerForm.setErrors(error.response.data.error)
-            })
+          this.$store.dispatch('auth/register', this.user).then(
+            data => {
+              this.message = data.message;
+              this.successful = true;
+              this.$router.push({name: 'auth-login'});
+            },
+            error => {
+              this.message =
+                (error.response && error.response.data) ||
+                error.message ||
+                error.toString();
+              this.successful = false;
+            }
+          );
         }
-      })
+      });
     },
   },
 }

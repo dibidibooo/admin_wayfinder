@@ -4,12 +4,12 @@ export default [
   },
   {
     title: 'Бутики',
-    icon: 'UserIcon',
+    icon: 'ShoppingCartIcon',
     route: 'stores_list',
   },
   {
     title: 'Категории',
-    icon: 'UserIcon',
+    icon: 'GridIcon',
     route: 'categories_list',
   },
 ]

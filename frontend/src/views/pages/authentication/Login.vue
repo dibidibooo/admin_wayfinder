@@ -80,19 +80,19 @@
               <!-- email -->
               <b-form-group
                 label="Email"
-                label-for="login-email"
+                label-for="login-username"
               >
                 <validation-provider
                   #default="{ errors }"
-                  name="Email"
-                  vid="email"
-                  rules="required|email"
+                  name="username"
+                  vid="username"
+                  rules="required"
                 >
                   <b-form-input
-                    id="login-email"
-                    v-model="userEmail"
+                    id="login-username"
+                    v-model="user.username"
                     :state="errors.length > 0 ? false:null"
-                    name="login-email"
+                    name="username"
                     placeholder="john@example.com"
                   />
                   <small class="text-danger">{{ errors[0] }}</small>
@@ -119,11 +119,11 @@
                   >
                     <b-form-input
                       id="login-password"
-                      v-model="password"
+                      v-model="user.password"
                       :state="errors.length > 0 ? false:null"
                       class="form-control-merge"
                       :type="passwordFieldType"
-                      name="login-password"
+                      name="password"
                       placeholder="Password"
                     />
                     <b-input-group-append is-text>
@@ -186,6 +186,7 @@ import { required, email } from '@validations'
 import { togglePasswordVisibility } from '@core/mixins/ui/forms'
 import store from '@/store/index'
 import { getHomeRouteForLoggedInUser } from '@/auth/utils'
+import User from '../../../models/user';
 
 import ToastificationContent from '@core/components/toastification/ToastificationContent.vue'
 
@@ -215,9 +216,10 @@ export default {
   mixins: [togglePasswordVisibility],
   data() {
     return {
+      user: new User('', ''),
+      loading: false,
+      message: '',
       status: '',
-      password: 'admin',
-      userEmail: 'admin@demo.com',
       sideImg: require('@/assets/images/pages/login-v2.svg'),
 
       // validation rules
@@ -240,43 +242,68 @@ export default {
   },
   methods: {
     login() {
+      console.log("USER 888", this.user);
+      // this.$refs.loginForm.validate().then(success => {
+      //   if (success) {
+      //     useJwt.login({
+      //       email: this.userEmail,
+      //       password: this.password,
+      //     })
+      //       .then(response => {
+      //         const { userData } = response.data
+      //         useJwt.setToken(response.data.accessToken)
+      //         useJwt.setRefreshToken(response.data.refreshToken)
+      //         localStorage.setItem('userData', JSON.stringify(userData))
+      //         this.$ability.update(userData.ability)
+
+      //         // ? This is just for demo purpose as well.
+      //         // ? Because we are showing eCommerce app's cart items count in navbar
+      //         this.$store.commit('app-ecommerce/UPDATE_CART_ITEMS_COUNT', userData.extras.eCommerceCartItemsCount)
+
+      //         // ? This is just for demo purpose. Don't think CASL is role based in this case, we used role in if condition just for ease
+      //         this.$router.replace(getHomeRouteForLoggedInUser(userData.role))
+      //           .then(() => {
+      //             this.$toast({
+      //               component: ToastificationContent,
+      //               position: 'top-right',
+      //               props: {
+      //                 title: `Welcome ${userData.fullName || userData.username}`,
+      //                 icon: 'CoffeeIcon',
+      //                 variant: 'success',
+      //                 text: `You have successfully logged in as ${userData.role}. Now you can start to explore!`,
+      //               },
+      //             })
+      //           })
+      //       })
+      //       .catch(error => {
+      //         this.$refs.loginForm.setErrors(error.response.data.error)
+      //       })
+      //   }
+      // })
+      this.loading = true;
+
       this.$refs.loginForm.validate().then(success => {
-        if (success) {
-          useJwt.login({
-            email: this.userEmail,
-            password: this.password,
-          })
-            .then(response => {
-              const { userData } = response.data
-              useJwt.setToken(response.data.accessToken)
-              useJwt.setRefreshToken(response.data.refreshToken)
-              localStorage.setItem('userData', JSON.stringify(userData))
-              this.$ability.update(userData.ability)
-
-              // ? This is just for demo purpose as well.
-              // ? Because we are showing eCommerce app's cart items count in navbar
-              this.$store.commit('app-ecommerce/UPDATE_CART_ITEMS_COUNT', userData.extras.eCommerceCartItemsCount)
-
-              // ? This is just for demo purpose. Don't think CASL is role based in this case, we used role in if condition just for ease
-              this.$router.replace(getHomeRouteForLoggedInUser(userData.role))
-                .then(() => {
-                  this.$toast({
-                    component: ToastificationContent,
-                    position: 'top-right',
-                    props: {
-                      title: `Welcome ${userData.fullName || userData.username}`,
-                      icon: 'CoffeeIcon',
-                      variant: 'success',
-                      text: `You have successfully logged in as ${userData.role}. Now you can start to explore!`,
-                    },
-                  })
-                })
-            })
-            .catch(error => {
-              this.$refs.loginForm.setErrors(error.response.data.error)
-            })
+        if (!success) {
+          console.log('ura 111')
+          this.loading = false;
+          return;
         }
-      })
+
+        if (this.user.username && this.user.password) {
+          this.$store.dispatch('auth/login', this.user).then(
+            () => {
+              this.$router.push({ name: 'stores_list' });
+            },
+            error => {
+              this.loading = false;
+              this.message =
+                (error.response && error.response.data) ||
+                error.message ||
+                error.toString();
+            }
+          );
+        }
+      });
     },
   },
 }
