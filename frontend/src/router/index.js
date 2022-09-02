@@ -21,7 +21,7 @@ const router = new VueRouter({
     return { x: 0, y: 0 }
   },
   routes: [
-    { path: '/', redirect: { name: 'apps-users-list' } },
+    { path: '/', redirect: { name: 'stores_list' } },
     ...apps,
     ...dashboard,
     ...pages,

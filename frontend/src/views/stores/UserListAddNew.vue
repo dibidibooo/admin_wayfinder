@@ -25,11 +25,10 @@
         <b-form class="p-2" 
           enctype="multipart/form-data">
           <!-- Store title -->
-          <validation-provider #default="validationContext" :name="$t('Add New Object_title')" rules="required">
+          <validation-provider #default="validationContext" :name="$t('Add New Object_title')">
             <b-form-group :label="$t('Add New Object_title')" label-for="title">
               <b-form-input type="text" id="title" name="title" v-model="store.title" autofocus
-                :state="getValidationState(validationContext)" trim placeholder="" />
-
+                :state="getValidationState(validationContext)" trim placeholder="" required/>
               <b-form-invalid-feedback>
                 {{ validationContext.errors[0] }}
               </b-form-invalid-feedback>
@@ -37,11 +36,10 @@
           </validation-provider>
 
           <!-- Description -->
-          <validation-provider #default="validationContext" :name="$t('Add New Object_description')" rules="required">
+          <validation-provider #default="validationContext" :name="$t('Add New Object_description')">
             <b-form-group :label="$t('Add New Object_description')" label-for="description">
               <b-form-input id="description" name="description" v-model="store.description"
-                :state="getValidationState(validationContext)" trim />
-
+                :state="getValidationState(validationContext)" trim required/>
               <b-form-invalid-feedback>
                 {{ validationContext.errors[0] }}
               </b-form-invalid-feedback>
@@ -49,11 +47,10 @@
           </validation-provider>
 
           <!-- Store hours -->
-          <validation-provider #default="validationContext" :name="$t('Add New Object_Store_hours')" rules="required">
+          <validation-provider #default="validationContext" :name="$t('Add New Object_Store_hours')">
             <b-form-group :label="$t('Add New Object_Store_hours')" label-for="store_hours">
               <b-form-input id="store_hours" name="store_hours" v-model="store.store_hours"
-                :state="getValidationState(validationContext)" trim />
-
+                :state="getValidationState(validationContext)" trim required/>
               <b-form-invalid-feedback>
                 {{ validationContext.errors[0] }}
               </b-form-invalid-feedback>
@@ -61,10 +58,10 @@
           </validation-provider>
 
           <!-- Categories -->
-          <validation-provider #default="validationContext" :name="$t('Add New Object_category')" rules="required">
+          <validation-provider #default="validationContext" :name="$t('Add New Object_category')">
             <b-form-group :label="$t('Add New Object_category')" label-for="categoryId"
               :state="getValidationState(validationContext)">
-              <b-form-select class="form-select" name="categoryId" id="categoryId" v-model="store.categoryId">
+              <b-form-select class="form-select" name="categoryId" id="categoryId" v-model="store.categoryId" required>
                 <option disabled value="">{{ $t("Choose") }}</option>
                 <option v-for="cat in categories" v-bind:value="cat.id" :key="cat.id">
                   {{ cat.title }}
@@ -88,7 +85,7 @@
                   <small class="text-muted">Required image resolution 800x400, image size 10mb.</small>
                   <div class="d-inline-block">
                     <b-form-file ref="refInputEl" v-model="store.image" name="image" accept=".jpg, .png, .gif, .jpeg"
-                      placeholder="Choose file" @input="inputImageRenderer" />
+                      placeholder="Choose file" @input="inputImageRenderer" required/>
                   </div>
                 </b-media-body>
               </b-media>
@@ -137,7 +134,6 @@ import {
 } from "bootstrap-vue";
 import { ValidationProvider, ValidationObserver } from "vee-validate";
 import { ref } from "@vue/composition-api";
-import { required } from "@validations";
 import formValidation from "@core/comp-functions/forms/form-validation";
 import Ripple from "vue-ripple-directive";
 import vSelect from "vue-select";
@@ -191,13 +187,14 @@ export default {
         categoryId: "",
         image: null
       },
-      categories: [],
-      required,
+      categories: []
     };
   },
+  
   created() {
     this.$http.get('/blog/list/data/edit').then(res => { this.blogEdit = res.data })
   },
+
   methods: {
     retrieveCategories() {
       CategoryDataService.getAll()
@@ -210,7 +207,6 @@ export default {
     },
 
     saveStore() {
-      console.log(753);
       const formData = new FormData();
       formData.append("image", this.store.image);
       formData.append("title", this.store.title);
@@ -220,7 +216,6 @@ export default {
 
       StoreDataService.create(formData)
         .then((response) => {
-          console.log(754);
           this.store.id = response.data.id;
           console.log(response.data);
         })
