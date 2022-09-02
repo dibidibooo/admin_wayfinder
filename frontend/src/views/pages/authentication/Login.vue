@@ -47,7 +47,7 @@
             {{ $t('Login Welcome title') }}
           </b-card-text>
 
-          <b-alert
+          <!-- <b-alert
             variant="primary"
             show
           >
@@ -66,7 +66,7 @@
               class="position-absolute"
               style="top: 10; right: 10;"
             />
-          </b-alert>
+          </b-alert> -->
 
           <!-- form -->
           <validation-observer
@@ -79,7 +79,7 @@
             >
               <!-- email -->
               <b-form-group
-                label="Email"
+                label="Username"
                 label-for="login-username"
               >
                 <validation-provider
@@ -93,7 +93,7 @@
                     v-model="user.username"
                     :state="errors.length > 0 ? false:null"
                     name="username"
-                    placeholder="john@example.com"
+                    placeholder="Username"
                   />
                   <small class="text-danger">{{ errors[0] }}</small>
                 </validation-provider>
@@ -242,7 +242,6 @@ export default {
   },
   methods: {
     login() {
-      console.log("USER 888", this.user);
       // this.$refs.loginForm.validate().then(success => {
       //   if (success) {
       //     useJwt.login({
@@ -280,11 +279,11 @@ export default {
       //       })
       //   }
       // })
+
       this.loading = true;
 
       this.$refs.loginForm.validate().then(success => {
         if (!success) {
-          console.log('ura 111')
           this.loading = false;
           return;
         }

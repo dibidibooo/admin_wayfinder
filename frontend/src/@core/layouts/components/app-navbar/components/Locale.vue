@@ -5,7 +5,7 @@
     class="dropdown-language"
     right
   >
-    <!-- <template #button-content>
+    <template #button-content>
       <b-img
         :src="currentLocale.img"
         height="14px"
@@ -13,7 +13,7 @@
         :alt="currentLocale.locale"
       />
       <span class="ml-50 text-body">{{ currentLocale.name }}</span>
-    </template> -->
+    </template>
     <b-dropdown-item
       v-for="localeObj in locales"
       :key="localeObj.locale"
@@ -54,9 +54,9 @@ export default {
         name: 'English',
       },
       {
-        locale: 'fr',
-        img: require('@/assets/images/flags/fr.png'),
-        name: 'French',
+        locale: 'ru',
+        img: require('@/assets/images/flags/ru.png'),
+        name: 'Russian',
       },
     ]
     /* eslint-disable global-require */
