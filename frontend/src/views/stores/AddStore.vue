@@ -36,7 +36,7 @@
         
         <div>
           <label for="categoryId">Category</label>
-          <select class="form-select" name="categoryId" id="categoryId" v-model="store.categoryId">
+          <select class="form-select" name="categoryId" id="categoryId" v-model="store.categoryId" required>
             <option disabled value="">Choose category...</option>
             <option v-for="cat in categories" v-bind:value="cat.id" :key="cat.id">{{ cat.title }}</option>
           </select>
@@ -47,7 +47,6 @@
           <input
             class="form-control"
             id="image"
-            required
             name="image"
             type="file"
           />

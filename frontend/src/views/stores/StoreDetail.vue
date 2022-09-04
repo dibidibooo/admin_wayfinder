@@ -1,46 +1,82 @@
 <template>
-  <div v-if="currentStore" class="edit-form">
-    <h4>Store</h4>
-    <form>
-      <div class="form-group">
-        <label for="title">Title</label>
-        <p>{{ currentStore.title }}</p>
-      </div>
-      <div class="form-group">
-        <label for="description">Description</label>
-        <p>{{ currentStore.description }}</p>
-      </div>
+  <b-card>
+    <!-- media -->
+    <b-media no-body>
+      <b-media-aside>
+        <b-img
+          ref="refPreviewEl"
+          :src="image_path + image_name"
+          rounded
+          height="80"
+        />
+      </b-media-aside>
+    </b-media>
+    <!--/ media -->
 
-      <div class="form-group">
-        <label for="store_hours">Store hours</label>
-        <p>{{ currentStore.store_hours }}</p>
-      </div>
+    <!-- form -->
+    <b-form class="mt-2">
+      <b-row>
+        
+        <b-col sm="6">
+          <b-form-group
+            label="Title"
+            label-for="title"
+          >
+            <p id="title">{{ currentStore.title }}</p>
+          </b-form-group>
+        </b-col>
+        
+        <b-col sm="6">
+          <b-form-group
+            label="Description"
+            label-for="description"
+          >
+            <p id="description">{{ currentStore.description }}</p>
+          </b-form-group>
+        </b-col>
+        
+        <b-col sm="6">
+          <b-form-group
+            label="Store hours"
+            label-for="store_hours"
+          >
+            <p id="store_hours">{{ currentStore.store_hours }}</p>
+          </b-form-group>
+        </b-col>
+        
+        <b-col sm="6">
+          <b-form-group
+            label="Категория"
+            label-for="categoryId"
+          >
+            <p id="categoryId" v-if="currentStore.categoryId">{{ currentStore.category.title }}</p>
+            <p v-else>Нет категории</p>
+          </b-form-group>
+        </b-col>
 
-      <div class="form-group">
-        <label for="categoryId">Category</label>
-        <p v-if="currentStore.categoryId">{{ currentStore.category.title }}</p>
-        <p v-else>No category</p>
-      </div>
+        <b-col cols="12">
+          <b-button
+            v-ripple.400="'rgba(255, 255, 255, 0.15)'"
+            variant="primary"
+            class="mt-2 mr-1"
+            :to="{ name: 'store_update', params: { id: currentStore.id } }"
+          >
+            Редактировать
+          </b-button>
+          <b-button
+            v-ripple.400="'rgba(186, 191, 199, 0.15)'"
+            variant="outline-secondary"
+            type="reset"
+            class="mt-2"
+            :to="{ name: 'stores_list' }"
+          >
+            Назад
+          </b-button>
+        </b-col>
 
-      <div class="form-group">
-        <label for="image">Logo</label>
-        <img v-bind:src="image_path + image_name" alt="Logo" id="image" name="image" width="300">
-      </div>
-    </form>
-
-    <div class="mt-3">
-      <b-link :to="{ name: 'store_update', params: { id: currentStore.id } }"
-        class="font-weight-bold d-block text-nowrap">
-        Edit
-      </b-link>
-    </div>
-    <p>{{ message }}</p>
-  </div>
-
-  <div v-else>
-    <br />
-    <p>Please click on a Store...</p>
-  </div>
+      </b-row>
+    </b-form>
+  </b-card>
 </template>
 
 <script>
@@ -48,9 +84,25 @@ import StoreDataService from "../../services/StoreDataService";
 import CategoryDataService from "../../services/CategoryDataService";
 
 import {
-  BCard, BRow, BCol, BFormInput, BButton, BTable, BMedia, BAvatar, BLink,
-  BBadge, BDropdown, BDropdownItem, BPagination,
+  BFormFile, 
+  BButton, 
+  BForm, 
+  BFormGroup, 
+  BFormInput, 
+  BRow, 
+  BCol, 
+  BAlert, 
+  BCard, 
+  BCardText, 
+  BMedia, 
+  BMediaAside, 
+  BMediaBody, 
+  BLink, 
+  BImg,
+  BFormSelect,
+  BFormSelectOption
 } from 'bootstrap-vue'
+import Ripple from 'vue-ripple-directive'
 
 export default {
   name: "store_details",
@@ -63,8 +115,29 @@ export default {
       image_name: null
     };
   },
+
   components: {
-    BLink
+    BButton,
+    BForm,
+    BImg,
+    BFormFile,
+    BFormGroup,
+    BFormInput,
+    BRow,
+    BCol,
+    BAlert,
+    BCard,
+    BCardText,
+    BMedia,
+    BMediaAside,
+    BMediaBody,
+    BLink,
+    BFormSelect,
+    BFormSelectOption
+  },
+
+  directives: {
+    Ripple,
   },
 
   methods: {
@@ -98,7 +171,7 @@ export default {
       StoreDataService.delete(this.currentStore.id)
         .then(response => {
           console.log(response.data);
-          this.$router.push({ name: "apps-users-list" });
+          this.$router.push({ name: "stores_list" });
         })
         .catch(e => {
           console.log(e);

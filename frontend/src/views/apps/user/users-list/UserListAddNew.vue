@@ -1,34 +1,62 @@
 <template>
-  <b-sidebar id="add-new-user-sidebar" :visible="isAddNewUserSidebarActive" bg-variant="white"
-    sidebar-class="sidebar-lg" shadow backdrop no-header right @hidden="resetForm"
-    @change="(val) => $emit('update:is-add-new-user-sidebar-active', val)">
+  <b-sidebar
+    id="add-new-user-sidebar"
+    :visible="isAddNewUserSidebarActive"
+    bg-variant="white"
+    sidebar-class="sidebar-lg"
+    shadow
+    backdrop
+    no-header
+    right
+    @hidden="resetForm"
+    @change="(val) => $emit('update:is-add-new-user-sidebar-active', val)"
+  >
     <template #default="{ hide }">
       <!-- Header -->
-      <div class="
-          d-flex
-          justify-content-between
-          align-items-center
-          content-sidebar-header
-          px-2
-          py-1
-        ">
+      <div class="d-flex justify-content-between align-items-center content-sidebar-header px-2 py-1">
         <h5 class="mb-0">
-          {{ $t("Add New Object") }}
+          Add New User
         </h5>
 
-        <feather-icon class="ml-1 cursor-pointer" icon="XIcon" size="16" @click="hide" />
+        <feather-icon
+          class="ml-1 cursor-pointer"
+          icon="XIcon"
+          size="16"
+          @click="hide"
+        />
+
       </div>
 
       <!-- BODY -->
-      <validation-observer #default="{ handleSubmit }" ref="refFormObserver">
+      <validation-observer
+        #default="{ handleSubmit }"
+        ref="refFormObserver"
+      >
         <!-- Form -->
-        <b-form class="p-2" @submit.prevent="handleSubmit(onSubmit)" @reset.prevent="resetForm"
-          enctype="multipart/form-data">
-          <!-- Store title -->
-          <validation-provider #default="validationContext" :name="$t('Add New Object_title')" rules="required">
-            <b-form-group :label="$t('Add New Object_title')" label-for="title">
-              <b-form-input type="text" id="title" name="title" v-model="store.title" autofocus
-                :state="getValidationState(validationContext)" trim placeholder="" />
+        <b-form
+          class="p-2"
+          @submit.prevent="handleSubmit(onSubmit)"
+          @reset.prevent="resetForm"
+        >
+
+          <!-- Full Name -->
+          <validation-provider
+            #default="validationContext"
+            name="Full Name"
+            rules="required"
+          >
+            <b-form-group
+              label="Full Name"
+              label-for="full-name"
+            >
+              <b-form-input
+                id="full-name"
+                v-model="userData.fullName"
+                autofocus
+                :state="getValidationState(validationContext)"
+                trim
+                placeholder="John Doe"
+              />
 
               <b-form-invalid-feedback>
                 {{ validationContext.errors[0] }}
@@ -36,11 +64,22 @@
             </b-form-group>
           </validation-provider>
 
-          <!-- Description -->
-          <validation-provider #default="validationContext" :name="$t('Add New Object_description')" rules="required">
-            <b-form-group :label="$t('Add New Object_description')" label-for="description">
-              <b-form-input id="description" name="description" v-model="store.description"
-                :state="getValidationState(validationContext)" trim />
+          <!-- Username -->
+          <validation-provider
+            #default="validationContext"
+            name="Username"
+            rules="required|alpha-num"
+          >
+            <b-form-group
+              label="Username"
+              label-for="username"
+            >
+              <b-form-input
+                id="username"
+                v-model="userData.username"
+                :state="getValidationState(validationContext)"
+                trim
+              />
 
               <b-form-invalid-feedback>
                 {{ validationContext.errors[0] }}
@@ -48,11 +87,22 @@
             </b-form-group>
           </validation-provider>
 
-          <!-- Store hours -->
-          <validation-provider #default="validationContext" :name="$t('Add New Object_Store_hours')" rules="required">
-            <b-form-group :label="$t('Add New Object_Store_hours')" label-for="store_hours">
-              <b-form-input id="store_hours" name="store_hours" v-model="store.store_hours"
-                :state="getValidationState(validationContext)" trim />
+          <!-- Email -->
+          <validation-provider
+            #default="validationContext"
+            name="Email"
+            rules="required|email"
+          >
+            <b-form-group
+              label="Email"
+              label-for="email"
+            >
+              <b-form-input
+                id="email"
+                v-model="userData.email"
+                :state="getValidationState(validationContext)"
+                trim
+              />
 
               <b-form-invalid-feedback>
                 {{ validationContext.errors[0] }}
@@ -60,40 +110,121 @@
             </b-form-group>
           </validation-provider>
 
-          <!-- Categories -->
-          <validation-provider #default="validationContext" :name="$t('Add New Object_category')" rules="required">
-            <b-form-group :label="$t('Add New Object_category')" label-for="categoryId"
-              :state="getValidationState(validationContext)">
-              <b-form-select class="form-select" name="categoryId" id="categoryId" v-model="store.categoryId">
-                <option disabled value="">{{ $t("Choose") }}</option>
-                <option v-for="cat in categories" v-bind:value="cat.id" :key="cat.id">
-                  {{ cat.title }}
-                </option>
-              </b-form-select>
+          <!-- Company -->
+          <validation-provider
+            #default="validationContext"
+            name="Contact"
+            rules="required"
+          >
+            <b-form-group
+              label="Contact"
+              label-for="contact"
+            >
+              <b-form-input
+                id="contact"
+                v-model="userData.contact"
+                :state="getValidationState(validationContext)"
+                trim
+              />
+
+              <b-form-invalid-feedback>
+                {{ validationContext.errors[0] }}
+              </b-form-invalid-feedback>
+            </b-form-group>
+          </validation-provider>
+
+          <!-- Company -->
+          <validation-provider
+            #default="validationContext"
+            name="Company"
+            rules="required"
+          >
+            <b-form-group
+              label="Company"
+              label-for="company"
+            >
+              <b-form-input
+                id="company"
+                v-model="userData.company"
+                :state="getValidationState(validationContext)"
+                trim
+              />
+
+              <b-form-invalid-feedback>
+                {{ validationContext.errors[0] }}
+              </b-form-invalid-feedback>
+            </b-form-group>
+          </validation-provider>
+
+          <!-- Country -->
+          <validation-provider
+            #default="validationContext"
+            name="Country"
+            rules="required"
+          >
+            <b-form-group
+              label="Country"
+              label-for="country"
+              :state="getValidationState(validationContext)"
+            >
+              <v-select
+                v-model="userData.country"
+                :dir="$store.state.appConfig.isRTL ? 'rtl' : 'ltr'"
+                :options="countries"
+                :clearable="false"
+                input-id="country"
+              />
               <b-form-invalid-feedback :state="getValidationState(validationContext)">
                 {{ validationContext.errors[0] }}
               </b-form-invalid-feedback>
             </b-form-group>
           </validation-provider>
 
-          <!-- Image -->
-          <validation-provider #default="validationContext" :name="$t('Media Image')" rules="required">
-            <b-form-group :label="$t('Media Image')" label-for="image">
-              <b-media no-body vertical-align="center" class="flex-column flex-md-row">
-                <b-media-aside>
-                  <b-img ref="refPreviewEl" :src="blogEdit.featuredImage" height="110" width="170"
-                    class="rounded mr-2 mb-1 mb-md-0" />
-                </b-media-aside>
-                <b-media-body>
-                  <small class="text-muted">Required image resolution 800x400, image size 10mb.</small>
-                  <div class="d-inline-block">
-                    <b-form-file ref="refInputEl" v-model="store.image" name="image" accept=".jpg, .png, .gif .jpeg"
-                      placeholder="Choose file" @input="inputImageRenderer" />
-                  </div>
-                </b-media-body>
-              </b-media>
+          <!-- User Role -->
+          <validation-provider
+            #default="validationContext"
+            name="User Role"
+            rules="required"
+          >
+            <b-form-group
+              label="User Role"
+              label-for="user-role"
+              :state="getValidationState(validationContext)"
+            >
+              <v-select
+                v-model="userData.role"
+                :dir="$store.state.appConfig.isRTL ? 'rtl' : 'ltr'"
+                :options="roleOptions"
+                :reduce="val => val.value"
+                :clearable="false"
+                input-id="user-role"
+              />
+              <b-form-invalid-feedback :state="getValidationState(validationContext)">
+                {{ validationContext.errors[0] }}
+              </b-form-invalid-feedback>
+            </b-form-group>
+          </validation-provider>
 
-              <b-form-invalid-feedback>
+          <!-- Plan -->
+          <validation-provider
+            #default="validationContext"
+            name="Plan"
+            rules="required"
+          >
+            <b-form-group
+              label="Plan"
+              label-for="plan"
+              :state="getValidationState(validationContext)"
+            >
+              <v-select
+                v-model="userData.currentPlan"
+                :dir="$store.state.appConfig.isRTL ? 'rtl' : 'ltr'"
+                :options="planOptions"
+                :reduce="val => val.value"
+                :clearable="false"
+                input-id="plan"
+              />
+              <b-form-invalid-feedback :state="getValidationState(validationContext)">
                 {{ validationContext.errors[0] }}
               </b-form-invalid-feedback>
             </b-form-group>
@@ -101,15 +232,24 @@
 
           <!-- Form Actions -->
           <div class="d-flex mt-2">
-            <b-button v-ripple.400="'rgba(255, 255, 255, 0.15)'" variant="primary" class="mr-2" type="submit"
-              @click="saveStore">
-              {{ $t("Add") }}
+            <b-button
+              v-ripple.400="'rgba(255, 255, 255, 0.15)'"
+              variant="primary"
+              class="mr-2"
+              type="submit"
+            >
+              Add
             </b-button>
-            <b-button v-ripple.400="'rgba(186, 191, 199, 0.15)'" type="button" variant="outline-secondary"
-              @click="hide">
-              {{ $t("Cancel") }}
+            <b-button
+              v-ripple.400="'rgba(186, 191, 199, 0.15)'"
+              type="button"
+              variant="outline-secondary"
+              @click="hide"
+            >
+              Cancel
             </b-button>
           </div>
+
         </b-form>
       </validation-observer>
     </template>
@@ -117,49 +257,26 @@
 </template>
 
 <script>
-import StoreDataService from "../../../../services/StoreDataService";
-import CategoryDataService from "../../../../services/CategoryDataService";
-
 import {
-  BSidebar,
-  BForm,
-  BFormGroup,
-  BFormInput,
-  BFormSelect,
-  BFormInvalidFeedback,
-  BButton,
-  BMedia,
-  BMediaAside,
-  BMediaBody,
-  BImg,
-  BFormFile,
-  BLink,
-} from "bootstrap-vue";
-import { ValidationProvider, ValidationObserver } from "vee-validate";
-import { ref } from "@vue/composition-api";
-import { required } from "@validations";
-import formValidation from "@core/comp-functions/forms/form-validation";
-import Ripple from "vue-ripple-directive";
-import vSelect from "vue-select";
-import store from "@/store";
-import { useInputImageRenderer } from '@core/comp-functions/forms/form-utils'
+  BSidebar, BForm, BFormGroup, BFormInput, BFormInvalidFeedback, BButton,
+} from 'bootstrap-vue'
+import { ValidationProvider, ValidationObserver } from 'vee-validate'
+import { ref } from '@vue/composition-api'
+import { required, alphaNum, email } from '@validations'
+import formValidation from '@core/comp-functions/forms/form-validation'
+import Ripple from 'vue-ripple-directive'
+import vSelect from 'vue-select'
+import countries from '@/@fake-db/data/other/countries'
+import store from '@/store'
 
 export default {
-  name: "add_store",
   components: {
     BSidebar,
     BForm,
     BFormGroup,
     BFormInput,
     BFormInvalidFeedback,
-    BFormSelect,
     BButton,
-    BMedia,
-    BMediaAside,
-    BMediaBody,
-    BImg,
-    BFormFile,
-    BLink,
     vSelect,
 
     // Form Validation
@@ -170,124 +287,76 @@ export default {
     Ripple,
   },
   model: {
-    prop: "isAddNewUserSidebarActive",
-    event: "update:is-add-new-user-sidebar-active",
+    prop: 'isAddNewUserSidebarActive',
+    event: 'update:is-add-new-user-sidebar-active',
   },
   props: {
     isAddNewUserSidebarActive: {
       type: Boolean,
       required: true,
     },
-    // planOptions: {
-    //   type: Array,
-    //   required: true,
-    // },
+    roleOptions: {
+      type: Array,
+      required: true,
+    },
+    planOptions: {
+      type: Array,
+      required: true,
+    },
   },
-
   data() {
     return {
-      blogEdit: {},
-      store: {
-        id: null,
-        title: "",
-        description: "",
-        store_hours: "",
-        categoryId: "",
-        image: null
-      },
-      submitted: false,
-      categories: [],
       required,
-    };
+      alphaNum,
+      email,
+      countries,
+    }
   },
-  created() {
-    this.$http.get('/blog/list/data/edit').then(res => { this.blogEdit = res.data })
-  },
-  methods: {
-    retrieveCategories() {
-      CategoryDataService.getAll()
-        .then((response) => {
-          this.categories = response.data;
-        })
-        .catch((e) => {
-          console.log(e);
-        });
-    },
-
-    saveStore() {
-      const formData = new FormData();
-      formData.append("image", this.store.image);
-      formData.append("title", this.store.title);
-      formData.append("description", this.store.description);
-      formData.append("store_hours", this.store.store_hours);
-      formData.append("categoryId", Number(this.store.categoryId));
-
-      StoreDataService.create(formData)
-        .then((response) => {
-          this.store.id = response.data.id;
-          console.log(response.data);
-          this.submitted = true;
-        })
-        .catch((e) => {
-          console.log(e);
-        });
-    },
-
-    newStore() {
-      this.submitted = false;
-      this.store = {};
-    },
-  },
-
-  mounted() {
-    this.retrieveCategories();
-  },
-
   setup(props, { emit }) {
     const blankUserData = {
-      fullName: "",
-      username: "",
+      fullName: '',
+      username: '',
+      email: '',
+      role: null,
       currentPlan: null,
-      company: "",
-      contact: "",
-    };
+      company: '',
+      country: '',
+      contact: '',
+    }
 
-
-    const refInputEl = ref(null)
-    const refPreviewEl = ref(null)
-    const { inputImageRenderer } = useInputImageRenderer(refInputEl, base64 => { refPreviewEl.value.src = base64 })
-
-    const userData = ref(JSON.parse(JSON.stringify(blankUserData)));
+    const userData = ref(JSON.parse(JSON.stringify(blankUserData)))
     const resetuserData = () => {
-      userData.value = JSON.parse(JSON.stringify(blankUserData));
-    };
+      userData.value = JSON.parse(JSON.stringify(blankUserData))
+    }
 
     const onSubmit = () => {
-      store.dispatch("app-user/addUser", userData.value).then(() => {
-        emit("refetch-data");
-        emit("update:is-add-new-user-sidebar-active", false);
-      });
-    };
+      store.dispatch('app-user/addUser', userData.value)
+        .then(() => {
+          emit('refetch-data')
+          emit('update:is-add-new-user-sidebar-active', false)
+        })
+    }
 
-    const { refFormObserver, getValidationState, resetForm } =
-      formValidation(resetuserData);
+    const {
+      refFormObserver,
+      getValidationState,
+      resetForm,
+    } = formValidation(resetuserData)
 
     return {
       userData,
       onSubmit,
+
       refFormObserver,
       getValidationState,
       resetForm,
-      refInputEl,
-      refPreviewEl,
-      inputImageRenderer,
-    };
+    }
   },
-};
+}
 </script>
 
 <style lang="scss">
-@import "@core/scss/vue/libs/vue-select.scss";
+@import '@core/scss/vue/libs/vue-select.scss';
 
 #add-new-user-sidebar {
   .vs__dropdown-menu {

@@ -3,14 +3,13 @@ export default [
     header: 'Apps & Pages',
   },
   {
-    title: 'Stores',
+    title: 'Бутики',
     icon: 'ShoppingCartIcon',
-    route: 'apps-users-list',
+    route: 'stores_list',
   },
   {
-    title: 'Categories',
-    icon: 'FileTextIcon',
-    route: 'apps-todo',
-
+    title: 'Категории',
+    icon: 'GridIcon',
+    route: 'categories_list',
   },
 ]

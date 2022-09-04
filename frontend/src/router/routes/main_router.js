@@ -15,14 +15,9 @@ export default [
     component: () => import('@/views/stores/StoreUpdate.vue'),
   },
   {
-    path: "/store_create",
-    name: "add_store",
-    component: () => import('@/views/stores/AddStore.vue'),
-  },
-  {
     path: "/categories",
     name: "categories_list",
-    component: () => import('@/views/apps/user/users-list/CategoriesList.vue'),
+    component: () => import('@/views/categories/CategoriesList.vue'),
   },
   {
     path: "/category/:id",
@@ -30,8 +25,25 @@ export default [
     component: () => import('@/views/categories/CategoryDetail.vue'),
   },
   {
-    path: "/category_create",
-    name: "add_category",
-    component: () => import('@/views/categories/AddCategory.vue'),
+    path: '/login2',
+    name: "login2",
+    component: () => import('@/views/accounts/Login.vue'),
   },
+  {
+    path: '/register2',
+    name: "register2",
+    component: () => import('@/views/accounts/Register.vue'),
+  },
+  {
+    path: '/admin',
+    name: 'admin',
+    // lazy-loaded
+    component: () => import('@/views/accounts/BoardAdmin.vue')
+  },
+  {
+    path: '/user',
+    name: 'user',
+    // lazy-loaded
+    component: () => import('@/views/accounts/BoardUser.vue')
+  }
 ]

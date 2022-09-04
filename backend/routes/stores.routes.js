@@ -13,7 +13,7 @@ module.exports = app => {
   router.get("/store/:id", stores.findOne);
   
   // Update a Store with id
-  router.put("/store/:id", stores.update);
+  router.put("/store/:id", upload.single("image"), stores.update);
   
   // Delete a Store with id
   router.delete("/store/:id", stores.delete);
