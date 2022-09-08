@@ -10,7 +10,7 @@ module.exports = function (app) {
         next();
     });
 
-    app.get("/api/accounts/all", controller.allAccess);
+    // app.get("/api/accounts/all", controller.allAccess);
 
     app.get(
         "/api/accounts/user",

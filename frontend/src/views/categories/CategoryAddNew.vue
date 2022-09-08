@@ -132,34 +132,6 @@ export default {
         });
     },
   },
-
-  // setup(props, { emit }) {
-    // const blankUserData = {
-    //   fullName: "",
-    //   username: "",
-    //   currentPlan: null,
-    //   company: "",
-    //   contact: "",
-    // };
-
-    // const refPreviewEl = ref(null)
-
-    // const userData = ref(JSON.parse(JSON.stringify(blankUserData)));
-    // const resetuserData = () => {
-    //   userData.value = JSON.parse(JSON.stringify(blankUserData));
-    // };
-
-    // const { refFormObserver, getValidationState, resetForm } =
-    //   formValidation(resetuserData);
-
-    // return {
-  //     // userData,
-      // refFormObserver,
-      // getValidationState,
-  //     resetForm,
-      // refPreviewEl
-  //   };
-  // },
 };
 </script>
 

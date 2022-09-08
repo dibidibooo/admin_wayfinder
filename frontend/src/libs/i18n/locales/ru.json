@@ -20,7 +20,7 @@
   "Forms & Tables": "Forms & Tables",
   "Pages": "Pages",
   "Charts & Maps": "Charts & Maps",
-  "Others": "Others",
+  "Others": "Другое",
   "Typography": "Typography",
   "Colors": "Colors",
   "Feather": "Feather",
@@ -214,7 +214,7 @@
   "Add New Object_Store_hours": "График работы",
   "Add New Object_category": "Категория",
   "Add New Object_logo": "Логотип",
-  "Cancel": "Отмена",
+  "Cancel": "Отменить",
   "No matching records found": "Совпадающих записей не найдено",
   "Choose": "Выбрать..",
   "Media Image": "Логотип"
