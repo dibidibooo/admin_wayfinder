@@ -58,8 +58,8 @@ export default {
   },
   methods: {
     loginRoute() {
-      const user = JSON.parse(localStorage.getItem('userData'))
-      return getHomeRouteForLoggedInUser(user ? user.role : null)
+      const user = JSON.parse(localStorage.getItem('user'))
+      return getHomeRouteForLoggedInUser(user ? user.roles : null)
     },
   },
 }

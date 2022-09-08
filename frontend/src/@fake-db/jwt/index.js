@@ -56,7 +56,7 @@ const jwtConfig = {
   refreshTokenExpireTime: '10m',
 }
 
-mock.onPost('/jwt/login').reply(request => {
+mock.onPost('/api/auth/signin').reply(request => {
   const { email, password } = JSON.parse(request.data)
 
   let error = {
@@ -95,7 +95,7 @@ mock.onPost('/jwt/login').reply(request => {
   return [400, { error }]
 })
 
-mock.onPost('/jwt/register').reply(request => {
+mock.onPost('/api/auth/signup').reply(request => {
   const { username, email, password } = JSON.parse(request.data)
 
   // If not any of data is missing return 400
@@ -123,15 +123,15 @@ mock.onPost('/jwt/register').reply(request => {
       email,
       password,
       username,
-      fullName: '',
-      avatar: null,
-      role: 'admin',
-      ability: [
-        {
-          action: 'manage',
-          subject: 'all',
-        },
-      ],
+      // fullName: '',
+      // avatar: null,
+      // role: 'admin',
+      // ability: [
+      //   {
+      //     action: 'manage',
+      //     subject: 'all',
+      //   },
+      // ],
     }
 
     // Add user id

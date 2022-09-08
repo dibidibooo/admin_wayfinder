@@ -156,58 +156,18 @@ import { avatarText } from '@core/utils/filter'
 import UsersListFilters from './UsersListFilters.vue'
 import useStoresList from './useStoresList'
 import StoreModule from './StoreModule'
-import UserListAddNew from './UserListAddNew.vue'
+import UserListAddNew from './StoreCreate.vue'
 
 export default {
   name: "stores_list",
   data() {
     return {
-      // stores: [],
       currentStore: null,
       currentIndex: -1,
       title: "",
       total_stores: null
     };
   },
-
-  methods: {
-    // retrieveStores() {
-    //   StoreDataService.getAll()
-    //     .then(response => {
-    //       this.stores = response.data;
-    //       this.total_stores = response.data.length
-    //     })
-    //     .catch(e => {
-    //       console.log(e);
-    //     });
-    // },
-
-    // refreshList() {
-    //   this.retrieveStores();
-    //   this.currentStore = null;
-    //   this.currentIndex = -1;
-    // },
-
-    // removeAllStores() {
-    //   StoreDataService.deleteAll()
-    //     .then(response => {
-    //       console.log(response.data);
-    //       this.refreshList();
-    //     })
-    //     .catch(e => {
-    //       console.log(e);
-    //     });
-    // },
-
-    // redirectToStoreDetails() {
-    //   this.$router.push({ name: 'store_details', params: { id: this.currentStore.id } });
-    // }
-  },
-
-  // mounted() {
-  //   this.retrieveStores();
-  // },
-
 
   components: {
     UsersListFilters,
