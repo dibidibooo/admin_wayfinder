@@ -49,14 +49,14 @@
         <!-- Column: Title -->
         <template #cell(title)="data">
           <b-media vertical-align="center">
-            <template #aside>
+            <!-- <template #aside> -->
               <!-- <b-avatar
                 size="32"
                 :src="data.item.image"
                 :text="avatarText(data.item.title)"
                 :to="{ name: 'store_details', params: { id: data.item.id } }"
               /> -->
-            </template>
+            <!-- </template> -->
             <b-link :to="{ name: 'store_details', params: { id: data.item.id } }"
               class="font-weight-bold d-block text-nowrap">
               {{ data.item.title }}
