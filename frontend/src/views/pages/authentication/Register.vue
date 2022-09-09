@@ -139,6 +139,7 @@
                   id="register-privacy-policy"
                   v-model="status"
                   name="checkbox-1"
+                  required
                 >
                   {{ $t('I agree to') }}
                   <b-link>{{ $t('privacy policy & terms') }}</b-link>

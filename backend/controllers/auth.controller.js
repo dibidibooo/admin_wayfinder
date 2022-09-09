@@ -21,16 +21,18 @@ exports.signup = (req, res) => {
                             [Op.or]: req.body.roles
                         }
                     }
-                }).then(roles => {
-                    user.setRoles(roles).then(() => {
-                        res.send({ message: "User was registered successfully!" });
+                })
+                    .then(roles => {
+                        user.setRoles(roles).then(() => {
+                            res.send({ message: "User was registered successfully!" });
+                        });
                     });
-                });
             } else {
                 // user role = 1
-                user.setRoles([2]).then(() => {
-                    res.send({ message: "User was registered successfully!" });
-                });
+                user.setRoles([2])
+                    .then(() => {
+                        res.send({ message: "User was registered successfully!" });
+                    });
             }
         })
         .catch(err => {
@@ -78,5 +80,21 @@ exports.signin = (req, res) => {
         })
         .catch(err => {
             res.status(500).send({ message: err.message });
+        });
+};
+
+// Retrieve all Users from the database.
+exports.findAll = (req, res) => {
+    User.findAll({
+        include: ["ability"]
+    })
+        .then(data => {
+            res.send(data);
+        })
+        .catch(err => {
+            res.status(500).send({
+                message:
+                    err.message || "Some error occurred while retrieving stores."
+            });
         });
 };

@@ -202,8 +202,8 @@
   "NotAuthorized": "You are not authorized! 🔐",
   "NotAuthorized title": "You don’t have permission to access this page.",
   "Add shop": "Add an object",
-  "Show": "Показать",
-  "entries": "записей",
+  "Show": "Show",
+  "entries": "entries",
   "Showing": "Showing",
   "to": "to",
   "of": "of",
@@ -217,8 +217,7 @@
   "Cancel": "Cancel",
   "No matching records found": "No matching records found",
   "Choose": "Choose..",
-  "Media Image": "Media Image"
-
-  
-
+  "Media Image": "Media Image",
+  "Boutiques": "Boutiques",
+  "Categories": "Categories"
 }
