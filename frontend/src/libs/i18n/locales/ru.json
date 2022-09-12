@@ -219,5 +219,12 @@
   "Choose": "Выбрать..",
   "Media Image": "Логотип",
   "Boutiques": "Бутики",
-  "Categories": "Категории"
+  "Categories": "Категории",
+  "Copyright": "Copyright",
+  "All rights Reserved": "Все права защищены",
+  "boutique_title": "Название",
+  "boutique_desc": "Описание",
+  "boutique_hours": "Часы работы",
+  "boutiqe_category": "Категория",
+  "boutique_action": "Действие"
 }

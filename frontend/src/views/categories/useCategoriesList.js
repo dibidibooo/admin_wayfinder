@@ -12,10 +12,10 @@ export default function useCategoriesList() {
   const refCategoriesListTable = ref(null)
 
   // Table Handlers
-  const tableColumns = [
-    { key: 'title', sortable: true },
-    { key: 'actions' },
-  ]
+  // const tableColumns = [
+  //   { key: 'title', sortable: true },
+  //   { key: 'actions' },
+  // ]
 
   const perPage = ref(10)
   const totalCategories = ref(0)
@@ -74,7 +74,6 @@ export default function useCategoriesList() {
 
   return {
     fetchCategories,
-    tableColumns,
     perPage,
     currentPage,
     totalCategories,

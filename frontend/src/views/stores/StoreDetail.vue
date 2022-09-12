@@ -158,9 +158,9 @@ export default {
           console.log('Response data:', response.data);
 
           const enc = new TextDecoder("utf-8");
-          let logotype = response.data.image.data;
-          let c = Buffer.from(logotype);
-          this.image_name = enc.decode(c);
+          let image_data = response.data.image.data;
+          let image_data_buffer = Buffer.from(image_data);
+          this.image_name = enc.decode(image_data_buffer);
         })
         .catch(e => {
           console.log(e);

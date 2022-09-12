@@ -38,7 +38,7 @@
         class="position-relative" 
         :items="fetchStores" 
         responsive 
-        :fields="tableColumns"
+        :fields="fields"
         primary-key="id" 
         :sort-by.sync="sortBy" 
         show-empty 
@@ -49,14 +49,13 @@
         <!-- Column: Title -->
         <template #cell(title)="data">
           <b-media vertical-align="center">
-            <!-- <template #aside> -->
-              <!-- <b-avatar
+            <template #aside>
+              <b-avatar
                 size="32"
-                :src="data.item.image"
                 :text="avatarText(data.item.title)"
                 :to="{ name: 'store_details', params: { id: data.item.id } }"
-              /> -->
-            <!-- </template> -->
+              />
+            </template>
             <b-link :to="{ name: 'store_details', params: { id: data.item.id } }"
               class="font-weight-bold d-block text-nowrap">
               {{ data.item.title }}
@@ -67,7 +66,9 @@
         <!-- Column: Description -->
         <template #cell(description)="data">
           <div class="text-nowrap">
-            <span class="align-text-top text-capitalize">{{ data.item.description }}</span>
+            <span class="align-text-top text-capitalize">
+              {{ data.item.description }}
+            </span>
           </div>
         </template>
 
@@ -81,8 +82,9 @@
         <!-- Column: Category -->
         <template #cell(category)="data">
           <div class="text-nowrap">
-            <span v-if="data.item.categoryId" class="align-text-top text-capitalize">{{ data.item.category.title
-            }}</span>
+            <span v-if="data.item.categoryId" class="align-text-top text-capitalize">
+              {{ data.item.category.title }}
+            </span>
             <span v-else>No category</span>
           </div>
         </template>
@@ -189,6 +191,19 @@ export default {
 
     vSelect,
   },
+
+  computed: {
+    fields () {
+      return [
+        { key: 'title', label: this.$i18n.t('boutique_title'), sortable: true },
+        { key: 'description', label: this.$i18n.t('boutique_desc'), sortable: true },
+        { key: 'store_hours', label: this.$i18n.t('boutique_hours'), sortable: true },
+        { key: 'category', label: this.$i18n.t('boutiqe_category'), sortable: true },
+        { key: 'actions', label: this.$i18n.t('boutique_action'),  },
+      ]
+    }
+  },
+
   setup(props, { emit }) {
     const USER_APP_STORE_MODULE_NAME = 'app-store'
 
@@ -215,7 +230,6 @@ export default {
 
     const {
       fetchStores,
-      tableColumns,
       perPage,
       currentPage,
       totalStores,
@@ -235,7 +249,6 @@ export default {
       isAddNewStoreSidebarActive,
 
       fetchStores,
-      tableColumns,
       perPage,
       currentPage,
       totalStores,

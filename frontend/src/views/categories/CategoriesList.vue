@@ -57,7 +57,7 @@
         class="position-relative"
         :items="fetchCategories"
         responsive
-        :fields="tableColumns"
+        :fields="fields"
         primary-key="id"
         :sort-by.sync="sortBy"
         show-empty
@@ -224,6 +224,18 @@ export default {
     }
   },
 
+  computed: {
+    fields () {
+      return [
+        { key: 'title', label: this.$i18n.t('boutique_title'), sortable: true, thStyle: { width: "30%" } },
+        { key: 'description', label: '', thStyle: { width: "20%" } },
+        { key: 'store_hours', label: '', thStyle: { width: "20%" } },
+        { key: 'category', label: '', thStyle: { width: "15%" } },
+        { key: 'actions', label: this.$i18n.t('boutique_action'),  thStyle: { width: "15%" } },
+      ]
+    }
+  },
+
   mounted() {
     this.retrieveCategories();
   },
@@ -263,7 +275,6 @@ export default {
 
     const {
       fetchCategories,
-      tableColumns,
       perPage,
       currentPage,
       totalCategories,
@@ -282,7 +293,6 @@ export default {
       isAddNewCategorySidebarActive,
 
       fetchCategories,
-      tableColumns,
       perPage,
       currentPage,
       totalCategories,
