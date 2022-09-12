@@ -1,5 +1,6 @@
 import { ref, watch, computed } from '@vue/composition-api'
 import store from '@/store'
+import i18n from '@/libs/i18n'
 
 // Notification
 import { useToast } from 'vue-toastification/composition'
@@ -12,13 +13,13 @@ export default function useStoresList() {
   const refStoresListTable = ref(null)
 
   // Table Handlers
-  const tableColumns = [
-    { key: 'title', sortable: true },
-    { key: 'description', sortable: true },
-    { key: 'store_hours', sortable: true },
-    { key: 'category', sortable: true },
-    { key: 'actions' },
-  ]
+  // const tableColumns = [
+  //   { key: 'title', sortable: true },
+  //   { key: 'description', sortable: true },
+  //   { key: 'store_hours', sortable: true },
+  //   { key: 'category', sortable: true },
+  //   { key: 'actions' },
+  // ]
 
   const perPage = ref(10)
   const totalStores = ref(0)
@@ -83,7 +84,7 @@ export default function useStoresList() {
 
   return {
     fetchStores,
-    tableColumns,
+    // tableColumns,
     perPage,
     currentPage,
     totalStores,

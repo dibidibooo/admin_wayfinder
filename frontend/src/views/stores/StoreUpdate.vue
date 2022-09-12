@@ -159,6 +159,7 @@ export default {
       StoreDataService.get(id)
         .then(response => {
           this.currentStore = response.data;
+          
           const enc = new TextDecoder("utf-8");
           let image_data = response.data.image.data;
           let image_data_buffer = Buffer.from(image_data);

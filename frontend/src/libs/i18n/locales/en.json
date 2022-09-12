@@ -219,5 +219,12 @@
   "Choose": "Choose..",
   "Media Image": "Media Image",
   "Boutiques": "Boutiques",
-  "Categories": "Categories"
+  "Categories": "Categories",
+  "Copyright": "Copyright",
+  "All rights Reserved": "All rights Reserved",
+  "boutique_title": "Title",
+  "boutique_desc": "Description",
+  "boutique_hours": "Store hours",
+  "boutiqe_category": "Category",
+  "boutique_action": "Actions"
 }
