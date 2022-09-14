@@ -2,7 +2,7 @@
   <div>
     <user-list-add-new 
       :is-add-new-store-sidebar-active.sync="isAddNewStoreSidebarActive" 
-      @refetch-data="refetchData" />
+      @refetch-data="refetchData"/>
 
     <!-- Table Container Card -->
     <b-card 
@@ -106,7 +106,7 @@
               <span class="align-middle ml-50">{{ $t('Edit') }}</span>
             </b-dropdown-item>
 
-            <b-dropdown-item @click="deleteStore(data.item.id)">
+            <b-dropdown-item @click="onDelete(data.item.id)" @refetch-data="refetchData">
               <feather-icon icon="TrashIcon" />
               <span class="align-middle ml-50">{{ $t('Delete') }}</span>
             </b-dropdown-item>
@@ -159,6 +159,7 @@ import UsersListFilters from './UsersListFilters.vue'
 import useStoresList from './useStoresList'
 import StoreModule from './StoreModule'
 import UserListAddNew from './StoreCreate.vue'
+import router from '../../router'
 
 export default {
   name: "stores_list",
@@ -215,16 +216,25 @@ export default {
       if (store.hasModule(USER_APP_STORE_MODULE_NAME)) store.unregisterModule(USER_APP_STORE_MODULE_NAME)
     })
 
-    const deleteStore = (id) => {
-      StoreDataService.delete(id)
-        .then(response => {
-          emit("refetch-data");
+    const onDelete = (storeId) => {
+      store.dispatch('app-store/deleteStore',  { id: storeId })
+        .then((response) => {
           console.log(response.data);
         })
         .catch(e => {
           console.log(e);
         });
     }
+
+    // const deleteStore = (id) => {
+    //   StoreDataService.delete(id)
+    //     .then(response => {
+    //       console.log(response.data);
+    //     })
+    //     .catch(e => {
+    //       console.log(e);
+    //     });
+    // }
 
     const isAddNewStoreSidebarActive = ref(false)
 
@@ -240,7 +250,7 @@ export default {
       isSortDirDesc,
       refStoresListTable,
       refetchData,
-      // deleteStore
+      deleteStore
     } = useStoresList()
 
     return {
@@ -260,6 +270,7 @@ export default {
       refStoresListTable,
       refetchData,
       deleteStore,
+      onDelete,
 
       // Filter
       avatarText

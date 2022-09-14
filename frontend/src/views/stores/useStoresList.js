@@ -1,6 +1,5 @@
 import { ref, watch, computed } from '@vue/composition-api'
 import store from '@/store'
-import i18n from '@/libs/i18n'
 
 // Notification
 import { useToast } from 'vue-toastification/composition'
@@ -72,12 +71,6 @@ export default function useStoresList() {
       })
   }
 
-  // const deleteStore = (id) => {
-    // store
-    //   .dispatch(`app-store/deleteStore`, { id: id })
-    //   .then(response => console.log(response.data))
-  // }
-
   // *===============================================---*
   // *--------- UI ---------------------------------------*
   // *===============================================---*
@@ -94,7 +87,6 @@ export default function useStoresList() {
     sortBy,
     isSortDirDesc,
     refStoresListTable,
-    refetchData,
-    // deleteStore
+    refetchData
   }
 }
