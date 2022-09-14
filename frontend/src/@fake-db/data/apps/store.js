@@ -80,15 +80,17 @@ mock.onGet('http://localhost:8081/api/stores').reply(config => {
 //   return [404]
 // })
 
-mock.onDelete(/\/apps\/stores\/store\/\d+/).reply(config => {
-  let storeId = config.url.substring(config.url.lastIndexOf('/') + 1)
-  storeId = Number(storeId)
+// mock.onDelete(/\/apps\/stores\/store\/\d+/).reply(config => {
+//   console.log('276')
+//   let storeId = config.url.substring(config.url.lastIndexOf('/') + 1)
+//   storeId = Number(storeId)
+//   console.log('Store ID:', storeId);
 
-  StoreDataService.delete(storeId)
-    .then(response => {
-      console.log(response.data);
-    })
-    .catch(e => {
-      console.log(e);
-    });
-})
+//   StoreDataService.delete(storeId)
+//     .then(response => {
+//       console.log(response.data);
+//     })
+//     .catch(e => {
+//       console.log(e);
+//     });
+// })
