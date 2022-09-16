@@ -220,6 +220,7 @@ export default {
         .then((response) => {
           this.store.id = response.data.id;
           console.log(response.data);
+          location.reload();
         })
         .catch((e) => {
           console.log(e);

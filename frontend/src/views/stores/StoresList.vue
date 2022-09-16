@@ -219,6 +219,7 @@ export default {
       store.dispatch('app-store/deleteStore',  { id: storeId })
         .then((response) => {
           console.log(response.data);
+          location.reload();
         })
         .catch(e => {
           console.log(e);
