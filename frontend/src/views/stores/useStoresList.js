@@ -39,6 +39,7 @@ export default function useStoresList() {
 
   const refetchData = () => {
     refStoresListTable.value.refresh()
+    console.log('óla!', refStoresListTable.value);
   }
 
   watch([currentPage, perPage, searchQuery], () => {

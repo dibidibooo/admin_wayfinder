@@ -22,7 +22,10 @@
       <!-- BODY -->
       <validation-observer #default="{ handleSubmit }" ref="refFormObserver">
         <!-- Form -->
-        <b-form class="p-2" enctype="multipart/form-data">
+        <b-form class="p-2" 
+          enctype="multipart/form-data" 
+          @submit.prevent="handleSubmit(onSubmit)"
+        >
           <!-- Store title -->
           <validation-provider #default="validationContext" :name="$t('Add New Object_title')">
             <b-form-group :label="$t('Add New Object_title')" label-for="title">

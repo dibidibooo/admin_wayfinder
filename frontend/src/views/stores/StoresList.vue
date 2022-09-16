@@ -159,7 +159,6 @@ import UsersListFilters from './UsersListFilters.vue'
 import useStoresList from './useStoresList'
 import StoreModule from './StoreModule'
 import UserListAddNew from './StoreCreate.vue'
-import router from '../../router'
 
 export default {
   name: "stores_list",
