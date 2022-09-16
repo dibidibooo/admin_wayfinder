@@ -217,6 +217,7 @@ export default {
         .then(response => {
           console.log(response.data);
           this.refreshList();
+          location.reload();
         })
         .catch(e => {
           console.log(e);
