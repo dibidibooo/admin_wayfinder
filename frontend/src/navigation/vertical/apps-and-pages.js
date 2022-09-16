@@ -3,13 +3,17 @@ export default [
     header: 'Apps & Pages',
   },
   {
-    title: 'Бутики',
+    title: 'Boutiques',
     icon: 'ShoppingCartIcon',
     route: 'stores_list',
+    action: 'read',
+    resource: 'Boutique'
   },
   {
-    title: 'Категории',
+    title: 'Categories',
     icon: 'GridIcon',
     route: 'categories_list',
+    action: 'read',
+    resource: 'Category'
   },
 ]

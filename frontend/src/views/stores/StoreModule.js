@@ -33,7 +33,7 @@ export default {
     deleteStore(ctx, { id }) {
       return new Promise((resolve, reject) => {
         axios
-          .delete(`/apps/stores/store/${id}`)
+          .delete(`http://localhost:8081/api/store/${id}`)
           .then(response => resolve(response))
           .catch(error => reject(error))
       })

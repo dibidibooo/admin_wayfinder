@@ -2,7 +2,7 @@
   <div>
     <user-list-add-new 
       :is-add-new-store-sidebar-active.sync="isAddNewStoreSidebarActive" 
-      @refetch-data="refetchData" />
+      @refetch-data="refetchData"/>
 
     <!-- Table Container Card -->
     <b-card 
@@ -38,7 +38,7 @@
         class="position-relative" 
         :items="fetchStores" 
         responsive 
-        :fields="tableColumns"
+        :fields="fields"
         primary-key="id" 
         :sort-by.sync="sortBy" 
         show-empty 
@@ -50,12 +50,11 @@
         <template #cell(title)="data">
           <b-media vertical-align="center">
             <template #aside>
-              <!-- <b-avatar
+              <b-avatar
                 size="32"
-                :src="data.item.image"
                 :text="avatarText(data.item.title)"
                 :to="{ name: 'store_details', params: { id: data.item.id } }"
-              /> -->
+              />
             </template>
             <b-link :to="{ name: 'store_details', params: { id: data.item.id } }"
               class="font-weight-bold d-block text-nowrap">
@@ -67,7 +66,9 @@
         <!-- Column: Description -->
         <template #cell(description)="data">
           <div class="text-nowrap">
-            <span class="align-text-top text-capitalize">{{ data.item.description }}</span>
+            <span class="align-text-top text-capitalize">
+              {{ data.item.description }}
+            </span>
           </div>
         </template>
 
@@ -81,8 +82,9 @@
         <!-- Column: Category -->
         <template #cell(category)="data">
           <div class="text-nowrap">
-            <span v-if="data.item.categoryId" class="align-text-top text-capitalize">{{ data.item.category.title
-            }}</span>
+            <span v-if="data.item.categoryId" class="align-text-top text-capitalize">
+              {{ data.item.category.title }}
+            </span>
             <span v-else>No category</span>
           </div>
         </template>
@@ -104,7 +106,7 @@
               <span class="align-middle ml-50">{{ $t('Edit') }}</span>
             </b-dropdown-item>
 
-            <b-dropdown-item @click="deleteStore(data.item.id)">
+            <b-dropdown-item @click="onDelete(data.item.id)" @refetch-data="refetchData">
               <feather-icon icon="TrashIcon" />
               <span class="align-middle ml-50">{{ $t('Delete') }}</span>
             </b-dropdown-item>
@@ -156,58 +158,19 @@ import { avatarText } from '@core/utils/filter'
 import UsersListFilters from './UsersListFilters.vue'
 import useStoresList from './useStoresList'
 import StoreModule from './StoreModule'
-import UserListAddNew from './UserListAddNew.vue'
+import UserListAddNew from './StoreCreate.vue'
+import router from '../../router'
 
 export default {
   name: "stores_list",
   data() {
     return {
-      // stores: [],
       currentStore: null,
       currentIndex: -1,
       title: "",
       total_stores: null
     };
   },
-
-  methods: {
-    // retrieveStores() {
-    //   StoreDataService.getAll()
-    //     .then(response => {
-    //       this.stores = response.data;
-    //       this.total_stores = response.data.length
-    //     })
-    //     .catch(e => {
-    //       console.log(e);
-    //     });
-    // },
-
-    // refreshList() {
-    //   this.retrieveStores();
-    //   this.currentStore = null;
-    //   this.currentIndex = -1;
-    // },
-
-    // removeAllStores() {
-    //   StoreDataService.deleteAll()
-    //     .then(response => {
-    //       console.log(response.data);
-    //       this.refreshList();
-    //     })
-    //     .catch(e => {
-    //       console.log(e);
-    //     });
-    // },
-
-    // redirectToStoreDetails() {
-    //   this.$router.push({ name: 'store_details', params: { id: this.currentStore.id } });
-    // }
-  },
-
-  // mounted() {
-  //   this.retrieveStores();
-  // },
-
 
   components: {
     UsersListFilters,
@@ -229,6 +192,19 @@ export default {
 
     vSelect,
   },
+
+  computed: {
+    fields () {
+      return [
+        { key: 'title', label: this.$i18n.t('boutique_title'), sortable: true },
+        { key: 'description', label: this.$i18n.t('boutique_desc'), sortable: true },
+        { key: 'store_hours', label: this.$i18n.t('boutique_hours'), sortable: true },
+        { key: 'category', label: this.$i18n.t('boutiqe_category'), sortable: true },
+        { key: 'actions', label: this.$i18n.t('boutique_action'),  },
+      ]
+    }
+  },
+
   setup(props, { emit }) {
     const USER_APP_STORE_MODULE_NAME = 'app-store'
 
@@ -240,10 +216,9 @@ export default {
       if (store.hasModule(USER_APP_STORE_MODULE_NAME)) store.unregisterModule(USER_APP_STORE_MODULE_NAME)
     })
 
-    const deleteStore = (id) => {
-      StoreDataService.delete(id)
-        .then(response => {
-          emit("refetch-data");
+    const onDelete = (storeId) => {
+      store.dispatch('app-store/deleteStore',  { id: storeId })
+        .then((response) => {
           console.log(response.data);
         })
         .catch(e => {
@@ -251,11 +226,20 @@ export default {
         });
     }
 
+    // const deleteStore = (id) => {
+    //   StoreDataService.delete(id)
+    //     .then(response => {
+    //       console.log(response.data);
+    //     })
+    //     .catch(e => {
+    //       console.log(e);
+    //     });
+    // }
+
     const isAddNewStoreSidebarActive = ref(false)
 
     const {
       fetchStores,
-      tableColumns,
       perPage,
       currentPage,
       totalStores,
@@ -266,7 +250,7 @@ export default {
       isSortDirDesc,
       refStoresListTable,
       refetchData,
-      // deleteStore
+      deleteStore
     } = useStoresList()
 
     return {
@@ -275,7 +259,6 @@ export default {
       isAddNewStoreSidebarActive,
 
       fetchStores,
-      tableColumns,
       perPage,
       currentPage,
       totalStores,
@@ -287,6 +270,7 @@ export default {
       refStoresListTable,
       refetchData,
       deleteStore,
+      onDelete,
 
       // Filter
       avatarText

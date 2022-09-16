@@ -22,6 +22,7 @@ db.category = require("./category.model.js")(sequelize, Sequelize);
 db.store = require("./store.model.js")(sequelize, Sequelize);
 db.user = require("./user.model")(sequelize, Sequelize);
 db.role = require("./role.model.js")(sequelize, Sequelize);
+db.ability = require("./ability.model.js")(sequelize, Sequelize);
 
 db.category.hasMany(db.store, { 
   foreignKey: "categoryId",
@@ -29,8 +30,8 @@ db.category.hasMany(db.store, {
   onDelete: "SET NULL"
 });
 db.store.belongsTo(db.category, {
-    foreignKey: "categoryId",
-    as: "category",
+  foreignKey: "categoryId",
+  as: "category",
 });
 
 db.role.belongsToMany(db.user, {
@@ -43,6 +44,18 @@ db.user.belongsToMany(db.role, {
   foreignKey: "userId",
   otherKey: "roleId"
 });
+
+db.user.belongsToMany(db.ability, {
+  through: "user_abilities",
+  foreignKey: "userId",
+  as: "ability",
+  otherKey: "abilityId"
+})
+db.ability.belongsToMany(db.user, {
+  through: "user_abilities",
+  foreignKey: "abilityId",
+  otherKey: "userId",
+})
 
 db.ROLES = ["user", "admin"];
 

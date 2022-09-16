@@ -53,14 +53,22 @@
           </b-form-group>
         </b-col>
 
-        <b-col cols="12">
-          <b-button v-ripple.400="'rgba(255, 255, 255, 0.15)'" variant="primary" class="mt-2 mr-1" @click="updateStore">
-            Сохранить
-          </b-button>
-          <b-button v-ripple.400="'rgba(186, 191, 199, 0.15)'" variant="outline-secondary" type="reset" class="mt-2"
-            @click="deleteStore">
-            Удалить
-          </b-button>
+        <b-col cols="12 d-flex justify-content-between">
+          <div>
+            <b-button v-ripple.400="'rgba(255, 255, 255, 0.15)'" variant="primary" class="mt-2 mr-1" @click="updateStore">
+              Сохранить
+            </b-button>
+            <b-button v-ripple.400="'rgba(186, 191, 199, 0.15)'" variant="outline-secondary" type="reset" class="mt-2"
+            :to="{ name: 'store_details', params: { id: currentStore.id } }">
+              Отменить
+            </b-button>
+          </div>
+          <div>
+            <b-button v-ripple.400="'rgba(186, 191, 199, 0.15)'" variant="outline-danger" type="reset" class="mt-2 mr-1"
+              @click="deleteStore">
+              Удалить
+            </b-button>
+          </div>
         </b-col>
 
       </b-row>
@@ -151,6 +159,7 @@ export default {
       StoreDataService.get(id)
         .then(response => {
           this.currentStore = response.data;
+          
           const enc = new TextDecoder("utf-8");
           let image_data = response.data.image.data;
           let image_data_buffer = Buffer.from(image_data);

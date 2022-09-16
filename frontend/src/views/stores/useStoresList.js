@@ -12,13 +12,13 @@ export default function useStoresList() {
   const refStoresListTable = ref(null)
 
   // Table Handlers
-  const tableColumns = [
-    { key: 'title', sortable: true },
-    { key: 'description', sortable: true },
-    { key: 'store_hours', sortable: true },
-    { key: 'category', sortable: true },
-    { key: 'actions' },
-  ]
+  // const tableColumns = [
+  //   { key: 'title', sortable: true },
+  //   { key: 'description', sortable: true },
+  //   { key: 'store_hours', sortable: true },
+  //   { key: 'category', sortable: true },
+  //   { key: 'actions' },
+  // ]
 
   const perPage = ref(10)
   const totalStores = ref(0)
@@ -71,19 +71,13 @@ export default function useStoresList() {
       })
   }
 
-  // const deleteStore = (id) => {
-    // store
-    //   .dispatch(`app-store/deleteStore`, { id: id })
-    //   .then(response => console.log(response.data))
-  // }
-
   // *===============================================---*
   // *--------- UI ---------------------------------------*
   // *===============================================---*
 
   return {
     fetchStores,
-    tableColumns,
+    // tableColumns,
     perPage,
     currentPage,
     totalStores,
@@ -93,7 +87,6 @@ export default function useStoresList() {
     sortBy,
     isSortDirDesc,
     refStoresListTable,
-    refetchData,
-    // deleteStore
+    refetchData
   }
 }

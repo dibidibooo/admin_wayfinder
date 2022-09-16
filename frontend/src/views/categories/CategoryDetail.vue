@@ -1,35 +1,60 @@
 <template>
-  <div v-if="currentCategory" class="edit-form">
-    <h4>Категория</h4>
-    <form>
-      <div class="form-group">
-        <label for="title">Название</label>
-        <input type="text" class="form-control" id="title"
-          v-model="currentCategory.title"
-        />
-      </div>
-    </form>
+  <b-card>
+    <!-- form -->
+    <b-form class="mt-2">
+      <b-row>
 
-    <div class="mt-3">
-      <button type="submit" class="btn btn-success" @click="updateCategory">
-        Редактировать
-      </button>
+        <b-col sm="6">
+          <b-form-group label="Title" label-for="title">
+            <b-form-input v-model="currentCategory.title" name="title" />
+          </b-form-group>
+        </b-col>
 
-      <button class="btn btn-danger ml-2" @click="deleteCategory">
-        Удалить
-      </button>
-    </div>
-    <p class="mt-3">{{ message }}</p>
-  </div>
+        <b-col cols="12 d-flex justify-content-between">
+          <div>
+            <b-button v-ripple.400="'rgba(255, 255, 255, 0.15)'" variant="primary" class="mt-2 mr-1" @click="updateCategory">
+              Сохранить
+            </b-button>
+            <b-button v-ripple.400="'rgba(186, 191, 199, 0.15)'" variant="outline-secondary" type="reset" class="mt-2"
+            :to="{ name: 'categories_list' }">
+              Отменить
+            </b-button>
+          </div>
+          <div>
+            <b-button v-ripple.400="'rgba(186, 191, 199, 0.15)'" variant="outline-danger" type="reset" class="mt-2 mr-1"
+              @click="deleteCategory">
+              Удалить
+            </b-button>
+          </div>
+        </b-col>
 
-  <div v-else>
-    <br />
-    <p>Ошибка загрузки данных...</p>
-  </div>
+      </b-row>
+    </b-form>
+  </b-card>
 </template>
 
 <script>
 import CategoryDataService from "../../services/CategoryDataService";
+import {
+  BFormFile,
+  BButton,
+  BForm,
+  BFormGroup,
+  BFormInput,
+  BRow,
+  BCol,
+  BAlert,
+  BCard,
+  BCardText,
+  BMedia,
+  BMediaAside,
+  BMediaBody,
+  BLink,
+  BImg,
+  BFormSelect,
+  BFormSelectOption
+} from 'bootstrap-vue'
+import Ripple from 'vue-ripple-directive'
 
 export default {
   name: "category_details",
@@ -39,6 +64,31 @@ export default {
       message: ''
     };
   },
+
+  components: {
+    BButton,
+    BForm,
+    BImg,
+    BFormFile,
+    BFormGroup,
+    BFormInput,
+    BRow,
+    BCol,
+    BAlert,
+    BCard,
+    BCardText,
+    BMedia,
+    BMediaAside,
+    BMediaBody,
+    BLink,
+    BFormSelect,
+    BFormSelectOption
+  },
+
+  directives: {
+    Ripple,
+  },
+
   methods: {
     getCategory(id) {
       CategoryDataService.get(id)
