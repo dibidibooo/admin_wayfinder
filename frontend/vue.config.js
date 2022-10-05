@@ -3,6 +3,9 @@ const path = require('path')
 module.exports = {
   publicPath: '/',
   lintOnSave: false,
+  devServer: {
+    port: 8082
+  },
   css: {
     loaderOptions: {
       sass: {
