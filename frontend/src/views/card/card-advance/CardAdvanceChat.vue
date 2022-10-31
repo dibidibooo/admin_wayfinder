@@ -22,9 +22,9 @@
       />
     </b-card-header>
 
-    <section class="chat-app-window">
+    <!-- <section class="chat-app-window"> -->
       <!-- User Chat Area -->
-      <vue-perfect-scrollbar
+      <!-- <vue-perfect-scrollbar
         ref="refChatLogPS"
         :settings="perfectScrollbarSettings"
         class="user-chats scroll-area"
@@ -33,10 +33,10 @@
           :chat-data="chatData"
           :profile-user-avatar="require('@/assets/images/avatars/10.png')"
         />
-      </vue-perfect-scrollbar>
+      </vue-perfect-scrollbar> -->
 
       <!-- Message Input -->
-      <b-form
+      <!-- <b-form
         class="chat-app-form"
         @submit.prevent="sendMessage"
       >
@@ -53,7 +53,7 @@
           Send
         </b-button>
       </b-form>
-    </section>
+    </section> -->
   </b-card>
 </template>
 
@@ -62,7 +62,6 @@ import {
   BCard, BCardHeader, BAvatar, BForm, BFormInput, BInputGroup, BButton,
 } from 'bootstrap-vue'
 import VuePerfectScrollbar from 'vue-perfect-scrollbar'
-import ChatLog from '@/views/apps/chat/ChatLog.vue'
 
 export default {
   components: {

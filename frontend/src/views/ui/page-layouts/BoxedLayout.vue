@@ -22,7 +22,6 @@
 </template>
 
 <script>
-import Ecommerce from '@/views/dashboard/ecommerce/Ecommerce.vue'
 import { BAlert, BLink } from 'bootstrap-vue'
 
 export default {

@@ -15,7 +15,7 @@ CategoryDataService.getAll()
 // ------------------------------------------------
 // GET: Return Categories
 // ------------------------------------------------
-mock.onGet('http://localhost:8081/api/categories').reply(config => {
+mock.onGet('http://localhost:8100/api/categories').reply(config => {
   // eslint-disable-next-line object-curly-newline
   const {
     q = '',

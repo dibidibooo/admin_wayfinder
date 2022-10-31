@@ -255,11 +255,6 @@ export default [
     },
   },
   {
-    path: '/pages/pricing',
-    name: 'pages-pricing',
-    component: () => import('@/views/pages/pricing/Pricing.vue'),
-  },
-  {
     path: '/pages/blog/list',
     name: 'pages-blog-list',
     component: () => import('@/views/pages/blog/BlogList.vue'),

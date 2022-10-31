@@ -107,6 +107,7 @@ export default {
           console.log(response.data);
           this.message = 'The Category was updated successfully!';
           this.$router.push({ name: 'categories_list'});
+          location.reload();
         })
         .catch(e => {
           console.log(e);
@@ -118,6 +119,7 @@ export default {
         .then(response => {
           console.log(response.data);
           this.$router.push({ name: "categories_list" });
+          location.reload();
         })
         .catch(e => {
           console.log(e);

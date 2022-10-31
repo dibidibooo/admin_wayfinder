@@ -81,7 +81,6 @@
 
 <script>
 import StoreDataService from "../../services/StoreDataService";
-import CategoryDataService from "../../services/CategoryDataService";
 
 import {
   BFormFile, 
@@ -109,9 +108,8 @@ export default {
   data() {
     return {
       currentStore: null,
-      message: '',
       categories: [],
-      image_path: 'http://localhost:8081/uploads/',
+      image_path: 'http://localhost:8100/uploads/',
       image_name: null
     };
   },
@@ -141,26 +139,18 @@ export default {
   },
 
   methods: {
-    retrieveCategories() {
-      CategoryDataService.getAll()
-        .then(response => {
-          this.categories = response.data;
-        })
-        .catch(e => {
-          console.log(e);
-        });
-    },
 
     getStore(id) {
       StoreDataService.get(id)
         .then(response => {
           this.currentStore = response.data;
           console.log('Response data:', response.data);
+          this.image_name = response.data.image;;
 
-          const enc = new TextDecoder("utf-8");
-          let image_data = response.data.image.data;
-          let image_data_buffer = Buffer.from(image_data);
-          this.image_name = enc.decode(image_data_buffer);
+          // const enc = new TextDecoder("utf-8");
+          // let image_data = response.data.image.data;
+          // let image_data_buffer = Buffer.from(image_data);
+          // this.image_name = enc.decode(image_data_buffer);
         })
         .catch(e => {
           console.log(e);
@@ -179,8 +169,6 @@ export default {
     }
   },
   mounted() {
-    this.retrieveCategories();
-    this.message = '';
     this.getStore(this.$route.params.id);
   }
 };

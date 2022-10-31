@@ -9,7 +9,7 @@ export default {
     fetchCategories(ctx, queryParams) {
       return new Promise((resolve, reject) => {
         axios
-          .get('http://localhost:8081/api/categories', { params: queryParams })
+          .get('http://localhost:8100/api/categories', { params: queryParams })
           .then(response => resolve(response))
           .catch(error => reject(error))
       })
@@ -17,7 +17,7 @@ export default {
     fetchCategory(ctx, { id }) {
       return new Promise((resolve, reject) => {
         axios
-          .get(`http://localhost:8081/api/category/${id}`)
+          .get(`http://localhost:8100/api/category/${id}`)
           .then(response => resolve(response))
           .catch(error => reject(error))
       })
@@ -25,7 +25,7 @@ export default {
     addCategory(ctx, userData) {
       return new Promise((resolve, reject) => {
         axios
-          .post('http://localhost:8081/api/category', { user: userData })
+          .post('http://localhost:8100/api/category', { user: userData })
           .then(response => resolve(response))
           .catch(error => reject(error))
       })
