@@ -13,7 +13,7 @@ StoreDataService.getAll()
 // GET: Return Categories
 // ------------------------------------------------
 
-mock.onGet('http://localhost:8081/api/stores').reply(config => {
+mock.onGet('http://localhost:8100/api/stores').reply(config => {
   // eslint-disable-next-line object-curly-newline
   const {
     q = '',
@@ -47,7 +47,7 @@ mock.onGet('http://localhost:8081/api/stores').reply(config => {
 // ------------------------------------------------
 // POST: Add new user
 // ------------------------------------------------
-// mock.onPost('http://localhost:8081/api/store').reply(config => {
+// mock.onPost('http://localhost:8100/api/store').reply(config => {
 //   // Get event from post data
 //   const { new_store } = JSON.parse(config.data)
 

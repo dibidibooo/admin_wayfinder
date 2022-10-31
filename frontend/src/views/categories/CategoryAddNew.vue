@@ -17,11 +17,10 @@
         <!-- Form -->
         <b-form class="p-2">
           <!-- Store title -->
-          <validation-provider #default="validationContext" :name="$t('Add New Object_title')" rules="required">
-            <b-form-group :label="$t('Add New Object_title')" label-for="title">
+          <validation-provider #default="validationContext" :name="$t('Add New Object_category')" rules="required">
+            <b-form-group :label="$t('Add New Object_category')" label-for="title">
               <b-form-input type="text" id="title" name="title" v-model="category.title" autofocus
                 trim placeholder="" required />
-
               <b-form-invalid-feedback>
                 {{ validationContext.errors[0] }}
               </b-form-invalid-feedback>

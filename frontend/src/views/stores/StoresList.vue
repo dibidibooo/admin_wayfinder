@@ -66,7 +66,7 @@
         <!-- Column: Description -->
         <template #cell(description)="data">
           <div class="text-nowrap">
-            <span class="align-text-top text-capitalize">
+            <span class="align-text-top">
               {{ data.item.description }}
             </span>
           </div>

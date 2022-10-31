@@ -4,7 +4,8 @@ module.exports = {
   publicPath: '/',
   lintOnSave: false,
   devServer: {
-    port: 8082
+    port: 8101,
+    disableHostCheck: true
   },
   css: {
     loaderOptions: {
@@ -49,4 +50,3 @@ module.exports = {
   },
   transpileDependencies: ['vue-echarts', 'resize-detector'],
 }
-
